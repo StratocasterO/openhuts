@@ -15,8 +15,21 @@ public class Login extends AppCompatActivity {
 		setContentView(R.layout.activity_login);
 	}
 
+	public void close(View v){
+		Log.d("click", "clicked on back");
+		startActivity(new Intent(this, MainActivity.class));
+	}
+
 	public void menu(View v) {
 		Log.d("click", "clicked on menu");
 		startActivity(new Intent(this, MenuApp.class));
+	}
+
+	public void forgot(View v){
+		Log.d("click", "clicked on forgot my pass");
+	}
+
+	public void login(View v){
+		Log.d("click", "clicked on button login");
 	}
 }

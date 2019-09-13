@@ -19,4 +19,9 @@ public class Favorites extends AppCompatActivity {
 		startActivity(new Intent(this, MenuApp.class));
 	}
 
+	public void close(View v){
+		Log.d("click", "clicked on back");
+		startActivity(new Intent(this, MainActivity.class));
+	}
+
 }

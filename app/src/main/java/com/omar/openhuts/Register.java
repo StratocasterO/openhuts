@@ -19,4 +19,14 @@ public class Register extends AppCompatActivity {
 		Log.d("click", "clicked on menu");
 		startActivity(new Intent(this, MenuApp.class));
 	}
+
+	public void close(View v){
+		Log.d("click", "clicked on back");
+		startActivity(new Intent(this, MainActivity.class));
+	}
+
+	public void register(View v) {
+		Log.d("click", "clicked on send register");
+		startActivity(new Intent(this, MenuApp.class));
+	}
 }
