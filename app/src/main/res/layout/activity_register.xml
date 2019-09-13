@@ -4,8 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".MainActivity">
-
+	tools:context=".Register">
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:id="@+id/barra"
 		android:layout_width="match_parent"
@@ -27,18 +26,6 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
-
-		<Button
-			android:id="@+id/search"
-			android:layout_width="60dp"
-			android:layout_height="60dp"
-			android:onClick="search"
-			android:text="Search"
-			android:textSize="9dp"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
-
 		<ImageView
 			android:id="@+id/imageView"
 			android:layout_width="0dp"
@@ -53,32 +40,13 @@
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
-		android:id="@+id/container"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:background="@color/colorPrimary"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/barra">
-
-		<fragment
-			android:id="@+id/map"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			class="com.google.android.gms.maps.SupportMapFragment"/>
-
-		<Button
-			android:id="@+id/add"
-			android:layout_width="46dp"
-			android:layout_height="48dp"
-			android:layout_marginLeft="8dp"
-			android:layout_marginBottom="8dp"
-			android:onClick="add"
-			android:text="add"
-			android:textSize="9dp"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent" />
+		app:layout_constraintTop_toBottomOf="@+id/barra">
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
