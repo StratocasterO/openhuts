@@ -5,5 +5,48 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".Favorites">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/barra"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:background="#b4745c"
+		app:layout_constraintBottom_toTopOf="@+id/container"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
 
+		<Button
+			android:id="@+id/menu"
+			android:layout_width="60dp"
+			android:layout_height="0dp"
+			android:onClick="menu"
+			android:text="Menu"
+			android:textSize="9dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+		<ImageView
+			android:id="@+id/imageView"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginBottom="8dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/logo" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:background="@color/colorPrimary"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/barra">
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
