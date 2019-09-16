@@ -15,7 +15,7 @@ public class MenuApp extends AppCompatActivity {
 		setContentView(R.layout.activity_menu);
 	}
 
-	public void back(View v){
+	public void close(View v){
 		Log.d("click", "clicked on back");
 		startActivity(new Intent(this, MainActivity.class));
 	}

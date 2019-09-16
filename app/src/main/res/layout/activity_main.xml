@@ -17,29 +17,34 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
 
-		<Button
+		<ImageButton
 			android:id="@+id/menu"
-			android:layout_width="60dp"
-			android:layout_height="0dp"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_marginStart="12dp"
+			android:layout_marginLeft="12dp"
+			android:background="#00000000"
 			android:onClick="menu"
-			android:text="Menu"
-			android:textSize="9dp"
+			android:scaleType="centerInside"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/menu" />
 
-		<Button
+		<ImageButton
 			android:id="@+id/search"
-			android:layout_width="60dp"
-			android:layout_height="60dp"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_marginEnd="10dp"
+			android:layout_marginRight="10dp"
+			android:background="#00000000"
 			android:onClick="search"
-			android:text="Search"
-			android:textSize="9dp"
+			android:scaleType="centerInside"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/search" />
 
-<<<<<<< HEAD
 		<ImageView
 			android:id="@+id/imageView"
 			android:layout_width="0dp"
@@ -52,20 +57,6 @@
 			app:layout_constraintTop_toTopOf="parent"
 			app:srcCompat="@drawable/logo" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
-=======
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> 992c5782f7d12ce55db647e0f78231b13dce5213
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:id="@+id/container"
@@ -83,32 +74,21 @@
 			android:layout_height="match_parent"
 			class="com.google.android.gms.maps.SupportMapFragment"/>
 
-<<<<<<< HEAD
-		<Button
+		<ImageButton
 			android:id="@+id/add"
-			android:layout_width="46dp"
-			android:layout_height="48dp"
-			android:layout_marginLeft="8dp"
-			android:layout_marginBottom="8dp"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_marginStart="12dp"
+			android:layout_marginLeft="12dp"
+			android:layout_marginBottom="12dp"
+			android:background="#00000000"
 			android:onClick="add"
-			android:text="add"
-			android:textSize="9dp"
+			android:scaleType="centerInside"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent" />
+			app:layout_constraintStart_toStartOf="parent"
+			app:srcCompat="@drawable/add"
+			tools:layout_constraintStart_toStartOf="parent" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
-=======
-        <Button
-            android:id="@+id/add"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> 992c5782f7d12ce55db647e0f78231b13dce5213
 </androidx.constraintlayout.widget.ConstraintLayout>
