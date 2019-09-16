@@ -51,9 +51,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	}
 
 	@Override
-	public void onMapReady(GoogleMap googleMap) {
-		googleMap.setMyLocationEnabled(true);
+		public void onMapReady(GoogleMap googleMap) {
+			googleMap.setMyLocationEnabled(true);
 
+		//  Positioning My Location button on bottom right
 		if (mapView != null &&
 				mapView.findViewById(Integer.parseInt("1")) != null) {
 			// Get the button view
