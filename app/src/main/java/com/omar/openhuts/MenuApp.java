@@ -15,9 +15,20 @@ public class MenuApp extends AppCompatActivity {
 		setContentView(R.layout.activity_menu);
 	}
 
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("EXIT", true);
+		startActivity(intent);
+	}
+
 	public void close(View v){
 		Log.d("click", "clicked on back");
-		startActivity(new Intent(this, MainActivity.class));
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("EXIT", true);
+		startActivity(intent);
 	}
 
 	public void login(View v){

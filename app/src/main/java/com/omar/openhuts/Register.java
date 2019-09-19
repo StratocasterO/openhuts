@@ -20,13 +20,23 @@ public class Register extends AppCompatActivity {
 		startActivity(new Intent(this, MenuApp.class));
 	}
 
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("EXIT", true);
+		startActivity(intent);
+	}
+
 	public void close(View v){
 		Log.d("click", "clicked on back");
-		startActivity(new Intent(this, MainActivity.class));
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("EXIT", true);
+		startActivity(intent);
 	}
 
 	public void register(View v) {
 		Log.d("click", "clicked on send register");
-		startActivity(new Intent(this, MenuApp.class));
 	}
 }
