@@ -17,13 +17,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.omar.openhuts.R;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import static com.omar.openhuts.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     View mapView;
+
+    // TODO presentation image before main activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d("click", "clicked on add");
     }
 
+    // Huts hardcoded for testing
+    public ArrayList<Hut> getHuts() {
+        ArrayList<Hut> Huts = new ArrayList<Hut>();
+
+        LatLng loc = new LatLng(42, 1);
+        Huts.add(new Hut(1, "hut1 name", 4.5f, new LatLng(42.0,1.0), "img1"));
+        Huts.add(new Hut(2, "hut2 name", 4.0f, new LatLng(43.0,1.0), "img2"));
+        Huts.add(new Hut(3, "hut3 name", 2.5f, new LatLng(41.0,1.0), "img3"));
+        Huts.add(new Hut(4, "hut4 name", 1.5f, new LatLng(42.0,2.0), "img4"));
+        Huts.add(new Hut(5, "hut5 name", 5f, new LatLng(42.0,0.0), "img5"));
+
+        return Huts;
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setMyLocationEnabled(true);
@@ -70,7 +91,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             layoutParams.setMargins(0, 0, 12, 24);
         }
 
-        // TODO add huts from the favorites arraylist
+        // Adding markers for the huts
+        Iterator <Hut>iterator = getHuts().iterator();
+
+        while(iterator.hasNext()){
+            Hut hut = iterator.next();
+
+            googleMap.addMarker(new MarkerOptions()
+                    .position(hut.getLocation())
+                    .snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+                    .title(hut.getName()));
+        }
     }
 
     @Override

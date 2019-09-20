@@ -28,7 +28,7 @@
 			android:id="@+id/rating"
 			style="@style/CustomRatingBar"
 			android:layout_width="0dp"
-			android:layout_height="29dp"
+			android:layout_height="19dp"
 			android:isIndicator="true"
 			android:numStars="5"
 			android:rating="2.6"

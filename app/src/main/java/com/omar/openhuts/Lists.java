@@ -6,13 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class Lists extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lists);
+		setContentView(R.layout.activity_list);
+
+		TextView tv = findViewById(R.id.title);
+		tv.setText("Personal lists");
 	}
 
 	public void menu(View v) {
