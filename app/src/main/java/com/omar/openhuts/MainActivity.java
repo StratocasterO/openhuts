@@ -9,28 +9,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.omar.openhuts.R;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.omar.openhuts.R.layout.activity_main;
-
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     View mapView;
+    private Marker mymarker;
 
     // TODO presentation image before main activity
+    // TODO user activity + layout
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void add(View v) {
         Log.d("click", "clicked on add");
+        startActivity(new Intent(this, AddHut.class));
     }
 
     // Huts hardcoded for testing
     public ArrayList<Hut> getHuts() {
         ArrayList<Hut> Huts = new ArrayList<Hut>();
 
-        LatLng loc = new LatLng(42, 1);
         Huts.add(new Hut(1, "hut1 name", 4.5f, new LatLng(42.0,1.0), "img1"));
         Huts.add(new Hut(2, "hut2 name", 4.0f, new LatLng(43.0,1.0), "img2"));
         Huts.add(new Hut(3, "hut3 name", 2.5f, new LatLng(41.0,1.0), "img3"));
@@ -99,9 +100,41 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             googleMap.addMarker(new MarkerOptions()
                     .position(hut.getLocation())
-                    .snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-                    .title(hut.getName()));
+                    //.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+                    .title(hut.getName())
+                    );
         }
+
+        googleMap.setOnMarkerClickListener(this);
+
+        // When click on marker snippet
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                startActivity(new Intent(MainActivity.this, HutPage.class));
+            }
+        });
+
+        // Default location
+        LatLng idle = new LatLng(41.731113, 1.822789);
+
+        CameraPosition camPos = new CameraPosition.Builder()
+                .target(idle)       // Centramos el mapa en Madrid
+                .zoom(7.0f)         // Establecemos el zoom en 19
+                .bearing(0)         // Establecemos la orientación con el norte arriba
+                .tilt(0)            // Inclinación vertical
+                .build();
+
+        CameraUpdate camUpd = CameraUpdateFactory.newCameraPosition(camPos);
+        googleMap.moveCamera(camUpd);
+    }
+
+    // When click on map marker
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        Log.d("click", "clicked on " + marker.getTitle());
+
+        return false;
     }
 
     @Override
