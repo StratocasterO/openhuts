@@ -3,7 +3,6 @@ package com.omar.openhuts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -94,7 +93,7 @@ public class Favorites extends AppCompatActivity {
 		}
 
 		public View getView(int index, View convertView, ViewGroup parent) {
-			View row = View.inflate(Favorites.this, R.layout.list_layout, null);
+			View row = View.inflate(Favorites.this, R.layout.list_element, null);
 			TextView tv = row.findViewById(R.id.name);
 			tv.setText(Huts.get(index).getName());
 
