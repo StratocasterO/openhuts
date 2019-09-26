@@ -28,7 +28,6 @@ import java.util.Iterator;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     View mapView;
-    private Marker mymarker;
 
     // TODO presentation image before main activity
     // TODO user activity + layout
