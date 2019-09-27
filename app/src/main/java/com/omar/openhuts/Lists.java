@@ -28,7 +28,7 @@ public class Lists extends AppCompatActivity {
 
 		ArrayList<Hut> huts = getHuts();
 
-		Lists.MyAdapter adapter = new Lists.MyAdapter(huts);
+		ListAdapter adapter = new ListAdapter(this, huts);
 
 		ListView lv = findViewById(R.id.list);
 		lv.setAdapter(adapter);
@@ -36,13 +36,14 @@ public class Lists extends AppCompatActivity {
 
 	public void menu(View v) {
 		Log.d("click", "clicked on menu");
-		startActivity(new Intent(this, MenuApp.class));
+		startActivity(new Intent(this, MenuApp.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
 	}
 
 	@Override
 	public void onBackPressed() {
 		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		intent.putExtra("EXIT", true);
 		startActivity(intent);
 	}
@@ -51,6 +52,7 @@ public class Lists extends AppCompatActivity {
 		Log.d("click", "clicked on back");
 		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		intent.putExtra("EXIT", true);
 		startActivity(intent);
 	}
@@ -69,49 +71,7 @@ public class Lists extends AppCompatActivity {
 		return Huts;
 	}
 
-	private class MyAdapter extends android.widget.BaseAdapter {
-		ArrayList<Hut> Huts;
-
-		public MyAdapter(ArrayList<Hut> Huts) {
-			super();
-			this.Huts = Huts;
-		}
-
-		@Override
-		public int getCount() {
-			return Huts.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return 0;
-		}
-
-		public View getView(int index, View convertView, ViewGroup parent) {
-			View row = View.inflate(Lists.this, R.layout.list_element, null);
-			TextView tv = row.findViewById(R.id.name);
-			tv.setText(Huts.get(index).getName());
-
-			// Image in photo:
-			ImageView iv = row.findViewById(R.id.photo);
-			iv.setImageDrawable(getResources().getDrawable(R.drawable.hut));
-
-			// Compute the distance from the user to the hut and show it in tv2:
-			TextView tv2 = row.findViewById(R.id.distance);
-			tv2.setText("~ " + "distance" +" km");
-
-			// Rating:
-			RatingBar rb = row.findViewById(R.id.rating);
-			rb.setRating(Huts.get(index).getRating());
-
-			return row;
-		}
-	}
-
 	// TODO add lists and buttons to rearrange and delete lists
+	// TODO unify lists and favourites
+	// TODO adapter element of one list
 }

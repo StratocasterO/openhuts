@@ -1,5 +1,6 @@
 package com.omar.openhuts;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,9 +11,11 @@ import java.util.ArrayList;
 
 public class ListAdapter extends android.widget.BaseAdapter {
 	ArrayList<Hut> Huts;
+	Context ctx;
 
-	public ListAdapter(ArrayList<Hut> Huts) {
+	public ListAdapter(Context ctx, ArrayList<Hut> Huts) {
 		super();
+		this.ctx = ctx;
 		this.Huts = Huts;
 	}
 
@@ -32,7 +35,7 @@ public class ListAdapter extends android.widget.BaseAdapter {
 	}
 
 	public View getView(int index, View convertView, ViewGroup parent) {
-		View row = View.inflate(this, R.layout.list_element, null);
+		View row = View.inflate(ctx, R.layout.list_element, null);
 		TextView tv = row.findViewById(R.id.name);
 		tv.setText(Huts.get(index).getName());
 
