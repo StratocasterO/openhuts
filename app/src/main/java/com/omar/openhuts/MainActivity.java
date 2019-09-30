@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// TODO Personalise permission request message
 		ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 		ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
 
@@ -60,11 +61,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	public ArrayList<Hut> getHuts() {
 		ArrayList<Hut> Huts = new ArrayList<Hut>();
 
-		Huts.add(new Hut(1, "hut1 name", 4.5f, new LatLng(42.0,1.0), "img1"));
-		Huts.add(new Hut(2, "hut2 name", 4.0f, new LatLng(43.0,1.0), "img2"));
-		Huts.add(new Hut(3, "hut3 name", 2.5f, new LatLng(41.0,1.0), "img3"));
-		Huts.add(new Hut(4, "hut4 name", 1.5f, new LatLng(42.0,2.0), "img4"));
-		Huts.add(new Hut(5, "hut5 name", 5f, new LatLng(42.0,0.0), "img5"));
+		Huts.add(new Hut(1, "hut1 name", 4.5f, new LatLng(42.0, 1.0), "img1"));
+		Huts.add(new Hut(2, "hut2 name", 4.0f, new LatLng(43.0, 1.0), "img2"));
+		Huts.add(new Hut(3, "hut3 name", 2.5f, new LatLng(41.0, 1.0), "img3"));
+		Huts.add(new Hut(4, "hut4 name", 1.5f, new LatLng(42.0, 2.0), "img4"));
+		Huts.add(new Hut(5, "hut5 name", 5f, new LatLng(42.0, 0.0), "img5"));
 
 		return Huts;
 	}
@@ -88,13 +89,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		}
 
 		// Adding markers for the huts
-		Iterator <Hut>iterator = getHuts().iterator();
+		Iterator<Hut> iterator = getHuts().iterator();
 
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			Hut hut = iterator.next();
 
 			googleMap.addMarker(new MarkerOptions()
 					.position(hut.getLocation())
+					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
 					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
 					.title(hut.getName())
 			);

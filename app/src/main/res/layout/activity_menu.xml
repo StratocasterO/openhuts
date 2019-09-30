@@ -53,14 +53,25 @@
 		app:layout_constraintTop_toBottomOf="@+id/barra">
 
 		<Button
-			android:id="@+id/login"
+			android:id="@+id/profile"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="Log in"
-			android:onClick="login"
+			android:layout_marginTop="5dp"
+			android:onClick="profile"
+			android:text="Profile"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
+
+		<Button
+			android:id="@+id/login"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:onClick="login"
+			android:text="Log in"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/profile" />
 
 		<Button
 			android:id="@+id/register"
@@ -73,23 +84,14 @@
 			app:layout_constraintTop_toBottomOf="@+id/login" />
 
 		<Button
-			android:id="@+id/fav"
+			android:id="@+id/lists"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="Favorites"
-			android:onClick="fav"
+			android:onClick="lists"
+			android:text="Saved huts"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/register" />
 
-		<Button
-			android:id="@+id/lists"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:text="Lists"
-			android:onClick="lists"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/fav" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,22 +1,17 @@
 package com.omar.openhuts;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
-public class Lists extends AppCompatActivity {
+public class Lists extends DefaultActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +21,7 @@ public class Lists extends AppCompatActivity {
 		TextView tv = findViewById(R.id.title);
 		tv.setText("Personal lists");
 
+		// TODO change huts to lists
 		ArrayList<Hut> huts = getHuts();
 
 		ListAdapter adapter = new ListAdapter(this, huts);
@@ -34,34 +30,16 @@ public class Lists extends AppCompatActivity {
 		lv.setAdapter(adapter);
 	}
 
-	public void menu(View v) {
-		Log.d("click", "clicked on menu");
-		startActivity(new Intent(this, MenuApp.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-	}
-
-	@Override
-	public void onBackPressed() {
-		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		intent.putExtra("EXIT", true);
-		startActivity(intent);
-	}
-
-	public void close(View v){
-		Log.d("click", "clicked on back");
-		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		intent.putExtra("EXIT", true);
-		startActivity(intent);
+	public void fav(View v) {
+		Log.d("click", "clicked on favorites");
+		startActivity(new Intent(this, Favorites.class));
+		finish();
 	}
 
 	// Huts hardcoded for testing
 	public ArrayList<Hut> getHuts() {
 		ArrayList<Hut> Huts = new ArrayList<Hut>();
 
-		LatLng loc = new LatLng(42, 1);
 		Huts.add(new Hut(1, "hut1 name", 4.5f, new LatLng(42.0,1.0), "img1"));
 		Huts.add(new Hut(2, "hut2 name", 4.0f, new LatLng(43.0,1.0), "img2"));
 		Huts.add(new Hut(3, "hut3 name", 2.5f, new LatLng(41.0,1.0), "img3"));
@@ -73,5 +51,4 @@ public class Lists extends AppCompatActivity {
 
 	// TODO add lists and buttons to rearrange and delete lists
 	// TODO unify lists and favourites
-	// TODO adapter element of one list
 }

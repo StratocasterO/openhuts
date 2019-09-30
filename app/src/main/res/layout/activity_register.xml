@@ -118,6 +118,7 @@
 						android:layout_marginLeft="10dp"
 						android:hint="Username"
 						android:inputType="textPersonName" />
+
 				</TableRow>
 
 				<TableRow
@@ -156,6 +157,22 @@
 						android:layout_marginLeft="10dp"
 						android:hint="Repeat password"
 						android:inputType="textWebPassword" />
+
+				</TableRow>
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" >
+
+					<TextView
+						android:id="@+id/tac"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="94dp"
+						android:layout_marginTop="5dp"
+						android:layout_span="2"
+						android:text="By clicking on Register button you \nare agreeing to Terms and Conditions"
+						tools:textSize="10" />
 				</TableRow>
 
 			</TableLayout>
