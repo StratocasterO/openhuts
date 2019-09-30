@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// TODO Personalise permission request message
+		// TODO Personalise permission request message (lightbox)
 		ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 		ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	public void menu(View v) {
 		Log.d("click", "clicked on menu");
-		startActivity(new Intent(this, MenuApp.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+		startActivity(new Intent(this, MenuApp.class));
 	}
 
 	public void search(View v) {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	public void add(View v) {
 		Log.d("click", "clicked on add");
-		startActivity(new Intent(this, AddHut.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+		startActivity(new Intent(this, AddHut.class));
 	}
 
 	// Huts hardcoded for testing
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	public boolean onMarkerClick(final Marker marker) {
 		Log.d("click", "clicked on " + marker.getTitle());
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -167,10 +167,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		// Showing Alert Message
 		alertDialog.show();
 		return;
-	}
-
-	@Override
-	public void overridePendingTransition(int enterAnim, int exitAnim) {
-		super.overridePendingTransition(0, 0);
 	}
 }

@@ -20,7 +20,7 @@ public class Login extends DefaultActivity {
 		Log.d("click", "clicked on button login");
 	}
 
-	// TODO login
+	// TODO login/register in lightbox
 	// TODO login with Facebook
 	// TODO login with Google
 }

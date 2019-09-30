@@ -35,7 +35,7 @@ public class ListAdapter extends android.widget.BaseAdapter {
 	}
 
 	public View getView(int index, View convertView, ViewGroup parent) {
-		View row = View.inflate(ctx, R.layout.list_element, null);
+		View row = View.inflate(ctx, R.layout.list, null);
 		TextView tv = row.findViewById(R.id.name);
 		tv.setText(Huts.get(index).getName());
 
@@ -43,9 +43,14 @@ public class ListAdapter extends android.widget.BaseAdapter {
 		ImageView iv = row.findViewById(R.id.photo);
 		iv.setImageDrawable(iv.getResources().getDrawable(R.drawable.hut));
 
+		// TODO conditionals for the followng two elements (list/favs):
 		// Compute the distance from the user to the hut and show it in tv2:
 		TextView tv2 = row.findViewById(R.id.distance);
 		tv2.setText("~ " + "distance" +" km");
+
+		// Number of elements inside
+		TextView tv2 = row.findViewById(R.id.inside);
+		tv2.setText(num + "huts");
 
 		// Rating:
 		RatingBar rb = row.findViewById(R.id.rating);

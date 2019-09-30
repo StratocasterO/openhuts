@@ -162,17 +162,19 @@
 
 				<TableRow
 					android:layout_width="match_parent"
-					android:layout_height="match_parent" >
+					android:layout_height="match_parent"
+					android:gravity="center_horizontal">
 
 					<TextView
 						android:id="@+id/tac"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginLeft="94dp"
-						android:layout_marginTop="5dp"
+						android:layout_marginTop="20dp"
 						android:layout_span="2"
-						android:text="By clicking on Register button you \nare agreeing to Terms and Conditions"
-						tools:textSize="10" />
+						android:gravity="center"
+						android:text="By clicking on Register button you are\nagreeing to Terms and Conditions"
+						android:textSize="10dp" />
+<!--					TODO add link-->
 				</TableRow>
 
 			</TableLayout>
@@ -181,7 +183,7 @@
 				android:id="@+id/send"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="32dp"
+				android:layout_marginTop="28dp"
 				android:onClick="register"
 				android:text="Register" />
 		</LinearLayout>

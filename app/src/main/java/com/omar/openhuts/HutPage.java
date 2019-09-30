@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HutPage extends AppCompatActivity {
+public class HutPage extends DefaultActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
