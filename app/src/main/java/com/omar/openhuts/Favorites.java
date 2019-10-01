@@ -15,15 +15,34 @@ public class Favorites extends DefaultActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
+		int list = getIntent().getExtras().getInt("list");
+
 		TextView tv = findViewById(R.id.title);
-		tv.setText("Favorites");
+		for(List l : getLists()){
+			if(l.getId() == list){
+				tv.setText(l.getName());
+			}
+		}
 
 		ArrayList<Hut> huts = getHuts();
 
-		ListAdapter adapter = new ListAdapter(this, huts);
+		HutAdapter adapter = new HutAdapter(this, huts);
 
 		ListView lv = findViewById(R.id.list);
 		lv.setAdapter(adapter);
+	}
+
+	// Lists hardcoded for testing
+	public ArrayList<List> getLists() {
+		ArrayList<List> Lists = new ArrayList<List>();
+
+		Lists.add(new List("favorites", getHuts(),1));
+		Lists.add(new List("list 1", getHuts(),2));
+		Lists.add(new List("list 2", getHuts(),3));
+		Lists.add(new List("list 3", getHuts(),4));
+		Lists.add(new List("list 4", getHuts(),5));
+
+		return Lists;
 	}
 
 	// Huts hardcoded for testing

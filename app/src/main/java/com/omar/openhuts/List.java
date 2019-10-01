@@ -7,11 +7,13 @@ public class List {
 	private String name;
 	private ArrayList<Hut> listHuts;
 	private int num;
+	private int id;
 
-	public List(String name, ArrayList<Hut> listHuts, int num){
+	public List(String name, ArrayList<Hut> listHuts, int id){
 		this.name = name;
 		this.listHuts = listHuts;
 		this.num = listHuts.size();
+		this.id = id;
 	}
 
 	// Getters and setters:
@@ -38,4 +40,8 @@ public class List {
 	public void setNum(int num) {
 		this.num = num;
 	}
+
+	public int getId() {return id;	}
+
+	public void setId(int id) {	this.id = id;	}
 }

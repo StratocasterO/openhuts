@@ -31,6 +31,6 @@ public class DefaultActivity extends AppCompatActivity {
 	// function to remove animations between activities
 	@Override
 	public void overridePendingTransition(int enterAnim, int exitAnim) {
-		super.overridePendingTransition(0, 0);
+		super.overridePendingTransition(1, 1);
 	}
 }

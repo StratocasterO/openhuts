@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,21 +20,36 @@ public class Lists extends DefaultActivity {
 		setContentView(R.layout.activity_list);
 
 		TextView tv = findViewById(R.id.title);
-		tv.setText("Personal lists");
+		tv.setText("Saved huts");
 
-		// TODO change huts to lists
-		ArrayList<Hut> huts = getHuts();
+		final ArrayList<List> lists = getLists();
 
-		ListAdapter adapter = new ListAdapter(this, huts);
+		ListAdapter adapter = new ListAdapter(this, lists);
 
-		ListView lv = findViewById(R.id.list);
+		final ListView lv = findViewById(R.id.list);
 		lv.setAdapter(adapter);
+
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				int id_list = lists.get(position).getId();
+				startActivity(new Intent(Lists.this, Favorites.class)
+						.putExtra("list",id_list));
+			}
+		});
 	}
 
-	public void fav(View v) {
-		Log.d("click", "clicked on favorites");
-		startActivity(new Intent(this, Favorites.class));
-		finish();
+	// Lists hardcoded for testing
+	public ArrayList<List> getLists() {
+		ArrayList<List> Lists = new ArrayList<List>();
+
+		Lists.add(new List("favorites", getHuts(),1));
+		Lists.add(new List("list 1", getHuts(),2));
+		Lists.add(new List("list 2", getHuts(),3));
+		Lists.add(new List("list 3", getHuts(),4));
+		Lists.add(new List("list 4", getHuts(),5));
+
+		return Lists;
 	}
 
 	// Huts hardcoded for testing
@@ -50,5 +66,4 @@ public class Lists extends DefaultActivity {
 	}
 
 	// TODO add lists and buttons to rearrange and delete lists
-	// TODO unify lists and favourites
 }
