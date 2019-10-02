@@ -13,6 +13,4 @@ public class AddHut extends DefaultActivity {
 		TextView tv = findViewById(R.id.title);
 		tv.setText("Hut");
 	}
-
-	// TODO add hut layout (Marketing)
 }

@@ -23,16 +23,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Request {
 	private Context ctx;
 
-	public void hacerPeticion(final Context ctx, View v) {
+	// TODO https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted
+
+	public void hutsMapa(final Context ctx) {
 		this.ctx = ctx;
 
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("") // TODO add server direction
+				.baseUrl("http://localhost:3000/") // TODO add server direction
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
 		GetAPI apiGET = builder.create(GetAPI.class);
-		PostAPI apiPOST = builder.create(PostAPI.class);
 
 		apiGET.GET().enqueue(new Callback<ResponseBody>() {
 
@@ -61,6 +62,7 @@ public class Request {
 			@Override
 			public void onFailure(Call<ResponseBody> call, Throwable t) {
 				Toast.makeText(ctx, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+				t.printStackTrace();
 			}
 
 			private List<String> fromArrayToList(JSONArray jArray) {
@@ -78,6 +80,17 @@ public class Request {
 				return lista;
 			}
 		});
+	}
+
+	public void postReq(final Context ctx, View v) {
+		this.ctx = ctx;
+
+		Retrofit builder = new Retrofit.Builder()
+				.baseUrl("http://localhost:3000/huts/fetch") // TODO add server direction
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
+
+		PostAPI apiPOST = builder.create(PostAPI.class);
 
 		apiPOST.POST("Pablo", "Monteserrín").enqueue(new Callback<ResponseBody>() {
 

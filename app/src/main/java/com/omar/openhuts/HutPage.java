@@ -11,7 +11,5 @@ public class HutPage extends DefaultActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hut_page);
 	}
-
-	// TODO hut layout (Marketing)
 	// TODO "wrong data" message form
 }

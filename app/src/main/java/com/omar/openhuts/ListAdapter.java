@@ -10,10 +10,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ListAdapter extends android.widget.BaseAdapter {
-	ArrayList<List> Lists;
-	Context ctx;
+	private ArrayList<List> Lists;
+	private Context ctx;
 
-	public ListAdapter(Context ctx, ArrayList<List> Lists) {
+	ListAdapter(Context ctx, ArrayList<List> Lists) {
 		super();
 		this.ctx = ctx;
 		this.Lists = Lists;
@@ -45,7 +45,8 @@ public class ListAdapter extends android.widget.BaseAdapter {
 
 		// Number of elements inside
 		TextView tv2 = row.findViewById(R.id.inside);
-		tv2.setText(Lists.size() + " huts");
+		String text = Lists.size() + " huts";
+		tv2.setText(text);
 
 		return row;
 	}
