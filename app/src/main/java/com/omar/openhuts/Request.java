@@ -27,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Request {
 	private Context ctx;
+	public static List<Hut> lista = new ArrayList<>();
 
 	public void hutsMapa(final MainActivity ctx) {
 		this.ctx = ctx;
@@ -62,12 +63,7 @@ public class Request {
 						JSONArray jArray = jObject.getJSONArray("results");
 						List<Hut> lista = fromArrayToList(jArray);
 						Log.d("lista", ""+ lista);
-						//ListView lv = findViewById(R.id.personas);
-						//lv.setAdapter(new ArrayAdapter(ctx, android.R.layout.simple_list_item_1, lista));
-						ctx.add
-
 					} catch (JSONException e) {
-						Log.d("pausa","pausa");
 						e.printStackTrace();
 					}
 				} catch (IOException e) {
@@ -91,7 +87,7 @@ public class Request {
 						int id = oneObject.getInt("id");
 						LatLng location = new LatLng(oneObject.getDouble("lat"),oneObject.getDouble("lon")) ;
 
-						Hut hut = new Hut(id, name, location);
+						Hut hut = new Hut(id, name, "", 0.0f,location,1,1,1,"");
 						lista.add(hut);
 					} catch (JSONException e) {
 						// Oops
