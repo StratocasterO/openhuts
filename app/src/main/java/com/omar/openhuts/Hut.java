@@ -6,16 +6,17 @@ import com.google.android.gms.maps.model.LatLng;
 public class Hut {
 	private int id;
 	private String name;
-	private Float rating;
+	//private Float rating;
 	private LatLng location;
-	private String img;
+	//private String img;
 
-	public Hut(int id, String name, Float rating, LatLng location, String img){
+	// public Hut(int id, String name, String description, Float rating, LatLng location, String img){
+	public Hut(int id, String name, LatLng location){
 		this.id = id;
 		this.name = name;
-		this.rating = rating;
+		//this.rating = rating;
 		this.location = location;
-		this.img = img;
+		//this.img = img;
 	}
 
 	// Getters and setters:
@@ -35,13 +36,13 @@ public class Hut {
 		this.name = name;
 	}
 
-	public Float getRating() {
-		return rating;
-	}
-
-	public void setRating(Float rating) {
-		this.rating = rating;
-	}
+//	public Float getRating() {
+//		return rating;
+//	}
+//
+//	public void setRating(Float rating) {
+//		this.rating = rating;
+//	}
 
 	public LatLng getLocation() {
 		return location;
@@ -51,11 +52,11 @@ public class Hut {
 		this.location = location;
 	}
 
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
+//	public String getImg() {
+//		return img;
+//	}
+//
+//	public void setImg(String img) {
+//		this.img = img;
+//	}
 }

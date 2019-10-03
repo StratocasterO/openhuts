@@ -1,9 +1,12 @@
 package com.omar.openhuts;
 
 import android.content.Context;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +15,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,14 +28,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Request {
 	private Context ctx;
 
-	// TODO https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted
-
-	public void hutsMapa(final Context ctx) {
+	public void hutsMapa(final MainActivity ctx) {
 		this.ctx = ctx;
 
+
+		OkHttpClient okHttpClient = new OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.MINUTES)
+				.readTimeout(30, TimeUnit.SECONDS)
+				.writeTimeout(30, TimeUnit.SECONDS)
+				.build();
+
+
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("http://localhost:3000/") // TODO add server direction
+				.baseUrl("https://openhuts.herokuapp.com/")
 				.addConverterFactory(GsonConverterFactory.create())
+				.client(okHttpClient)
 				.build();
 
 		GetAPI apiGET = builder.create(GetAPI.class);
@@ -48,10 +60,14 @@ public class Request {
 					try {
 						jObject = new JSONObject(respuesta);
 						JSONArray jArray = jObject.getJSONArray("results");
-						List<String> lista = fromArrayToList(jArray);
+						List<Hut> lista = fromArrayToList(jArray);
+						Log.d("lista", ""+ lista);
 						//ListView lv = findViewById(R.id.personas);
 						//lv.setAdapter(new ArrayAdapter(ctx, android.R.layout.simple_list_item_1, lista));
+						ctx.add
+
 					} catch (JSONException e) {
+						Log.d("pausa","pausa");
 						e.printStackTrace();
 					}
 				} catch (IOException e) {
@@ -65,14 +81,18 @@ public class Request {
 				t.printStackTrace();
 			}
 
-			private List<String> fromArrayToList(JSONArray jArray) {
-				List<String> lista = new ArrayList<String>();
+			private List<Hut> fromArrayToList(JSONArray jArray) {
+				List<Hut> lista = new ArrayList<>();
 				for (int i = 0; i < jArray.length(); i++) {
 					try {
 						JSONObject oneObject = jArray.getJSONObject(i);
 						// Pulling items from the array
 						String name = oneObject.getString("name");
-						lista.add(name);
+						int id = oneObject.getInt("id");
+						LatLng location = new LatLng(oneObject.getDouble("lat"),oneObject.getDouble("lon")) ;
+
+						Hut hut = new Hut(id, name, location);
+						lista.add(hut);
 					} catch (JSONException e) {
 						// Oops
 					}

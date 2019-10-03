@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					// permission granted
 					setupActivity();
+
 					googleMap.setMyLocationEnabled(true);
 				} else {
 					// permission denied
@@ -139,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
 			@Override
 			public boolean onMyLocationButtonClick() {
+				Log.d("click", "clicked on my location");
 				// TODO first time click without login -> login/register lightbox
 				return true;
 			}
@@ -148,13 +150,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		r.hutsMapa(this);
 
 		// Adding markers for the huts
-		for (Hut hut : getHuts())
-			googleMap.addMarker(new MarkerOptions()
-					.position(hut.getLocation())
-					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-					.title(hut.getName())
-			);
+//		for (Hut hut : getHuts())
+//			googleMap.addMarker(new MarkerOptions()
+//					.position(hut.getLocation())
+//					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
+//					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+//					.title(hut.getName())
+//			);
 
 		googleMap.setOnMarkerClickListener(this);
 
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-				startActivity(new Intent(MainActivity.this, HutPage.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+				startActivity(new Intent(MainActivity.this, HutPage.class));
 			}
 		});
 
@@ -170,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		LatLng idle = new LatLng(41.731113, 1.822789);
 
 		CameraPosition camPos = new CameraPosition.Builder()
-				.target(idle)       // Centramos el mapa en Madrid
+				.target(idle)       // Centramos el mapa
 				.zoom(7.0f)         // Establecemos el zoom en 19
 				.bearing(0)         // Establecemos la orientación con el norte arriba
 				.tilt(0)            // Inclinación vertical
@@ -179,13 +181,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		CameraUpdate camUpd = CameraUpdateFactory.newCameraPosition(camPos);
 		googleMap.animateCamera(camUpd);
 
+//		googleMap.setMyLocationEnabled(true);
 	}
 
 	// When click on map marker
 	@Override
 	public boolean onMarkerClick(final Marker marker) {
 		Log.d("click", "clicked on " + marker.getTitle());
-
+		marker.showInfoWindow();
 		return true;
 	}
 
@@ -227,11 +230,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	public ArrayList<Hut> getHuts() {
 		ArrayList<Hut> Huts = new ArrayList<>();
 
-		Huts.add(new Hut(1, "hut1 name", 4.5f, new LatLng(42.0, 1.0), "img1"));
-		Huts.add(new Hut(2, "hut2 name", 4.0f, new LatLng(43.0, 1.0), "img2"));
-		Huts.add(new Hut(3, "hut3 name", 2.5f, new LatLng(41.0, 1.0), "img3"));
-		Huts.add(new Hut(4, "hut4 name", 1.5f, new LatLng(42.0, 2.0), "img4"));
-		Huts.add(new Hut(5, "hut5 name", 5f, new LatLng(42.0, 0.0), "img5"));
+//		Huts.add(new Hut(1, "hut1 name", 4.5f, new LatLng(42.0, 1.0), "img1"));
+//		Huts.add(new Hut(2, "hut2 name", 4.0f, new LatLng(43.0, 1.0), "img2"));
+//		Huts.add(new Hut(3, "hut3 name", 2.5f, new LatLng(41.0, 1.0), "img3"));
+//		Huts.add(new Hut(4, "hut4 name", 1.5f, new LatLng(42.0, 2.0), "img4"));
+//		Huts.add(new Hut(5, "hut5 name", 5f, new LatLng(42.0, 0.0), "img5"));
 
 		return Huts;
 	}
