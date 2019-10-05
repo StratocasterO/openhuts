@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -11,11 +13,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +47,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// Makes image round #TODO icons with background
+//		ImageView iv = findViewById(R.id.add);
+//		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add);
+//		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+//		circularBitmapDrawable.setCircular(true);
+//		iv.setImageDrawable(circularBitmapDrawable);
+
+		// Adds map
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 		assert mapFragment != null;
 		mapView = mapFragment.getView();
