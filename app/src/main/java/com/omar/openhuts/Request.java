@@ -102,7 +102,7 @@ public class Request {
 		this.ctx = ctx;
 
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("http://localhost:3000/huts/fetch") // TODO add server direction
+				.baseUrl("https://openhuts.herokuapp.com/")
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 

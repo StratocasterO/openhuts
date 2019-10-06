@@ -172,9 +172,11 @@
 						android:layout_marginTop="20dp"
 						android:layout_span="2"
 						android:gravity="center"
-						android:text="By clicking on Register button you are\nagreeing to Terms and Conditions"
+						android:linksClickable="true"
+						android:paddingLeft="80dp"
+						android:paddingRight="80dp"
+						android:text="@string/tac"
 						android:textSize="10dp" />
-<!--					TODO add link-->
 				</TableRow>
 
 			</TableLayout>

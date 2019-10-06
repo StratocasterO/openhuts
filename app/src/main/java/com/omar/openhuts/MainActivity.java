@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Makes image round #TODO icons with background
+		// Makes image round #TODO icons with background for rounded button
 //		ImageView iv = findViewById(R.id.add);
 //		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add);
 //		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
@@ -68,21 +68,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		if (settings.getBoolean("my_first_time", true)) {
 			// Welcome message:
 			// TODO https://stackoverflow.com/questions/13341560/how-to-create-a-custom-dialog-box-in-android
-			final Dialog dialog = new Dialog(this);
-			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-			dialog.setCancelable(false);
-			dialog.setTitle("Welcome");
-			dialog.setContentView(R.layout.welcome);
-
-			Button dialogButton = dialog.findViewById(R.id.button);
-			dialogButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					dialog.dismiss();
-				}
-			});
-
-			dialog.show();
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+					MainActivity.this);
+			// Setting Dialog Title
+			alertDialog.setTitle("Welcome to Open Huts");
+			// Setting Dialog Message
+			alertDialog.setMessage("Open Huts is a cool application and here's why.");
+			// Setting Icon to Dialog
+			alertDialog.setIcon(R.drawable.logo);
+			// Setting Positive "Yes" Button
+			// Setting Negative "NO" Button
+			alertDialog.setNegativeButton("Start",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// Write your code here to invoke NO event
+							dialog.cancel();
+						}
+					});
+			// Showing Alert Message
+			alertDialog.show();
 
 			settings.edit().putBoolean("my_first_time", false).apply();
 		}
@@ -113,31 +117,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		assert mapFragment != null;
 		mapView = mapFragment.getView();
 		mapFragment.getMapAsync(this);
-
-		// Preferences for one time tasks:
-		final String prefs = "MyPrefsFile";
-
-		SharedPreferences settings = getSharedPreferences(prefs, 0);
-
-		if (settings.getBoolean("my_first_time", true)) {
-			// Welcome message:
-			// TODO https://stackoverflow.com/questions/13341560/how-to-create-a-custom-dialog-box-in-android
-			final Dialog dialog = new Dialog(this);
-			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-			dialog.setCancelable(false);
-			dialog.setTitle("Welcome");
-			dialog.setContentView(R.layout.welcome);
-
-			Button dialogButton = dialog.findViewById(R.id.button);
-			dialogButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					dialog.dismiss();
-				}
-			});
-			dialog.show();
-			settings.edit().putBoolean("my_first_time", false).apply();
-		}
 	}
 
 	public void menu(View v) {
@@ -152,6 +131,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	public void add(View v) {
 		Log.d("click", "clicked on add");
 		startActivity(new Intent(this, AddHut.class));
+	}
+
+	public void lists(View v) {
+		Log.d("click", "clicked on lists");
+		startActivity(new Intent(this, Lists.class));
+	}
+
+	public void profile(View v) {
+		Log.d("click", "clicked on profile");
+		startActivity(new Intent(this, Profile.class));
 	}
 
 	@Override

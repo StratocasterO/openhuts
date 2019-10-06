@@ -5,4 +5,6 @@
 	<string name="register">Register</string>
 	<string name="fav">Favorites</string>
 	<string name="lists">Lists</string>
+	<string name="tac">By clicking on Register button you are\nagreeing to &lt;a href=http://link1/terms>Terms and Conditions&lt;/a></string>
+
 </resources>
