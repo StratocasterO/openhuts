@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 public class Lists extends DefaultActivity {
+	ListView lv;
+	boolean pressed = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,27 @@ public class Lists extends DefaultActivity {
 						.putExtra("list",id_list));
 			}
 		});
+	}
+
+	// TODO activates and deactivates edit mode
+	public void edit(View v){
+		lv = findViewById(R.id.list);
+		Button btn;
+		if (pressed){
+			for (int i = 0; i < lv.getCount(); i++) {
+				View view = lv.getAdapter().getView(i, null, null);
+				btn = view.findViewById(R.id.delete);
+				btn.setEnabled(false);
+				pressed = false;
+			}
+		} else {
+			for (int i = 0; i < lv.getCount(); i++) {
+				View view = lv.getAdapter().getView(i, null, null);
+				btn = view.findViewById(R.id.delete);
+				btn.setEnabled(true);
+				pressed = true;
+			}
+		}
 	}
 
 	// Lists hardcoded for testing

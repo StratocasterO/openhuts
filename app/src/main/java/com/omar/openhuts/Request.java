@@ -1,5 +1,6 @@
 package com.omar.openhuts;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Debug;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +31,7 @@ public class Request {
 	private Context ctx;
 	public static List<Hut> lista = new ArrayList<>();
 
-	public void hutsMapa(final MainActivity ctx) {
+	public void hutsMapa(final Context ctx) {
 		this.ctx = ctx;
 
 
@@ -63,6 +65,7 @@ public class Request {
 						JSONArray jArray = jObject.getJSONArray("results");
 						List<Hut> lista = fromArrayToList(jArray);
 						Log.d("lista", ""+ lista);
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -81,13 +84,19 @@ public class Request {
 				List<Hut> lista = new ArrayList<>();
 				for (int i = 0; i < jArray.length(); i++) {
 					try {
-						JSONObject oneObject = jArray.getJSONObject(i);
+						JSONObject object = jArray.getJSONObject(i);
 						// Pulling items from the array
-						String name = oneObject.getString("name");
-						int id = oneObject.getInt("id");
-						LatLng location = new LatLng(oneObject.getDouble("lat"),oneObject.getDouble("lon")) ;
+						int id = object.getInt("id");
+						String name = object.getString("name");
+						String desc = object.getString("description");
+						float rating = (float) object.getDouble("rating");
+						LatLng location = new LatLng(object.getDouble("lat"),object.getDouble("lon"));
+						int temp = object.getInt("temp");
+						int wind = object.getInt("wind");
+						int rain = object.getInt("rain");
+						String img = object.getString("img");
 
-						Hut hut = new Hut(id, name, "", 0.0f,location,1,1,1,"");
+						Hut hut = new Hut(id, name, desc, rating,location,temp,wind, rain,"");
 						lista.add(hut);
 					} catch (JSONException e) {
 						// Oops

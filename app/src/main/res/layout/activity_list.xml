@@ -83,7 +83,19 @@
 			android:text="TextView"
 			android:textSize="30dp"
 			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<Button
+			android:id="@+id/edit"
+			android:layout_width="35dp"
+			android:layout_height="35dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginEnd="5dp"
+			android:layout_marginRight="5dp"
+			android:onClick="edit"
+			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

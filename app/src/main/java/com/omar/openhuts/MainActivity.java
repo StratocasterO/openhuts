@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			@Override
 			public boolean onMyLocationButtonClick() {
 				Log.d("click", "clicked on my location");
-				// TODO first time click without login -> login/register lightbox
 				// TODO first click without permission -> request permission
 
 				LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -183,8 +182,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		r.hutsMapa(this);
 
 		// Adding markers for the huts
-		for (Hut hut : getHuts())
-//		for (Hut hut : Request.lista) TODO wait for response from the server
+		//for (Hut hut : getHuts())
+		for (Hut hut : Request.lista) //TODO wait for response from the server
 			googleMap.addMarker(new MarkerOptions()
 					.position(hut.getLocation())
 					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
@@ -216,6 +215,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.animateCamera(camUpd);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if(googleMap != null){ //prevent crashing if the map doesn't exist yet (eg. on starting activity)
+			googleMap.clear();
+
+			// Adding markers for the huts
+			//for (Hut hut : getHuts())
+			for (Hut hut : Request.lista) //TODO wait for response from the server
+				googleMap.addMarker(new MarkerOptions()
+						.position(hut.getLocation())
+						// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
+						//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+						.title(hut.getName())
+				);
+		}
+	}
+
 	// When click on map marker
 	@Override
 	public boolean onMarkerClick(final Marker marker) {
@@ -227,16 +245,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	@Override
 	public void onBackPressed() {
 		getIntent().putExtra("EXIT", true);
+
 		//Display alert message when back button has been pressed
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 				MainActivity.this);
-		// Setting Dialog Title
 		alertDialog.setTitle("Leaving application");
-		// Setting Dialog Message
 		alertDialog.setMessage("Are you sure you want to leave Open Huts?");
-		// Setting Icon to Dialog
 		alertDialog.setIcon(R.drawable.logo);
-		// Setting Positive "Yes" Button
 		alertDialog.setPositiveButton("YES",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -246,15 +261,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 						}
 					}
 				});
-		// Setting Negative "NO" Button
 		alertDialog.setNegativeButton("NO",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						// Write your code here to invoke NO event
 						dialog.cancel();
 					}
 				});
-		// Showing Alert Message
 		alertDialog.show();
 	}
 
@@ -268,16 +280,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	}
 
 	public void add(View v) {
+		// TODO first time click without login -> login/register lightbox
+
 		Log.d("click", "clicked on add");
 		startActivity(new Intent(this, AddHut.class));
 	}
 
 	public void lists(View v) {
+		// TODO first time click without login -> login/register lightbox
+
 		Log.d("click", "clicked on lists");
 		startActivity(new Intent(this, Lists.class));
 	}
 
 	public void profile(View v) {
+		// TODO first time click without login -> login/register lightbox
+
 		Log.d("click", "clicked on profile");
 		startActivity(new Intent(this, Profile.class));
 	}
