@@ -8,13 +8,18 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -119,32 +124,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		mapFragment.getMapAsync(this);
 	}
 
-	public void menu(View v) {
-		Log.d("click", "clicked on menu");
-		startActivity(new Intent(this, MenuApp.class));
-	}
-
-	public void search(View v) {
-		Log.d("click", "clicked on search");
-	}
-
-	public void add(View v) {
-		Log.d("click", "clicked on add");
-		startActivity(new Intent(this, AddHut.class));
-	}
-
-	public void lists(View v) {
-		Log.d("click", "clicked on lists");
-		startActivity(new Intent(this, Lists.class));
-	}
-
-	public void profile(View v) {
-		Log.d("click", "clicked on profile");
-		startActivity(new Intent(this, Profile.class));
-	}
-
 	@Override
-	public void onMapReady(GoogleMap googleMap) {
+	public void onMapReady(final GoogleMap googleMap) {
 
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			// TODO Personalise permission request message (lightbox)
@@ -175,6 +156,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			public boolean onMyLocationButtonClick() {
 				Log.d("click", "clicked on my location");
 				// TODO first time click without login -> login/register lightbox
+				// TODO first click without permission -> request permission
+
+				LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+				Criteria criteria = new Criteria();
+
+				@SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+				if (location != null)
+				{
+					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
+
+					CameraPosition cameraPosition = new CameraPosition.Builder()
+							.target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+							.zoom(10)                   // Sets the zoom
+							.bearing(0)                 // Sets the orientation of the camera to north
+							.tilt(0)                    // Sets the tilt of the camera to 90 degrees
+							.build();                   // Creates a CameraPosition from the builder
+					googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+				}
+
 				return true;
 			}
 		});
@@ -256,6 +256,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				});
 		// Showing Alert Message
 		alertDialog.show();
+	}
+
+	public void menu(View v) {
+		Log.d("click", "clicked on menu");
+		startActivity(new Intent(this, MenuApp.class));
+	}
+
+	public void search(View v) {
+		Log.d("click", "clicked on search");
+	}
+
+	public void add(View v) {
+		Log.d("click", "clicked on add");
+		startActivity(new Intent(this, AddHut.class));
+	}
+
+	public void lists(View v) {
+		Log.d("click", "clicked on lists");
+		startActivity(new Intent(this, Lists.class));
+	}
+
+	public void profile(View v) {
+		Log.d("click", "clicked on profile");
+		startActivity(new Intent(this, Profile.class));
 	}
 
 	// Huts hardcoded for testing
