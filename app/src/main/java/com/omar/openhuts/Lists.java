@@ -2,7 +2,6 @@ package com.omar.openhuts;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,7 +24,7 @@ public class Lists extends DefaultActivity {
 		TextView tv = findViewById(R.id.title);
 		tv.setText("Saved huts");
 
-		final ArrayList<List> lists = getLists();
+		final ArrayList<HutList> lists = getLists();
 
 		ListAdapter adapter = new ListAdapter(this, lists);
 
@@ -46,32 +45,34 @@ public class Lists extends DefaultActivity {
 	public void edit(View v){
 		lv = findViewById(R.id.list);
 		Button btn;
-		if (pressed){
+		if (!pressed){
 			for (int i = 0; i < lv.getCount(); i++) {
 				View view = lv.getAdapter().getView(i, null, null);
 				btn = view.findViewById(R.id.delete);
+				btn.setVisibility(View.INVISIBLE);
 				btn.setEnabled(false);
-				pressed = false;
 			}
+			pressed = true;
 		} else {
 			for (int i = 0; i < lv.getCount(); i++) {
 				View view = lv.getAdapter().getView(i, null, null);
 				btn = view.findViewById(R.id.delete);
+				btn.setVisibility(View.VISIBLE);
 				btn.setEnabled(true);
-				pressed = true;
 			}
+			pressed = false;
 		}
 	}
 
 	// Lists hardcoded for testing
-	public ArrayList<List> getLists() {
-		ArrayList<List> Lists = new ArrayList<List>();
+	public ArrayList<HutList> getLists() {
+		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new List("favorites", getHuts(),1));
-		Lists.add(new List("list 1", getHuts(),2));
-		Lists.add(new List("list 2", getHuts(),3));
-		Lists.add(new List("list 3", getHuts(),4));
-		Lists.add(new List("list 4", getHuts(),5));
+		Lists.add(new HutList("favorites", getHuts(),1));
+		Lists.add(new HutList("list 1", getHuts(),2));
+		Lists.add(new HutList("list 2", getHuts(),3));
+		Lists.add(new HutList("list 3", getHuts(),4));
+		Lists.add(new HutList("list 4", getHuts(),5));
 
 		return Lists;
 	}

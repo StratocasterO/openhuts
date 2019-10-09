@@ -4,16 +4,15 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class ListAdapter extends android.widget.BaseAdapter {
-	private ArrayList<List> Lists;
+	private ArrayList<HutList> Lists;
 	private Context ctx;
 
-	ListAdapter(Context ctx, ArrayList<List> Lists) {
+	ListAdapter(Context ctx, ArrayList<HutList> Lists) {
 		super();
 		this.ctx = ctx;
 		this.Lists = Lists;

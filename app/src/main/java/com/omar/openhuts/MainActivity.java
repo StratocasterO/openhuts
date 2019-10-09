@@ -4,30 +4,21 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -40,10 +31,24 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
 	View mapView;
 	GoogleMap googleMap;
 
@@ -58,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
 //		circularBitmapDrawable.setCircular(true);
 //		iv.setImageDrawable(circularBitmapDrawable);
+
+		hutsMapa();
 
 		// Adds map
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -178,20 +185,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			}
 		});
 
-		Request r = new Request();
-		r.hutsMapa(this);
-
 		// Adding markers for the huts
 		//for (Hut hut : getHuts())
-		for (Hut hut : Request.lista) //TODO wait for response from the server
-			googleMap.addMarker(new MarkerOptions()
-					.position(hut.getLocation())
-					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-					.title(hut.getName())
-			);
+//		for (Hut hut : lista) //TODO wait for response from the server
+//			googleMap.addMarker(new MarkerOptions()
+//					.position(hut.getLocation())
+//					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
+//					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+//					.title(hut.getName())
+//			);
 
-		googleMap.setOnMarkerClickListener(this);
+		// When click on map marker
+		googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+			@Override
+			public boolean onMarkerClick(final Marker marker) {
+				Log.d("click", "clicked on " + marker.getTitle());
+				marker.showInfoWindow();
+				return true;
+			}
+		});
 
 		// When click on marker snippet
 		googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -215,32 +227,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.animateCamera(camUpd);
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-
-		if(googleMap != null){ //prevent crashing if the map doesn't exist yet (eg. on starting activity)
-			googleMap.clear();
-
-			// Adding markers for the huts
-			//for (Hut hut : getHuts())
-			for (Hut hut : Request.lista) //TODO wait for response from the server
-				googleMap.addMarker(new MarkerOptions()
-						.position(hut.getLocation())
-						// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-						//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-						.title(hut.getName())
-				);
-		}
-	}
-
-	// When click on map marker
-	@Override
-	public boolean onMarkerClick(final Marker marker) {
-		Log.d("click", "clicked on " + marker.getTitle());
-		marker.showInfoWindow();
-		return true;
-	}
+//	@Override
+//	protected void onResume() {
+//		super.onResume();
+//
+//		if(googleMap != null){ //prevent crashing if the map doesn't exist yet (eg. on starting activity)
+//			googleMap.clear();
+//
+//			// Adding markers for the huts
+//			//for (Hut hut : getHuts())
+//			for (Hut hut : r.lista) //TODO wait for response from the server
+//				googleMap.addMarker(new MarkerOptions()
+//						.position(hut.getLocation())
+//						// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
+//						//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+//						.title(hut.getName())
+//				);
+//		}
+//	}
 
 	@Override
 	public void onBackPressed() {
@@ -311,5 +315,88 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		Huts.add(new Hut(5, "hut5 name", "", 5f, new LatLng(42.0, 0.0), 1, 1, 1, "img5"));
 
 		return Huts;
+	}
+
+	public void hutsMapa() {
+
+		OkHttpClient okHttpClient = new OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.MINUTES)
+				.readTimeout(30, TimeUnit.SECONDS)
+				.writeTimeout(30, TimeUnit.SECONDS)
+				.build();
+
+		Retrofit builder = new Retrofit.Builder()
+				.baseUrl("https://openhuts.herokuapp.com/")
+				.addConverterFactory(GsonConverterFactory.create())
+				.client(okHttpClient)
+				.build();
+
+		GetAPI apiGET = builder.create(GetAPI.class);
+
+		apiGET.GET().enqueue(new Callback<ResponseBody>() {
+
+			@Override
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+				try {
+					String respuesta = response.body().string();
+					Log.d("RESPUESTA", respuesta);
+					Toast.makeText(MainActivity.this, respuesta, Toast.LENGTH_LONG).show();
+
+					JSONObject jObject;
+					try {
+						jObject = new JSONObject(respuesta);
+						JSONArray jArray = jObject.getJSONArray("results");
+						List<Hut> lista = fromArrayToList(jArray);
+						Log.d("lista", ""+ lista);
+
+						// Adding markers for the huts
+//						googleMap.clear();
+
+						for (Hut hut : lista) //TODO wait for response from the server
+							googleMap.addMarker(new MarkerOptions()
+									.position(hut.getLocation())
+									// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
+									//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+									.title(hut.getName())
+							);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseBody> call, Throwable t) {
+				Toast.makeText(MainActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+				t.printStackTrace();
+			}
+
+			private List<Hut> fromArrayToList(JSONArray jArray) {
+				List<Hut> lista = new ArrayList<>();
+				for (int i = 0; i < jArray.length(); i++) {
+					try {
+						JSONObject object = jArray.getJSONObject(i);
+						// Pulling items from the array
+						int id = object.getInt("id");
+						String name = object.getString("name");
+						String desc = object.getString("description");
+						float rating = (float) object.getDouble("rating");
+						LatLng location = new LatLng(object.getDouble("lat"),object.getDouble("lon"));
+						int temp = object.getInt("temp");
+						int wind = object.getInt("wind");
+						int rain = object.getInt("rain");
+						String img = object.getString("img");
+
+						Hut hut = new Hut(id, name, desc, rating,location,temp,wind, rain,"");
+						lista.add(hut);
+					} catch (JSONException e) {
+						// Oops
+					}
+				}
+				return lista;
+			}
+		});
 	}
 }

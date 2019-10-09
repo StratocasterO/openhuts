@@ -1,6 +1,8 @@
 package com.omar.openhuts;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,11 +20,15 @@ public class Favorites extends DefaultActivity {
 		int list = getIntent().getExtras().getInt("list");
 
 		TextView tv = findViewById(R.id.title);
-		for (List l : getLists()) {
+		for (HutList l : getLists()) {
 			if (l.getId() == list) {
 				tv.setText(l.getName());
 			}
 		}
+
+		Button btn = findViewById(R.id.edit);
+		btn.setVisibility (View.INVISIBLE);
+		//btn.setEnabled(false);
 
 		ArrayList<Hut> huts = getHuts();
 
@@ -33,14 +39,14 @@ public class Favorites extends DefaultActivity {
 	}
 
 	// Lists hardcoded for testing
-	public ArrayList<List> getLists() {
-		ArrayList<List> Lists = new ArrayList<List>();
+	public ArrayList<HutList> getLists() {
+		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new List("favorites", getHuts(), 1));
-		Lists.add(new List("list 1", getHuts(), 2));
-		Lists.add(new List("list 2", getHuts(), 3));
-		Lists.add(new List("list 3", getHuts(), 4));
-		Lists.add(new List("list 4", getHuts(), 5));
+		Lists.add(new HutList("favorites", getHuts(), 1));
+		Lists.add(new HutList("list 1", getHuts(), 2));
+		Lists.add(new HutList("list 2", getHuts(), 3));
+		Lists.add(new HutList("list 3", getHuts(), 4));
+		Lists.add(new HutList("list 4", getHuts(), 5));
 
 		return Lists;
 	}
