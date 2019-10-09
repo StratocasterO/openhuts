@@ -1,6 +1,7 @@
 package com.omar.openhuts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -11,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 public class Favorites extends DefaultActivity {
+	ListView lv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,8 @@ public class Favorites extends DefaultActivity {
 		}
 
 		Button btn = findViewById(R.id.edit);
-		btn.setVisibility (View.INVISIBLE);
-		//btn.setEnabled(false);
+		btn.setVisibility (View.GONE);
+		btn.setEnabled(false);
 
 		ArrayList<Hut> huts = getHuts();
 
@@ -36,6 +38,15 @@ public class Favorites extends DefaultActivity {
 
 		ListView lv = findViewById(R.id.list);
 		lv.setAdapter(adapter);
+	}
+
+	public void delete(View v){
+		View item = (View) v.getParent();
+		int pos = lv.getPositionForView(item);
+		Log.d("click", "clicked on delete of item " + pos);
+
+		// TODO delete item from list
+		// TODO change heart icon to gray/red
 	}
 
 	// Lists hardcoded for testing
@@ -63,6 +74,4 @@ public class Favorites extends DefaultActivity {
 
 		return Huts;
 	}
-
-	// TODO add buttons for rearranging and deleting huts
 }

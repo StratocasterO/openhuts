@@ -2,15 +2,20 @@ package com.omar.openhuts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+
+import static com.omar.openhuts.R.id.list;
 
 public class Lists extends DefaultActivity {
 	ListView lv;
@@ -28,28 +33,31 @@ public class Lists extends DefaultActivity {
 
 		ListAdapter adapter = new ListAdapter(this, lists);
 
-		final ListView lv = findViewById(R.id.list);
+		final ListView lv = findViewById(list);
 		lv.setAdapter(adapter);
 
+		// TODO doesn't work onItemClick
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				int id_list = lists.get(position).getId();
 				startActivity(new Intent(Lists.this, Favorites.class)
-						.putExtra("list",id_list));
+						.putExtra("list", id_list));
 			}
 		});
 	}
 
-	// TODO activates and deactivates edit mode
-	public void edit(View v){
-		lv = findViewById(R.id.list);
+	// TODO activates and deactivates edit mode (doesn't work)
+	public void edit(View v) {
+		Log.d("click", "clicked on edit");
+
+		lv = findViewById(list);
 		Button btn;
-		if (!pressed){
+		if (!pressed) {
 			for (int i = 0; i < lv.getCount(); i++) {
 				View view = lv.getAdapter().getView(i, null, null);
 				btn = view.findViewById(R.id.delete);
-				btn.setVisibility(View.INVISIBLE);
+				btn.setVisibility(View.GONE);
 				btn.setEnabled(false);
 			}
 			pressed = true;
@@ -64,15 +72,22 @@ public class Lists extends DefaultActivity {
 		}
 	}
 
+	// TODO delete list when pressing button
+	public void delete(View v) {
+		View item = (View) v.getParent();
+		int pos = lv.getPositionForView(item);
+		Log.d("click", "clicked on delete of item " + pos);
+	}
+
 	// Lists hardcoded for testing
 	public ArrayList<HutList> getLists() {
 		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new HutList("favorites", getHuts(),1));
-		Lists.add(new HutList("list 1", getHuts(),2));
-		Lists.add(new HutList("list 2", getHuts(),3));
-		Lists.add(new HutList("list 3", getHuts(),4));
-		Lists.add(new HutList("list 4", getHuts(),5));
+		Lists.add(new HutList("favorites", getHuts(), 1));
+		Lists.add(new HutList("list 1", getHuts(), 2));
+		Lists.add(new HutList("list 2", getHuts(), 3));
+		Lists.add(new HutList("list 3", getHuts(), 4));
+		Lists.add(new HutList("list 4", getHuts(), 5));
 
 		return Lists;
 	}
@@ -89,6 +104,4 @@ public class Lists extends DefaultActivity {
 
 		return Huts;
 	}
-
-	// TODO add lists and buttons to rearrange and delete lists
 }
