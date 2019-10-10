@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +51,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
 	View mapView;
-	GoogleMap googleMap;
+	static GoogleMap googleMap;
+	static String prefs = "MyPrefsFile";
+	static SharedPreferences settings;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +67,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //		circularBitmapDrawable.setCircular(true);
 //		iv.setImageDrawable(circularBitmapDrawable);
 
-		hutsMapa();
-
 		// Adds map
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 		assert mapFragment != null;
 		mapView = mapFragment.getView();
 		mapFragment.getMapAsync(this);
 
-		// Preferences for one time tasks:
-		final String prefs = "MyPrefsFile";
-
-		SharedPreferences settings = getSharedPreferences(prefs, 0);
+		// checks in preferences if it is the first time opening the app
+		settings = getSharedPreferences(prefs, 0);
 
 		if (settings.getBoolean("my_first_time", true)) {
 			// Welcome message:
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					// permission granted
 					setupActivity();
-					// googleMap.setMyLocationEnabled(true);  TODO enable My location if permission is granted (conditional in onMapReady?)
+					googleMap.setMyLocationEnabled(true);  // TODO enable My location if permission is granted (conditional in onMapReady?)
 				} else {
 					// permission denied
 					setupActivity();
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	@Override
 	public void onMapReady(final GoogleMap googleMap) {
-
+		MainActivity.googleMap = googleMap;
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			// TODO Personalise permission request message (lightbox)
 
@@ -185,15 +184,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			}
 		});
 
-		// Adding markers for the huts
-		//for (Hut hut : getHuts())
-//		for (Hut hut : lista) //TODO wait for response from the server
-//			googleMap.addMarker(new MarkerOptions()
-//					.position(hut.getLocation())
-//					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-//					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-//					.title(hut.getName())
-//			);
+		Request r = new Request();
+		r.hutsMapa(this);
 
 		// When click on map marker
 		googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -201,6 +193,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			public boolean onMarkerClick(final Marker marker) {
 				Log.d("click", "clicked on " + marker.getTitle());
 				marker.showInfoWindow();
+				CameraPosition cameraPosition = new CameraPosition.Builder()
+						.target(new LatLng(marker.getPosition().latitude,marker.getPosition().longitude))
+						.zoom(10)
+						.build();
+				googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 				return true;
 			}
 		});
@@ -209,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-				startActivity(new Intent(MainActivity.this, HutPage.class));
+			startActivity(new Intent(MainActivity.this, HutPage.class).putExtra("hut", (int) marker.getTag()));
 			}
 		});
 
@@ -227,24 +224,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.animateCamera(camUpd);
 	}
 
-//	@Override
-//	protected void onResume() {
-//		super.onResume();
-//
-//		if(googleMap != null){ //prevent crashing if the map doesn't exist yet (eg. on starting activity)
-//			googleMap.clear();
-//
-//			// Adding markers for the huts
-//			//for (Hut hut : getHuts())
-//			for (Hut hut : r.lista) //TODO wait for response from the server
-//				googleMap.addMarker(new MarkerOptions()
-//						.position(hut.getLocation())
-//						// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-//						//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-//						.title(hut.getName())
-//				);
-//		}
-//	}
+	public static void markers(List<Hut> lista){
+		// Adding markers for the huts
+		for (Hut hut : lista) {
+			Marker marker = googleMap.addMarker(new MarkerOptions()
+					.position(hut.getLocation())
+					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
+					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+					.title(hut.getName())
+			);
+			marker.setTag(hut.getId());
+		}
+	}
 
 	@Override
 	public void onBackPressed() {
@@ -284,119 +275,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	}
 
 	public void add(View v) {
-		// TODO first time click without login -> login/register lightbox
+		// checks in preferences if logged
+		if(settings.getBoolean("logged",false)){
+			// TODO first time click without login -> login/register lightbox
+		}
 
 		Log.d("click", "clicked on add");
 		startActivity(new Intent(this, AddHut.class));
 	}
 
 	public void lists(View v) {
-		// TODO first time click without login -> login/register lightbox
+		// checks in preferences if logged
+		if(settings.getBoolean("logged",false)){
+			// TODO first time click without login -> login/register lightbox
+		}
 
 		Log.d("click", "clicked on lists");
 		startActivity(new Intent(this, Lists.class));
 	}
 
 	public void profile(View v) {
-		// TODO first time click without login -> login/register lightbox
+		// checks in preferences if logged
+		if(settings.getBoolean("logged",false)){
+			// TODO first time click without login -> login/register lightbox
+		}
 
 		Log.d("click", "clicked on profile");
 		startActivity(new Intent(this, Profile.class));
-	}
-
-	// Huts hardcoded for testing
-	public ArrayList<Hut> getHuts() {
-		ArrayList<Hut> Huts = new ArrayList<>();
-
-		Huts.add(new Hut(1, "hut1 name", "", 4.5f, new LatLng(42.0, 1.0), 1, 1, 1, "img1"));
-		Huts.add(new Hut(2, "hut2 name", "", 4.0f, new LatLng(43.0, 1.0), 1, 1, 1, "img2"));
-		Huts.add(new Hut(3, "hut3 name", "", 2.5f, new LatLng(41.0, 1.0), 1, 1, 1, "img3"));
-		Huts.add(new Hut(4, "hut4 name", "", 1.5f, new LatLng(42.0, 2.0), 1, 1, 1, "img4"));
-		Huts.add(new Hut(5, "hut5 name", "", 5f, new LatLng(42.0, 0.0), 1, 1, 1, "img5"));
-
-		return Huts;
-	}
-
-	public void hutsMapa() {
-
-		OkHttpClient okHttpClient = new OkHttpClient.Builder()
-				.connectTimeout(30, TimeUnit.MINUTES)
-				.readTimeout(30, TimeUnit.SECONDS)
-				.writeTimeout(30, TimeUnit.SECONDS)
-				.build();
-
-		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("https://openhuts.herokuapp.com/")
-				.addConverterFactory(GsonConverterFactory.create())
-				.client(okHttpClient)
-				.build();
-
-		GetAPI apiGET = builder.create(GetAPI.class);
-
-		apiGET.GET().enqueue(new Callback<ResponseBody>() {
-
-			@Override
-			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-				try {
-					String respuesta = response.body().string();
-					Log.d("RESPUESTA", respuesta);
-					Toast.makeText(MainActivity.this, respuesta, Toast.LENGTH_LONG).show();
-
-					JSONObject jObject;
-					try {
-						jObject = new JSONObject(respuesta);
-						JSONArray jArray = jObject.getJSONArray("results");
-						List<Hut> lista = fromArrayToList(jArray);
-						Log.d("lista", ""+ lista);
-
-						// Adding markers for the huts
-//						googleMap.clear();
-
-						for (Hut hut : lista) //TODO wait for response from the server
-							googleMap.addMarker(new MarkerOptions()
-									.position(hut.getLocation())
-									// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-									//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-									.title(hut.getName())
-							);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void onFailure(Call<ResponseBody> call, Throwable t) {
-				Toast.makeText(MainActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
-				t.printStackTrace();
-			}
-
-			private List<Hut> fromArrayToList(JSONArray jArray) {
-				List<Hut> lista = new ArrayList<>();
-				for (int i = 0; i < jArray.length(); i++) {
-					try {
-						JSONObject object = jArray.getJSONObject(i);
-						// Pulling items from the array
-						int id = object.getInt("id");
-						String name = object.getString("name");
-						String desc = object.getString("description");
-						float rating = (float) object.getDouble("rating");
-						LatLng location = new LatLng(object.getDouble("lat"),object.getDouble("lon"));
-						int temp = object.getInt("temp");
-						int wind = object.getInt("wind");
-						int rain = object.getInt("rain");
-						String img = object.getString("img");
-
-						Hut hut = new Hut(id, name, desc, rating,location,temp,wind, rain,"");
-						lista.add(hut);
-					} catch (JSONException e) {
-						// Oops
-					}
-				}
-				return lista;
-			}
-		});
 	}
 }

@@ -3,6 +3,7 @@ package com.omar.openhuts;
 import android.Manifest;
 import android.content.Context;
 import android.os.Debug;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -27,25 +28,24 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.omar.openhuts.MainActivity.googleMap;
+import static com.omar.openhuts.MainActivity.settings;
+
 public class Request {
 	private Context ctx;
 	public static List<Hut> lista = new ArrayList<>();
 
 	public void hutsMapa(final Context ctx) {
-		this.ctx = ctx;
-
-
-		OkHttpClient okHttpClient = new OkHttpClient.Builder()
-				.connectTimeout(30, TimeUnit.MINUTES)
-				.readTimeout(30, TimeUnit.SECONDS)
-				.writeTimeout(30, TimeUnit.SECONDS)
-				.build();
-
+//		OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//				.connectTimeout(30, TimeUnit.MINUTES)
+//				.readTimeout(30, TimeUnit.SECONDS)
+//				.writeTimeout(30, TimeUnit.SECONDS)
+//				.build();
 
 		Retrofit builder = new Retrofit.Builder()
 				.baseUrl("https://openhuts.herokuapp.com/")
 				.addConverterFactory(GsonConverterFactory.create())
-				.client(okHttpClient)
+//				.client(okHttpClient)
 				.build();
 
 		GetAPI apiGET = builder.create(GetAPI.class);
@@ -53,19 +53,19 @@ public class Request {
 		apiGET.GET().enqueue(new Callback<ResponseBody>() {
 
 			@Override
-			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
 				try {
-					String respuesta = response.body().string();
-					Log.d("RESPUESTA", respuesta);
-					Toast.makeText(ctx, respuesta, Toast.LENGTH_LONG).show();
+					String response = res.body().string();
+					Log.d("server", "Datos recibidos");
 
 					JSONObject jObject;
 					try {
-						jObject = new JSONObject(respuesta);
+						jObject = new JSONObject(response);
 						JSONArray jArray = jObject.getJSONArray("results");
 						List<Hut> lista = fromArrayToList(jArray);
-						Log.d("lista", ""+ lista);
 
+						MainActivity.settings.edit().putString("huts", response).apply();
+						MainActivity.markers(lista);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -76,33 +76,8 @@ public class Request {
 
 			@Override
 			public void onFailure(Call<ResponseBody> call, Throwable t) {
-				Toast.makeText(ctx, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+				Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_SHORT).show();
 				t.printStackTrace();
-			}
-
-			private List<Hut> fromArrayToList(JSONArray jArray) {
-				List<Hut> lista = new ArrayList<>();
-				for (int i = 0; i < jArray.length(); i++) {
-					try {
-						JSONObject object = jArray.getJSONObject(i);
-						// Pulling items from the array
-						int id = object.getInt("id");
-						String name = object.getString("name");
-						String desc = object.getString("description");
-						float rating = (float) object.getDouble("rating");
-						LatLng location = new LatLng(object.getDouble("lat"),object.getDouble("lon"));
-						int temp = object.getInt("temp");
-						int wind = object.getInt("wind");
-						int rain = object.getInt("rain");
-						String img = object.getString("img");
-
-						Hut hut = new Hut(id, name, desc, rating,location,temp,wind, rain,"");
-						lista.add(hut);
-					} catch (JSONException e) {
-						// Oops
-					}
-				}
-				return lista;
 			}
 		});
 	}
@@ -131,5 +106,29 @@ public class Request {
 		});
 	}
 
+	public static List<Hut> fromArrayToList(JSONArray jArray) {
+		List<Hut> lista = new ArrayList<>();
+		for (int i = 0; i < jArray.length(); i++) {
+			try {
+				JSONObject object = jArray.getJSONObject(i);
+				// Pulling items from the array
+				int id = object.getInt("id");
+				String name = object.getString("name");
+				String desc = object.getString("description");
+				float rating = (float) object.getDouble("rating");
+				LatLng location = new LatLng(object.getDouble("lat"),object.getDouble("lon"));
+				int temp = object.getInt("temp");
+				int wind = object.getInt("wind");
+				int rain = object.getInt("rain");
+				String img = object.getString("img");
+
+				Hut hut = new Hut(id, name, desc, rating, location, temp, wind, rain,img);
+				lista.add(hut);
+			} catch (JSONException e) {
+				// Oops
+			}
+		}
+		return lista;
+	}
 	// TODO establish list of requests: login, register, map loading, hut page, profile page, new hut
 }

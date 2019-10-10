@@ -20,6 +20,8 @@ import static com.omar.openhuts.R.id.list;
 public class Lists extends DefaultActivity {
 	ListView lv;
 	boolean pressed = false;
+	ListAdapter adapter;
+	ArrayList<HutList> lists;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,11 @@ public class Lists extends DefaultActivity {
 		TextView tv = findViewById(R.id.title);
 		tv.setText("Saved huts");
 
-		final ArrayList<HutList> lists = getLists();
+		lists = getLists();
 
-		ListAdapter adapter = new ListAdapter(this, lists);
+		adapter = new ListAdapter(this, lists,false);
 
-		final ListView lv = findViewById(list);
+		lv = findViewById(list);
 		lv.setAdapter(adapter);
 
 		// TODO doesn't work onItemClick
@@ -50,24 +52,14 @@ public class Lists extends DefaultActivity {
 	// TODO activates and deactivates edit mode (doesn't work)
 	public void edit(View v) {
 		Log.d("click", "clicked on edit");
-
 		lv = findViewById(list);
-		Button btn;
 		if (!pressed) {
-			for (int i = 0; i < lv.getCount(); i++) {
-				View view = lv.getAdapter().getView(i, null, null);
-				btn = view.findViewById(R.id.delete);
-				btn.setVisibility(View.GONE);
-				btn.setEnabled(false);
-			}
+			adapter = new ListAdapter(this, lists,true);
+			lv.setAdapter(adapter);
 			pressed = true;
 		} else {
-			for (int i = 0; i < lv.getCount(); i++) {
-				View view = lv.getAdapter().getView(i, null, null);
-				btn = view.findViewById(R.id.delete);
-				btn.setVisibility(View.VISIBLE);
-				btn.setEnabled(true);
-			}
+			adapter = new ListAdapter(this, lists,false);
+			lv.setAdapter(adapter);
 			pressed = false;
 		}
 	}

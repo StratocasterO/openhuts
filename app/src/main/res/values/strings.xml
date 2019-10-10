@@ -6,6 +6,7 @@
 	<string name="fav">Favorites</string>
 	<string name="lists">Lists</string>
 	<string name="tac">By clicking on Register button you are agreeing to &lt;a href=http://link1/terms>Terms and Conditions&lt;/a></string>
+	<string name="server_error">Failed to connect to server</string>
 
 	<!--	TODO add dynamic strings instead of harcoded strings-->
 </resources>

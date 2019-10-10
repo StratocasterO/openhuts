@@ -1,8 +1,10 @@
 package com.omar.openhuts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 public class Favorites extends DefaultActivity {
 	ListView lv;
+	ArrayList<Hut> huts;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +35,26 @@ public class Favorites extends DefaultActivity {
 		btn.setVisibility (View.GONE);
 		btn.setEnabled(false);
 
-		ArrayList<Hut> huts = getHuts();
+		huts = getHuts();
 
 		HutAdapter adapter = new HutAdapter(this, huts);
 
-		ListView lv = findViewById(R.id.list);
+		lv = findViewById(R.id.list);
 		lv.setAdapter(adapter);
+
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+				int id_hut = huts.get(position).getId();
+				startActivity(new Intent(Favorites.this, HutPage.class)
+						.putExtra("hut", id_hut));
+			}
+		});
 	}
 
 	public void delete(View v){
+		lv = findViewById(R.id.list);
 		View item = (View) v.getParent();
 		int pos = lv.getPositionForView(item);
 		Log.d("click", "clicked on delete of item " + pos);
