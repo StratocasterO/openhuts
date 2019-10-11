@@ -33,7 +33,7 @@ public class HutPage extends DefaultActivity {
 		settings = getSharedPreferences(prefs, 0);
 		String huts = settings.getString("huts","");
 		JSONObject jObject;
-		JSONArray jArray = null;
+		JSONArray jArray;
 		try {
 			jObject = new JSONObject(huts);
 			jArray = jObject.getJSONArray("results");

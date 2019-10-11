@@ -38,7 +38,6 @@ public class Lists extends DefaultActivity {
 		lv = findViewById(list);
 		lv.setAdapter(adapter);
 
-		// TODO doesn't work onItemClick
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -75,11 +74,11 @@ public class Lists extends DefaultActivity {
 	public ArrayList<HutList> getLists() {
 		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new HutList("favorites", getHuts(), 1));
-		Lists.add(new HutList("list 1", getHuts(), 2));
-		Lists.add(new HutList("list 2", getHuts(), 3));
-		Lists.add(new HutList("list 3", getHuts(), 4));
-		Lists.add(new HutList("list 4", getHuts(), 5));
+		Lists.add(new HutList("Favorites", getHuts(), 1));
+		Lists.add(new HutList("List 1", getHuts(), 2));
+		Lists.add(new HutList("List 2", getHuts(), 3));
+		Lists.add(new HutList("List 3", getHuts(), 4));
+		Lists.add(new HutList("List 4", getHuts(), 5));
 
 		return Lists;
 	}

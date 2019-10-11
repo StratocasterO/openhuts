@@ -36,16 +36,9 @@ public class Request {
 	public static List<Hut> lista = new ArrayList<>();
 
 	public void hutsMapa(final Context ctx) {
-//		OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//				.connectTimeout(30, TimeUnit.MINUTES)
-//				.readTimeout(30, TimeUnit.SECONDS)
-//				.writeTimeout(30, TimeUnit.SECONDS)
-//				.build();
-
 		Retrofit builder = new Retrofit.Builder()
 				.baseUrl("https://openhuts.herokuapp.com/")
 				.addConverterFactory(GsonConverterFactory.create())
-//				.client(okHttpClient)
 				.build();
 
 		GetAPI apiGET = builder.create(GetAPI.class);
@@ -64,7 +57,10 @@ public class Request {
 						JSONArray jArray = jObject.getJSONArray("results");
 						List<Hut> lista = fromArrayToList(jArray);
 
+						// Saves data to preferences
 						MainActivity.settings.edit().putString("huts", response).apply();
+
+						// Set markers on the map
 						MainActivity.markers(lista);
 					} catch (JSONException e) {
 						e.printStackTrace();

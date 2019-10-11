@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,12 +14,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -49,11 +54,26 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
-	View mapView;
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 	static GoogleMap googleMap;
 	static String prefs = "MyPrefsFile";
 	static SharedPreferences settings;
+	View mapView;
+
+	public static void markers(List<Hut> lista) {
+		// Adding markers for the huts
+		if (lista != null) {
+			for (Hut hut : lista) {
+				Marker marker = googleMap.addMarker(new MarkerOptions()
+						.position(hut.getLocation())
+						// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
+						//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
+						.title(hut.getName())
+				);
+				marker.setTag(hut.getId());
+			}
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +81,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		setContentView(R.layout.activity_main);
 
 		// Makes image round #TODO icons with background for rounded button
-//		ImageView iv = findViewById(R.id.add);
-//		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add);
-//		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-//		circularBitmapDrawable.setCircular(true);
-//		iv.setImageDrawable(circularBitmapDrawable);
+		ImageView iv = findViewById(R.id.add);
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add_fons);
+		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+		circularBitmapDrawable.setCircular(true);
+		iv.setImageDrawable(circularBitmapDrawable);
 
 		// Adds map
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -112,14 +132,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					// permission granted
 					setupActivity();
-					googleMap.setMyLocationEnabled(true);  // TODO enable My location if permission is granted (conditional in onMapReady?)
+					googleMap.setMyLocationEnabled(true);
 				} else {
 					// permission denied
 					setupActivity();
 				}
 				return;
 			}
-			// other "cases" if the app needs more permissions
+			// Other cases if the app needs more permissions
 		}
 	}
 
@@ -133,6 +153,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	@Override
 	public void onMapReady(final GoogleMap googleMap) {
 		MainActivity.googleMap = googleMap;
+
+		// Makes request to the server
+		Request r = new Request();
+		r.hutsMapa(this);
+
+		// Sets markers from preferences
+		String huts = settings.getString("huts", "");
+		JSONObject jObject;
+		JSONArray jArray;
+		List<Hut> hutList = null;
+		try {
+			jObject = new JSONObject(huts);
+			jArray = jObject.getJSONArray("results");
+			hutList = Request.fromArrayToList(jArray);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		markers(hutList);
+
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			// TODO Personalise permission request message (lightbox)
 
@@ -167,8 +207,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				Criteria criteria = new Criteria();
 
 				@SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-				if (location != null)
-				{
+				if (location != null) {
 					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
 					CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -184,9 +223,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			}
 		});
 
-		Request r = new Request();
-		r.hutsMapa(this);
-
 		// When click on map marker
 		googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 			@Override
@@ -194,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				Log.d("click", "clicked on " + marker.getTitle());
 				marker.showInfoWindow();
 				CameraPosition cameraPosition = new CameraPosition.Builder()
-						.target(new LatLng(marker.getPosition().latitude,marker.getPosition().longitude))
+						.target(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude))
 						.zoom(10)
 						.build();
 				googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -206,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-			startActivity(new Intent(MainActivity.this, HutPage.class).putExtra("hut", (int) marker.getTag()));
+				startActivity(new Intent(MainActivity.this, HutPage.class).putExtra("hut", (int) marker.getTag()));
 			}
 		});
 
@@ -222,19 +258,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		CameraUpdate camUpd = CameraUpdateFactory.newCameraPosition(camPos);
 		googleMap.animateCamera(camUpd);
-	}
-
-	public static void markers(List<Hut> lista){
-		// Adding markers for the huts
-		for (Hut hut : lista) {
-			Marker marker = googleMap.addMarker(new MarkerOptions()
-					.position(hut.getLocation())
-					// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-					//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
-					.title(hut.getName())
-			);
-			marker.setTag(hut.getId());
-		}
 	}
 
 	@Override
@@ -276,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	public void add(View v) {
 		// checks in preferences if logged
-		if(settings.getBoolean("logged",false)){
+		if (settings.getBoolean("logged", false)) {
 			// TODO first time click without login -> login/register lightbox
 		}
 
@@ -286,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	public void lists(View v) {
 		// checks in preferences if logged
-		if(settings.getBoolean("logged",false)){
+		if (settings.getBoolean("logged", false)) {
 			// TODO first time click without login -> login/register lightbox
 		}
 
@@ -296,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	public void profile(View v) {
 		// checks in preferences if logged
-		if(settings.getBoolean("logged",false)){
+		if (settings.getBoolean("logged", false)) {
 			// TODO first time click without login -> login/register lightbox
 		}
 

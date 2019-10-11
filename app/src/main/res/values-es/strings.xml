@@ -7,4 +7,5 @@
 	<string name="lists">Listas</string>
     <string name="tac">Haciendo click en el botón de registro estás aceptando los &lt;a href=http://link1/terms>Términos y Condiciones&lt;/a></string>
 	<string name="server_error">Error al conectar con el servidor</string>
+	<string name="hut">hut</string>
 </resources>

@@ -49,7 +49,9 @@ public class HutAdapter extends android.widget.BaseAdapter {
 
 		// Rating:
 		RatingBar rb = row.findViewById(R.id.rating);
-//		rb.setRating(Huts.get(index).getRating());
+		rb.setRating(Huts.get(index).getRating());
+
+		row.setTag(R.string.hut,Huts.get(index).getId());
 
 		return row;
 	}

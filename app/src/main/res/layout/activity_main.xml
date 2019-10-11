@@ -10,7 +10,7 @@
 		android:id="@+id/barra"
 		android:layout_width="match_parent"
 		android:layout_height="60dp"
-		android:background="#b4745c"
+		android:background="@color/colorPrimaryDark"
 		app:layout_constraintBottom_toTopOf="@+id/container"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="1.0"
@@ -30,20 +30,6 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:srcCompat="@drawable/menu" />
-
-		<ImageButton
-			android:id="@+id/search"
-			android:layout_width="40dp"
-			android:layout_height="40dp"
-			android:layout_marginEnd="10dp"
-			android:layout_marginRight="10dp"
-			android:background="#00000000"
-			android:onClick="search"
-			android:scaleType="centerInside"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:srcCompat="@drawable/search" />
 
 		<ImageView
 			android:id="@+id/logo"
@@ -106,7 +92,7 @@
 				android:id="@+id/map_button"
 				android:layout_width="35dp"
 				android:layout_height="35dp"
-				android:layout_marginLeft="5dp"
+				android:layout_marginLeft="10dp"
 				android:layout_marginTop="10dp"
 				android:layout_marginRight="100dp"
 				android:layout_marginBottom="10dp"
@@ -122,13 +108,13 @@
 				android:layout_margin="5dp"
 				android:layout_marginLeft="100dp"
 				android:layout_marginTop="10dp"
-				android:layout_marginRight="5dp"
+				android:layout_marginRight="10dp"
 				android:layout_marginBottom="10dp"
 				android:layout_weight="1"
 				android:background="#00000000"
 				android:onClick="lists"
 				android:scaleType="centerInside"
-				app:srcCompat="@drawable/star_empty2" />
+				app:srcCompat="@drawable/cor_full" />
 
 			<ImageButton
 				android:id="@+id/search_button"

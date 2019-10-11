@@ -1,13 +1,17 @@
 package com.omar.openhuts;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -41,37 +45,37 @@ public class Favorites extends DefaultActivity {
 
 		lv = findViewById(R.id.list);
 		lv.setAdapter(adapter);
+	}
 
-		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-				int id_hut = huts.get(position).getId();
-				startActivity(new Intent(Favorites.this, HutPage.class)
-						.putExtra("hut", id_hut));
-			}
-		});
+	public void hutClicked(View v){
+		int id_hut = (int) v.getTag(R.string.hut);
+		startActivity(new Intent(Favorites.this, HutPage.class)
+				.putExtra("hut", id_hut));
 	}
 
 	public void delete(View v){
 		lv = findViewById(R.id.list);
+		if (v.getBackground() != null && v.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.cor_full).getConstantState())){
+			v.setBackgroundResource(R.drawable.cor_empty);
+		} else {
+			v.setBackgroundResource(R.drawable.cor_full);
+		}
 		View item = (View) v.getParent();
 		int pos = lv.getPositionForView(item);
 		Log.d("click", "clicked on delete of item " + pos);
 
 		// TODO delete item from list
-		// TODO change heart icon to gray/red
 	}
 
 	// Lists hardcoded for testing
 	public ArrayList<HutList> getLists() {
 		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new HutList("favorites", getHuts(), 1));
-		Lists.add(new HutList("list 1", getHuts(), 2));
-		Lists.add(new HutList("list 2", getHuts(), 3));
-		Lists.add(new HutList("list 3", getHuts(), 4));
-		Lists.add(new HutList("list 4", getHuts(), 5));
+		Lists.add(new HutList("Favorites", getHuts(), 1));
+		Lists.add(new HutList("List 1", getHuts(), 2));
+		Lists.add(new HutList("List 2", getHuts(), 3));
+		Lists.add(new HutList("List 3", getHuts(), 4));
+		Lists.add(new HutList("List 4", getHuts(), 5));
 
 		return Lists;
 	}
