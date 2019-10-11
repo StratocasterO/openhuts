@@ -288,11 +288,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		alertDialog.show();
 	}
 
-	public void menu(View v) {
-		Log.d("click", "clicked on menu");
-		startActivity(new Intent(this, MenuApp.class));
-	}
-
 	public void search(View v) {
 		Log.d("click", "clicked on search");
 	}

@@ -21,13 +21,6 @@ public class DefaultActivity extends AppCompatActivity {
 		overridePendingTransition(0,0);
 	}
 
-	public void menu(View v) {
-		Log.d("click", "clicked on menu");
-		startActivity(new Intent(this, MenuApp.class));
-
-		overridePendingTransition(0,0);
-	}
-
 	// function to remove animations between activities
 	@Override
 	public void overridePendingTransition(int enterAnim, int exitAnim) {

@@ -25,7 +25,6 @@
 		<activity android:name=".Lists"/>
 		<activity android:name=".Register"/>
 		<activity android:name=".Login"/>
-		<activity android:name=".MenuApp"/>
 		<activity android:name=".MainActivity"/>
 
 		<meta-data
