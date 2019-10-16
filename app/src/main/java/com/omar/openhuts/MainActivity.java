@@ -98,13 +98,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		if (settings.getBoolean("my_first_time", true)) {
 			// Welcome message:
-			// TODO https://stackoverflow.com/questions/13341560/how-to-create-a-custom-dialog-box-in-android
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					MainActivity.this);
 			// Setting Dialog Title
 			alertDialog.setTitle("Welcome to Open Huts");
 			// Setting Dialog Message
-			alertDialog.setMessage("Open Huts is a cool application and here's why.");
+			alertDialog.setMessage("Open Huts is a cool application and here's why.\n\nVamos a pedirte la localización, si no la autorizas no funcionarán algunas características.\n\nPuedes autorizarla más tarde en los ajustes del móvil Apps>Permisos>Localización");
 			// Setting Icon to Dialog
 			alertDialog.setIcon(R.drawable.logo);
 			// Setting Positive "Yes" Button
@@ -114,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 						public void onClick(DialogInterface dialog, int which) {
 							// Write your code here to invoke NO event
 							dialog.cancel();
+							requestPermission();
 						}
 					});
 			// Showing Alert Message
@@ -173,14 +173,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		markers(hutList);
 
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-			// TODO Personalise permission request message (lightbox)
-
-			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-		} else {
-			googleMap.setMyLocationEnabled(true);
-		}
+		requestPermission();
 
 		// Positioning My Location button on bottom right
 		if (mapView != null &&
@@ -201,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			@Override
 			public boolean onMyLocationButtonClick() {
 				Log.d("click", "clicked on my location");
-				// TODO first click without permission -> request permission
 
 				LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				Criteria criteria = new Criteria();
@@ -260,6 +252,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.animateCamera(camUpd);
 	}
 
+	private void requestPermission(){
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+		} else {
+			googleMap.setMyLocationEnabled(true);
+		}
+	}
+
 	@Override
 	public void onBackPressed() {
 		getIntent().putExtra("EXIT", true);
@@ -296,6 +297,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		// checks in preferences if logged
 		if (settings.getBoolean("logged", false)) {
 			// TODO first time click without login -> login/register lightbox
+			// TODO personalized dialog: https://stackoverflow.com/questions/13341560/how-to-create-a-custom-dialog-box-in-android
 		}
 
 		Log.d("click", "clicked on add");
