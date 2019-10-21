@@ -1,15 +1,12 @@
 package com.omar.openhuts;
 
-import android.Manifest;
 import android.content.Context;
-import android.os.Debug;
-import android.provider.Settings;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,18 +15,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.omar.openhuts.MainActivity.googleMap;
-import static com.omar.openhuts.MainActivity.settings;
 
 public class Request {
 	private Context ctx;
@@ -41,7 +33,7 @@ public class Request {
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
-		GetAPI apiGET = builder.create(GetAPI.class);
+		RequestAPI apiGET = builder.create(RequestAPI.class);
 
 		apiGET.GET().enqueue(new Callback<ResponseBody>() {
 
@@ -78,7 +70,7 @@ public class Request {
 		});
 	}
 
-	public void postReq(final Context ctx, View v) {
+	public void login(final Context ctx, String user, String pass) {
 		this.ctx = ctx;
 
 		Retrofit builder = new Retrofit.Builder()
@@ -86,18 +78,18 @@ public class Request {
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
-		PostAPI apiPOST = builder.create(PostAPI.class);
+		RequestAPI apiPOST = builder.create(RequestAPI.class);
 
-		apiPOST.POST("Pablo", "Monteserrín").enqueue(new Callback<ResponseBody>() {
-
+		apiPOST.POST(user, pass).enqueue(new Callback<ResponseBody>() {
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+				// If response is okay...
+				MainActivity.settings.edit().putBoolean("logged", true).apply();
 			}
 
 			@Override
 			public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+				// Oops
 			}
 		});
 	}
@@ -117,8 +109,9 @@ public class Request {
 				int wind = object.getInt("wind");
 				int rain = object.getInt("rain");
 				String img = object.getString("img");
+				String url = object.getString("url");
 
-				Hut hut = new Hut(id, name, desc, rating, location, temp, wind, rain,img);
+				Hut hut = new Hut(id, name, desc, rating, location, temp, wind, rain, img, url);
 				lista.add(hut);
 			} catch (JSONException e) {
 				// Oops

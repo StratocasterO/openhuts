@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+// DEPRECATED
+
 public class Login extends DefaultActivity {
 
 	@Override
@@ -19,8 +21,4 @@ public class Login extends DefaultActivity {
 	public void login(View v){
 		Log.d("click", "clicked on button login");
 	}
-
-	// TODO login/register in lightbox
-	// TODO login with Facebook
-	// TODO login with Google
 }

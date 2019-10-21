@@ -1,7 +1,6 @@
 package com.omar.openhuts;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
@@ -21,10 +20,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,26 +35,14 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends DefaultActivity implements OnMapReadyCallback {
 	static GoogleMap googleMap;
 	static String prefs = "MyPrefsFile";
 	static SharedPreferences settings;
@@ -101,14 +89,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					MainActivity.this);
 			// Setting Dialog Title
-			alertDialog.setTitle("Welcome to Open Huts");
+			alertDialog.setTitle("Bienvenido a Open Huts");
 			// Setting Dialog Message
-			alertDialog.setMessage("Open Huts is a cool application and here's why.\n\nVamos a pedirte la localización, si no la autorizas no funcionarán algunas características.\n\nPuedes autorizarla más tarde en los ajustes del móvil Apps>Permisos>Localización");
+			alertDialog.setMessage("Esta aplicación te permite registrar y consultar refugios de montaña.\n\nVamos a pedirte acceso a la localización de tu móvil. Si no la autorizas no funcionarán algunas características, pero podrás seguir usando la app.\n\nPuedes autorizarla más tarde en los ajustes del móvil Apps>Permisos>Localización");
 			// Setting Icon to Dialog
 			alertDialog.setIcon(R.drawable.logo);
 			// Setting Positive "Yes" Button
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("Start",
+			alertDialog.setNegativeButton("Empezar",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							// Write your code here to invoke NO event
@@ -193,8 +181,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
 			@Override
 			public boolean onMyLocationButtonClick() {
-				Log.d("click", "clicked on my location");
-
 				LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				Criteria criteria = new Criteria();
 
@@ -252,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		googleMap.animateCamera(camUpd);
 	}
 
-	private void requestPermission(){
+	private void requestPermission() {
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
@@ -294,33 +280,104 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	}
 
 	public void add(View v) {
-		// checks in preferences if logged
-		if (settings.getBoolean("logged", false)) {
-			// TODO first time click without login -> login/register lightbox
-			// TODO personalized dialog: https://stackoverflow.com/questions/13341560/how-to-create-a-custom-dialog-box-in-android
-		}
-
 		Log.d("click", "clicked on add");
-		startActivity(new Intent(this, AddHut.class));
+
+		if (logged()) {
+			startActivity(new Intent(this, AddHut.class));
+		} else {
+			LoginRegister();
+		}
 	}
 
 	public void lists(View v) {
-		// checks in preferences if logged
-		if (settings.getBoolean("logged", false)) {
-			// TODO first time click without login -> login/register lightbox
-		}
-
 		Log.d("click", "clicked on lists");
-		startActivity(new Intent(this, Lists.class));
+
+		if (logged()) {
+			startActivity(new Intent(this, Lists.class));
+		} else {
+			LoginRegister();
+		}
 	}
 
 	public void profile(View v) {
-		// checks in preferences if logged
-		if (settings.getBoolean("logged", false)) {
-			// TODO first time click without login -> login/register lightbox
-		}
-
 		Log.d("click", "clicked on profile");
-		startActivity(new Intent(this, Profile.class));
+
+		if (logged()) {
+			startActivity(new Intent(this, Profile.class));
+		} else {
+			LoginRegister();
+		}
+	}
+
+	public void LoginRegister() {
+		LayoutInflater inflater = this.getLayoutInflater();
+
+		// Login dialog
+		final AlertDialog.Builder login = new AlertDialog.Builder(MainActivity.this);
+		login.setView(inflater.inflate(R.layout.dialog_login, null));
+		login.setCancelable(false);
+		login.setTitle("Log in");
+		login.setIcon(R.drawable.logo);
+		login.setPositiveButton("Log in",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface login, int which) {
+						Log.d("click", "clicked on button login");
+						EditText u = findViewById(R.id.email);
+						EditText p = findViewById(R.id.password);
+						String user = u.getText().toString();
+						String pass = p.getText().toString();
+						Request r = new Request();
+						r.login(MainActivity.this, user, pass);
+						login.cancel();
+					}
+				});
+		login.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface login, int which) {
+						login.cancel();
+					}
+				});
+
+		// Register dialog
+		final AlertDialog.Builder register = new AlertDialog.Builder(MainActivity.this);
+		register.setView(inflater.inflate(R.layout.dialog_register, null));
+		register.setCancelable(false);
+		register.setTitle("Register");
+		register.setIcon(R.drawable.logo);
+		register.setPositiveButton("Register",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface register, int which) {
+						Log.d("click", "clicked on button register");
+						// TODO Request.register();
+						register.cancel();
+					}
+				});
+		register.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface register, int which) {
+						register.cancel();
+					}
+				});
+
+		// Login/register dialog
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+		alertDialog.setTitle("Login or register");
+		alertDialog.setMessage("This feature requires login or registration");
+		alertDialog.setIcon(R.drawable.logo);
+		alertDialog.setPositiveButton("Log in",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+						login.show();
+					}
+				});
+		alertDialog.setNegativeButton("Register",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+						register.show();
+					}
+				});
+		alertDialog.show();
 	}
 }

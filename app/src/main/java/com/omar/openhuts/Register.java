@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+// DEPRECATED
+
 public class Register extends DefaultActivity {
 
 	@Override
@@ -16,7 +18,7 @@ public class Register extends DefaultActivity {
 		setContentView(R.layout.activity_register);
 
 		Spanned policy = Html.fromHtml(getString(R.string.tac));
-		TextView termsOfUse = findViewById(R.id.tac);
+		TextView termsOfUse = findViewById(R.id.terms);
 		termsOfUse.setText(policy);
 		termsOfUse.setMovementMethod(LinkMovementMethod.getInstance());
 	}

@@ -23,8 +23,8 @@
 		<activity android:name=".HutPage"/>
 		<activity android:name=".Favorites"/>
 		<activity android:name=".Lists"/>
-		<activity android:name=".Register"/>
-		<activity android:name=".Login"/>
+<!--		<activity android:name=".Register"/>-->
+<!--		<activity android:name=".Login"/>-->
 		<activity android:name=".MainActivity"/>
 
 		<meta-data
