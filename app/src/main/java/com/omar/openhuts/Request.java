@@ -1,9 +1,7 @@
 package com.omar.openhuts;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -33,9 +31,9 @@ public class Request {
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
-		RequestAPI apiGET = builder.create(RequestAPI.class);
+		RequestAPI api = builder.create(RequestAPI.class);
 
-		apiGET.GET().enqueue(new Callback<ResponseBody>() {
+		api.fetchHuts().enqueue(new Callback<ResponseBody>() {
 
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
@@ -78,13 +76,16 @@ public class Request {
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
-		RequestAPI apiPOST = builder.create(RequestAPI.class);
+		RequestAPI api = builder.create(RequestAPI.class);
 
-		apiPOST.POST(user, pass).enqueue(new Callback<ResponseBody>() {
+		api.login(user, pass).enqueue(new Callback<ResponseBody>() { // TODO fix request
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-				// If response is okay...
-				MainActivity.settings.edit().putBoolean("logged", true).apply();
+				if (response.toString() == "logged") {
+					MainActivity.settings.edit().putBoolean("logged", true).apply();
+				} else {
+					Log.d("server","login error");
+				}
 			}
 
 			@Override
@@ -92,6 +93,18 @@ public class Request {
 				// Oops
 			}
 		});
+
+//		api.login(user, pass, new Callback<User>() {
+//					@Override
+//					public void failure(final RetrofitError error) {
+//						android.util.Log.i("example", "Error, body: " + error.getBody().toString());
+//					}
+//					@Override
+//					public void success(User user, Response response) {
+//						// Do something with the User object returned
+//					}
+//				}
+//		);
 	}
 
 	public static List<Hut> fromArrayToList(JSONArray jArray) {

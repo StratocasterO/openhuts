@@ -314,7 +314,8 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		// Login dialog
 		final AlertDialog.Builder login = new AlertDialog.Builder(MainActivity.this);
-		login.setView(inflater.inflate(R.layout.dialog_login, null));
+		final View loginDialog = inflater.inflate(R.layout.dialog_login, null);
+		login.setView(loginDialog);
 		login.setCancelable(false);
 		login.setTitle("Log in");
 		login.setIcon(R.drawable.logo);
@@ -322,8 +323,8 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface login, int which) {
 						Log.d("click", "clicked on button login");
-						EditText u = findViewById(R.id.email);
-						EditText p = findViewById(R.id.password);
+						EditText u = loginDialog.findViewById(R.id.email);
+						EditText p = loginDialog.findViewById(R.id.password);
 						String user = u.getText().toString();
 						String pass = p.getText().toString();
 						Request r = new Request();
