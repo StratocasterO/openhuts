@@ -68,7 +68,7 @@ public class Request {
 		});
 	}
 
-	public void login(final Context ctx, String user, String pass) {
+	public void login(final Context ctx, User user) {
 		this.ctx = ctx;
 
 		Retrofit builder = new Retrofit.Builder()
@@ -78,7 +78,7 @@ public class Request {
 
 		RequestAPI api = builder.create(RequestAPI.class);
 
-		api.login(user, pass).enqueue(new Callback<ResponseBody>() { // TODO fix request
+		api.login(user).enqueue(new Callback<ResponseBody>() { // TODO fix request
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 				if (response.toString() == "logged") {

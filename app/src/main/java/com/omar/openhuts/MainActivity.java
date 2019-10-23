@@ -161,8 +161,6 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		markers(hutList);
 
-		requestPermission();
-
 		// Positioning My Location button on bottom right
 		if (mapView != null &&
 				mapView.findViewById(Integer.parseInt("1")) != null) {
@@ -325,10 +323,9 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 						Log.d("click", "clicked on button login");
 						EditText u = loginDialog.findViewById(R.id.email);
 						EditText p = loginDialog.findViewById(R.id.password);
-						String user = u.getText().toString();
-						String pass = p.getText().toString();
+						User user = new User(0, u.getText().toString(), "", p.getText().toString(), "","", "");
 						Request r = new Request();
-						r.login(MainActivity.this, user, pass);
+						r.login(MainActivity.this, user);
 						login.cancel();
 					}
 				});

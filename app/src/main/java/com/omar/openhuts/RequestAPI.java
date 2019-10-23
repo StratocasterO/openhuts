@@ -4,6 +4,7 @@ import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -18,9 +19,8 @@ public interface RequestAPI {
 	// Las cabeceras deben estar en consonancia con el tipo de dato que vamos a recuperar u obtendremos un error 406
 	// @Headers({"Accept: application/json"}) TODO post request (?)
 	@Headers({"Accept: text/html"})
-	@FormUrlEncoded
 	@POST("users/login")  // here the URL of the request
-	Call<ResponseBody> login(@SafeParcelable.Field(id = 1, defaultValue = "user") String user, @SafeParcelable.Field(id = 1, defaultValue = "pass") String pass);
+	Call<ResponseBody> login(@Body User user);
 
 //  https://stackoverflow.com/questions/19796235/post-with-android-retrofit
 //	@FormUrlEncoded
