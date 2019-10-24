@@ -45,7 +45,7 @@ public class Request {
 					try {
 						jObject = new JSONObject(response);
 						JSONArray jArray = jObject.getJSONArray("results");
-						List<Hut> lista = fromArrayToList(jArray);
+						List<Hut> lista = hutsArrayToList(jArray);
 
 						// Saves data to preferences
 						MainActivity.settings.edit().putString("huts", response).apply();
@@ -68,6 +68,82 @@ public class Request {
 		});
 	}
 
+	public void listas(final Context ctx) {
+		Retrofit builder = new Retrofit.Builder()
+				.baseUrl("https://openhuts.herokuapp.com/")
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
+
+		RequestAPI api = builder.create(RequestAPI.class);
+
+		api.fetchLists().enqueue(new Callback<ResponseBody>() {
+
+			@Override
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
+				try {
+					String response = res.body().string();
+					Log.d("server", "Datos recibidos");
+
+					JSONObject jObject;
+					try {
+						jObject = new JSONObject(response);
+						JSONArray jArray = jObject.getJSONArray("results");
+						List<List> lista = listsArrayToList(jArray);
+
+						// Saves data to preferences
+						MainActivity.settings.edit().putString("lists", response).apply();
+
+						// TODO write lists onto Lists activity
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseBody> call, Throwable t) {
+				Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_SHORT).show();
+				t.printStackTrace();
+			}
+		});
+
+		api.fetchHutList().enqueue(new Callback<ResponseBody>() {
+
+			@Override
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
+				try {
+					String response = res.body().string();
+					Log.d("server", "Datos recibidos");
+
+					JSONObject jObject;
+					try {
+						jObject = new JSONObject(response);
+						JSONArray jArray = jObject.getJSONArray("results");
+						List<Hut> lista = hutsArrayToList(jArray);
+
+						// Saves data to preferences
+						MainActivity.settings.edit().putString("hutsInLists", response).apply();
+
+						// TODO write huts onto Favorites activity
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+
+			@Override
+			public void onFailure(Call<ResponseBody> call, Throwable t) {
+				Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_SHORT).show();
+				t.printStackTrace();
+			}
+		});
+	}
+
 	public void login(final Context ctx, User user) {
 		this.ctx = ctx;
 
@@ -78,13 +154,14 @@ public class Request {
 
 		RequestAPI api = builder.create(RequestAPI.class);
 
-		api.login(user).enqueue(new Callback<ResponseBody>() { // TODO fix request
+		// TODO fix request
+		api.login(user).enqueue(new Callback<ResponseBody>() {
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 				if (response.toString() == "logged") {
 					MainActivity.settings.edit().putBoolean("logged", true).apply();
 				} else {
-					Log.d("server","login error");
+					Log.d("server", "login error");
 				}
 			}
 
@@ -94,6 +171,7 @@ public class Request {
 			}
 		});
 
+//      https://stackoverflow.com/questions/19796235/post-with-android-retrofit <- Example of POST
 //		api.login(user, pass, new Callback<User>() {
 //					@Override
 //					public void failure(final RetrofitError error) {
@@ -107,7 +185,34 @@ public class Request {
 //		);
 	}
 
-	public static List<Hut> fromArrayToList(JSONArray jArray) {
+	public void register(final Context ctx, User user) {
+		this.ctx = ctx;
+
+		Retrofit builder = new Retrofit.Builder()
+				.baseUrl("https://openhuts.herokuapp.com/")
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
+
+		RequestAPI api = builder.create(RequestAPI.class);
+
+		api.register(user).enqueue(new Callback<ResponseBody>() {
+			@Override
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+				if (response.toString() == "registered") {
+
+				} else {
+					Log.d("server", "register error");
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseBody> call, Throwable t) {
+				// Oops
+			}
+		});
+	}
+
+	public static List<Hut> hutsArrayToList(JSONArray jArray) {
 		List<Hut> lista = new ArrayList<>();
 		for (int i = 0; i < jArray.length(); i++) {
 			try {
@@ -117,7 +222,7 @@ public class Request {
 				String name = object.getString("name");
 				String desc = object.getString("description");
 				float rating = (float) object.getDouble("rating");
-				LatLng location = new LatLng(object.getDouble("lat"),object.getDouble("lon"));
+				LatLng location = new LatLng(object.getDouble("lat"), object.getDouble("lon"));
 				int temp = object.getInt("temp");
 				int wind = object.getInt("wind");
 				int rain = object.getInt("rain");
@@ -132,5 +237,14 @@ public class Request {
 		}
 		return lista;
 	}
-	// TODO establish list of requests: login, register, map loading, hut page, profile page, new hut
+
+	public static List<List> listsArrayToList(JSONArray jArray) {
+		List<List> lista = new ArrayList<>();
+
+		// TODO listsArrayToList()
+
+		return lista;
+	}
+
+	// TODO establish list of requests: hut page, profile page, new hut
 }

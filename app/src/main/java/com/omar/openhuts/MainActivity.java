@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -154,7 +155,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		try {
 			jObject = new JSONObject(huts);
 			jArray = jObject.getJSONArray("results");
-			hutList = Request.fromArrayToList(jArray);
+			hutList = Request.hutsArrayToList(jArray);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -315,15 +316,15 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		final View loginDialog = inflater.inflate(R.layout.dialog_login, null);
 		login.setView(loginDialog);
 		login.setCancelable(false);
-		login.setTitle("Log in");
+		login.setTitle(R.string.login);
 		login.setIcon(R.drawable.logo);
-		login.setPositiveButton("Log in",
+		login.setPositiveButton(R.string.login,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface login, int which) {
 						Log.d("click", "clicked on button login");
 						EditText u = loginDialog.findViewById(R.id.email);
 						EditText p = loginDialog.findViewById(R.id.password);
-						User user = new User(0, u.getText().toString(), "", p.getText().toString(), "","", "");
+						User user = new User(0, u.getText().toString(), "", p.getText().toString(), "", "", "");
 						Request r = new Request();
 						r.login(MainActivity.this, user);
 						login.cancel();
@@ -338,16 +339,30 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		// Register dialog
 		final AlertDialog.Builder register = new AlertDialog.Builder(MainActivity.this);
-		register.setView(inflater.inflate(R.layout.dialog_register, null));
+		final View registerDialog = inflater.inflate(R.layout.dialog_register, null);
+		register.setView(registerDialog);
 		register.setCancelable(false);
-		register.setTitle("Register");
+		register.setTitle(R.string.register);
 		register.setIcon(R.drawable.logo);
-		register.setPositiveButton("Register",
+		register.setPositiveButton(R.string.register,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface register, int which) {
 						Log.d("click", "clicked on button register");
 						// TODO Request.register();
-						register.cancel();
+						EditText e = loginDialog.findViewById(R.id.email);
+						EditText u = loginDialog.findViewById(R.id.user);
+						EditText p = loginDialog.findViewById(R.id.password);
+						EditText p2 = loginDialog.findViewById(R.id.repass);
+
+						if (p == p2) {
+							User user = new User(0, u.getText().toString(), e.getText().toString(), p.getText().toString(), "", "", "");
+							Request r = new Request();
+							r.register(MainActivity.this, user);
+							register.cancel();
+						} else {
+							// Password not repeated correctly
+							Toast.makeText(MainActivity.this, "Check your password", Toast.LENGTH_SHORT).show();
+						}
 					}
 				});
 		register.setNegativeButton("Cancel",

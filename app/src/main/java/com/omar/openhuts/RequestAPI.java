@@ -15,14 +15,27 @@ public interface RequestAPI {
 	@GET("huts/fetch")
 	Call<ResponseBody> fetchHuts();
 
+	// Fetch lists request
+	@GET("lists/fetch")
+	Call<ResponseBody> fetchLists();
+
+	// Fetch huts in list request
+	@GET("lists/fetchHuts")
+	Call<ResponseBody> fetchHutList();
+
 	// Login request
-	// Las cabeceras deben estar en consonancia con el tipo de dato que vamos a recuperar u obtendremos un error 406
 	// @Headers({"Accept: application/json"}) TODO post request (?)
 	@Headers({"Accept: text/html"})
-	@POST("users/login")  // here the URL of the request
+	@POST("users/login")
 	Call<ResponseBody> login(@Body User user);
 
-//  https://stackoverflow.com/questions/19796235/post-with-android-retrofit
+	// Register request
+	// @Headers({"Accept: application/json"}) TODO post request (?)
+	@Headers({"Accept: text/html"})
+	@POST("users/register")
+	Call<ResponseBody> register(@Body User user);
+
+//  https://stackoverflow.com/questions/19796235/post-with-android-retrofit <- Example of POST
 //	@FormUrlEncoded
 //	@POST("/login")
 //	void login(@Field("username") String username, @Field("password") String password, Callback<UserResponse> callback);

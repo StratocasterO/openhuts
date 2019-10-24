@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.Iterator;
 import java.util.List;
@@ -37,7 +34,7 @@ public class HutPage extends DefaultActivity {
 		try {
 			jObject = new JSONObject(huts);
 			jArray = jObject.getJSONArray("results");
-			hutList = Request.fromArrayToList(jArray);
+			hutList = Request.hutsArrayToList(jArray);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
