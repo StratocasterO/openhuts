@@ -3,6 +3,7 @@ package com.omar.openhuts;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
@@ -22,5 +23,11 @@ public class Profile extends DefaultActivity {
 		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
 		circularBitmapDrawable.setCircular(true);
 		iv.setImageDrawable(circularBitmapDrawable);
+	}
+
+	public void logout(View v){
+		settings.edit().putBoolean("logged", false).apply();
+		finish();
+		overridePendingTransition(0,0);
 	}
 }

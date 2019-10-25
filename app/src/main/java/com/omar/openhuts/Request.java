@@ -163,6 +163,9 @@ public class Request {
 				} else {
 					Log.d("server", "login error");
 				}
+				boolean log = MainActivity.settings.getBoolean("logged", false);
+
+				Toast.makeText(ctx, "logueado = " + log , Toast.LENGTH_SHORT).show();
 			}
 
 			@Override

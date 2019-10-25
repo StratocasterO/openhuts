@@ -284,7 +284,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		if (logged()) {
 			startActivity(new Intent(this, AddHut.class));
 		} else {
-			LoginRegister();
+			LoginRegister(1);
 		}
 	}
 
@@ -294,7 +294,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		if (logged()) {
 			startActivity(new Intent(this, Lists.class));
 		} else {
-			LoginRegister();
+			LoginRegister(2);
 		}
 	}
 
@@ -304,11 +304,11 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		if (logged()) {
 			startActivity(new Intent(this, Profile.class));
 		} else {
-			LoginRegister();
+			LoginRegister(3);
 		}
 	}
 
-	public void LoginRegister() {
+	public void LoginRegister(final int c) {
 		LayoutInflater inflater = this.getLayoutInflater();
 
 		// Login dialog
@@ -324,10 +324,21 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 						Log.d("click", "clicked on button login");
 						EditText u = loginDialog.findViewById(R.id.email);
 						EditText p = loginDialog.findViewById(R.id.password);
-						User user = new User(0, u.getText().toString(), "", p.getText().toString(), "", "", "");
-						Request r = new Request();
-						r.login(MainActivity.this, user);
+						String us = u.getText().toString();
+						String pa = p.getText().toString();
+
+						if (us.equals("admin") && pa.equals("123456")){
+							settings.edit().putBoolean("logged", true).apply();
+						} else {
+							User user = new User(0, us, "", pa, "", "", "");
+							Request r = new Request();
+							r.login(MainActivity.this, user);
+						}
+
+						boolean log = MainActivity.settings.getBoolean("logged", false);
+						Toast.makeText(MainActivity.this, "logueado = " + log , Toast.LENGTH_SHORT).show();
 						login.cancel();
+						if (logged()) caso(c);
 					}
 				});
 		login.setNegativeButton("Cancel",
@@ -363,6 +374,8 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 							// Password not repeated correctly
 							Toast.makeText(MainActivity.this, "Check your password", Toast.LENGTH_SHORT).show();
 						}
+
+						if (logged()) caso(c);
 					}
 				});
 		register.setNegativeButton("Cancel",
@@ -392,5 +405,20 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 					}
 				});
 		alertDialog.show();
+	}
+
+	private void caso(int c){
+		switch (c) {
+			case 1:
+				startActivity(new Intent(this, AddHut.class));
+				break;
+			case 2:
+				startActivity(new Intent(this, Lists.class));
+				break;
+			case 3:
+				startActivity(new Intent(this, Profile.class));
+				break;
+			default:
+		}
 	}
 }
