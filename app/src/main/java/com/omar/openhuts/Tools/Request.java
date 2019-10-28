@@ -1,10 +1,14 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Tools;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.omar.openhuts.Activities.MainActivity;
+import com.omar.openhuts.POJOs.Hut;
+import com.omar.openhuts.POJOs.User;
+import com.omar.openhuts.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +31,7 @@ public class Request {
 
 	public void hutsMapa(final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("https://openhuts.herokuapp.com/")
+				.baseUrl("http://pablomonteserin.com:12973/")
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
@@ -70,7 +74,7 @@ public class Request {
 
 	public void listas(final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("https://openhuts.herokuapp.com/")
+				.baseUrl("http://pablomonteserin.com:12973/")
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
@@ -147,8 +151,8 @@ public class Request {
 	public void login(final Context ctx, User user) {
 		this.ctx = ctx;
 
-		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("https://openhuts.herokuapp.com/")
+		final Retrofit builder = new Retrofit.Builder()
+				.baseUrl("http://pablomonteserin.com:12973/")
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
@@ -158,14 +162,19 @@ public class Request {
 		api.login(user).enqueue(new Callback<ResponseBody>() {
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-				if (response.toString() == "logged") {
+				String respuesta = null;
+				try {
+					respuesta = response.body().string();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				if (respuesta.equals("logged")) {
 					MainActivity.settings.edit().putBoolean("logged", true).apply();
+					Log.d("server", "login successful");
 				} else {
 					Log.d("server", "login error");
 				}
-				boolean log = MainActivity.settings.getBoolean("logged", false);
-
-				Toast.makeText(ctx, "logueado = " + log , Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -173,26 +182,13 @@ public class Request {
 				// Oops
 			}
 		});
-
-//      https://stackoverflow.com/questions/19796235/post-with-android-retrofit <- Example of POST
-//		api.login(user, pass, new Callback<User>() {
-//					@Override
-//					public void failure(final RetrofitError error) {
-//						android.util.Log.i("example", "Error, body: " + error.getBody().toString());
-//					}
-//					@Override
-//					public void success(User user, Response response) {
-//						// Do something with the User object returned
-//					}
-//				}
-//		);
 	}
 
 	public void register(final Context ctx, User user) {
 		this.ctx = ctx;
 
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("https://openhuts.herokuapp.com/")
+				.baseUrl("http://pablomonteserin.com:12973/")
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
@@ -201,7 +197,14 @@ public class Request {
 		api.register(user).enqueue(new Callback<ResponseBody>() {
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-				if (response.toString() == "registered") {
+				String respuesta = null;
+				try {
+					respuesta = response.body().string();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				if (respuesta.equals("registered")) {
 
 				} else {
 					Log.d("server", "register error");

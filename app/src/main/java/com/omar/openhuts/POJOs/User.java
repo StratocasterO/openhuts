@@ -1,4 +1,4 @@
-package com.omar.openhuts;
+package com.omar.openhuts.POJOs;
 
 // This class is a POJO (Plain Old Java Object) that represents a user
 public class User {

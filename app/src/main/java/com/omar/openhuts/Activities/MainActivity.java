@@ -1,4 +1,4 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -36,6 +36,10 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.omar.openhuts.POJOs.Hut;
+import com.omar.openhuts.POJOs.User;
+import com.omar.openhuts.R;
+import com.omar.openhuts.Tools.Request;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +50,7 @@ import java.util.List;
 public class MainActivity extends DefaultActivity implements OnMapReadyCallback {
 	static GoogleMap googleMap;
 	static String prefs = "MyPrefsFile";
-	static SharedPreferences settings;
+	public static SharedPreferences settings;
 	View mapView;
 
 	public static void markers(List<Hut> lista) {
@@ -69,7 +73,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Makes image round #TODO icons with background for rounded button
+		// Makes image round TODO icons with background for rounded button
 		ImageView iv = findViewById(R.id.add);
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add_fons);
 		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);

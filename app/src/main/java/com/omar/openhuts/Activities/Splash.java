@@ -1,9 +1,11 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.omar.openhuts.R;
 
 public class Splash extends AppCompatActivity {
 

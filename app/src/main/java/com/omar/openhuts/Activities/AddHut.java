@@ -1,7 +1,9 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Activities;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.omar.openhuts.R;
 
 public class AddHut extends DefaultActivity {
 
@@ -13,4 +15,6 @@ public class AddHut extends DefaultActivity {
 		TextView tv = findViewById(R.id.title);
 		tv.setText("Hut");
 	}
+
+	// TODO https://pablomonteserin.com/curso/android/ "Subida de una imagen de la galería al servidor con Retrofit"
 }

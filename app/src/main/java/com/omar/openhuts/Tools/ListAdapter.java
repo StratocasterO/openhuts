@@ -1,4 +1,4 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Tools;
 
 import android.content.Context;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.omar.openhuts.POJOs.HutList;
+import com.omar.openhuts.R;
+
 import java.util.ArrayList;
 
 public class ListAdapter extends android.widget.BaseAdapter {
@@ -14,7 +17,7 @@ public class ListAdapter extends android.widget.BaseAdapter {
 	private Context ctx;
 	private boolean btn;
 
-	ListAdapter(Context ctx, ArrayList<HutList> Lists, boolean btn) {
+	public ListAdapter(Context ctx, ArrayList<HutList> Lists, boolean btn) {
 		super();
 		this.ctx = ctx;
 		this.Lists = Lists;

@@ -1,9 +1,14 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.omar.openhuts.Activities.DefaultActivity;
+import com.omar.openhuts.POJOs.Hut;
+import com.omar.openhuts.R;
+import com.omar.openhuts.Tools.Request;
 
 import org.json.JSONArray;
 import org.json.JSONException;

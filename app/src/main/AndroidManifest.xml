@@ -11,21 +11,21 @@
 		android:supportsRtl="true"
 		android:usesCleartextTraffic="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".Splash">
+		<activity android:name=".Activities.Splash">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".Profile"/>
-		<activity android:name=".AddHut"/>
-		<activity android:name=".HutPage"/>
-		<activity android:name=".Favorites"/>
-		<activity android:name=".Lists"/>
+		<activity android:name=".Activities.Profile"/>
+		<activity android:name=".Activities.AddHut"/>
+		<activity android:name=".Activities.HutPage"/>
+		<activity android:name=".Activities.Favorites"/>
+		<activity android:name=".Activities.Lists"/>
 <!--		<activity android:name=".Register"/>-->
 <!--		<activity android:name=".Login"/>-->
-		<activity android:name=".MainActivity"/>
+		<activity android:name=".Activities.MainActivity"/>
 
 		<meta-data
 			android:name="com.google.android.maps.v2.API_KEY"

@@ -1,4 +1,4 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

@@ -1,19 +1,18 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
-
 import com.google.android.gms.maps.model.LatLng;
+import com.omar.openhuts.Tools.HutAdapter;
+import com.omar.openhuts.POJOs.Hut;
+import com.omar.openhuts.POJOs.HutList;
+import com.omar.openhuts.R;
 
 import java.util.ArrayList;
 

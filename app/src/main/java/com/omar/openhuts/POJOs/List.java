@@ -1,4 +1,4 @@
-package com.omar.openhuts;
+package com.omar.openhuts.POJOs;
 
 import java.util.ArrayList;
 

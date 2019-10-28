@@ -1,4 +1,4 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Tools;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.omar.openhuts.POJOs.Hut;
+import com.omar.openhuts.R;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.omar.openhuts;
+package com.omar.openhuts.Activities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+
+import com.omar.openhuts.R;
 
 public class Profile extends DefaultActivity {
 
