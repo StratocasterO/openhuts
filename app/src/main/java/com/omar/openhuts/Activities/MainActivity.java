@@ -287,6 +287,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		if (logged()) {
 			startActivity(new Intent(this, AddHut.class));
+			overridePendingTransition(0,0);
 		} else {
 			LoginRegister(1);
 		}
@@ -297,6 +298,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		if (logged()) {
 			startActivity(new Intent(this, Lists.class));
+			overridePendingTransition(0,0);
 		} else {
 			LoginRegister(2);
 		}
@@ -307,6 +309,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		if (logged()) {
 			startActivity(new Intent(this, Profile.class));
+			overridePendingTransition(0,0);
 		} else {
 			LoginRegister(3);
 		}
@@ -415,12 +418,15 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		switch (c) {
 			case 1:
 				startActivity(new Intent(this, AddHut.class));
+				overridePendingTransition(0,0);
 				break;
 			case 2:
 				startActivity(new Intent(this, Lists.class));
+				overridePendingTransition(0,0);
 				break;
 			case 3:
 				startActivity(new Intent(this, Profile.class));
+				overridePendingTransition(0,0);
 				break;
 			default:
 		}

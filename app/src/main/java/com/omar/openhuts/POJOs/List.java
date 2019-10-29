@@ -7,7 +7,7 @@ public class List {
 	private int id;
 	private int user;
 	private String name;
-	private ArrayList<Hut> huts;
+	private ArrayList<Hut> huts; // TODO ArrayList of Huts or Array of IDs (?)
 
 	public List(int id, int user, String name, ArrayList<Hut> huts){
 		this.id = id;

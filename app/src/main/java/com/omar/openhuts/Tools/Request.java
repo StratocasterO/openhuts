@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.omar.openhuts.Activities.MainActivity;
 import com.omar.openhuts.POJOs.Hut;
+import com.omar.openhuts.POJOs.HutList;
 import com.omar.openhuts.POJOs.User;
 import com.omar.openhuts.R;
 
@@ -15,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +94,7 @@ public class Request {
 					try {
 						jObject = new JSONObject(response);
 						JSONArray jArray = jObject.getJSONArray("results");
-						List<List> lista = listsArrayToList(jArray);
+						List<HutList> lista = listsArrayToList(jArray); // TODO this into Lists activity
 
 						// Saves data to preferences
 						MainActivity.settings.edit().putString("lists", response).apply();
@@ -223,7 +225,7 @@ public class Request {
 		for (int i = 0; i < jArray.length(); i++) {
 			try {
 				JSONObject object = jArray.getJSONObject(i);
-				// Pulling items from the array
+
 				int id = object.getInt("id");
 				String name = object.getString("name");
 				String desc = object.getString("description");
@@ -244,11 +246,29 @@ public class Request {
 		return lista;
 	}
 
-	public static List<List> listsArrayToList(JSONArray jArray) {
-		List<List> lista = new ArrayList<>();
+	public static List<HutList> listsArrayToList(JSONArray jArray) {
+		ArrayList<HutList> lista = new ArrayList<>();
 
 		// TODO listsArrayToList()
+		for (int i = 0; i < jArray.length(); i++) {
+			try {
+				JSONObject object = jArray.getJSONObject(i);
 
+				int id = object.getInt("id");
+				String name = object.getString("name");
+				ArrayList<Integer> huts = null;
+				JSONArray hutsArray = object.getJSONArray("huts");
+				for (int j = 0; j < hutsArray.length(); j++){
+					JSONObject item = hutsArray.getJSONObject(j);
+					huts.add(item.getInt("hut"));
+				}
+
+				HutList list = new HutList(name, huts, id);
+				lista.add(list);
+			} catch (JSONException e) {
+				// Oops
+			}
+		}
 		return lista;
 	}
 

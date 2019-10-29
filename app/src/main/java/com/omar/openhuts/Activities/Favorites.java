@@ -50,6 +50,7 @@ public class Favorites extends DefaultActivity {
 		int id_hut = (int) v.getTag(R.string.hut);
 		startActivity(new Intent(Favorites.this, HutPage.class)
 				.putExtra("hut", id_hut));
+		overridePendingTransition(0,0);
 	}
 
 	public void delete(View v){
@@ -70,7 +71,7 @@ public class Favorites extends DefaultActivity {
 	public ArrayList<HutList> getLists() {
 		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new HutList("Favorites", getHuts(), 1));
+		Lists.add(new HutList("Favorites", getHuts(), 1)); // TODO fix lists
 		Lists.add(new HutList("List 1", getHuts(), 2));
 		Lists.add(new HutList("List 2", getHuts(), 3));
 		Lists.add(new HutList("List 3", getHuts(), 4));
