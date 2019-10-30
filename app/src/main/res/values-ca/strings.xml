@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="profile">Perfil</string>
+	<string name="login">Entra</string>
+	<string name="register">Registra\'t</string>
+	<string name="fav">Preferits</string>
+	<string name="lists">Llistes</string>
+    <string name="tac">Clicant el botó de registre estàs acceptant els Termes i Condicions</string>
+	<string name="server_error">Hi ha hagut un error al connectar amb el servidor</string>
+	<string name="hut">hut</string>
+</resources>

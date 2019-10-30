@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/colorPrimary"
+	android:orientation="horizontal"
+	android:onClick="hutClicked">
+
+	<ImageView
+		android:id="@+id/photo"
+		android:layout_width="80dp"
+		android:layout_height="80dp"
+		android:layout_margin="15dp"
+		android:adjustViewBounds="true"
+		android:cropToPadding="false"
+		android:scaleType="centerCrop"
+		tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/linearLayout2"
+		android:layout_width="match_parent"
+		android:layout_height="80dp"
+		android:layout_marginTop="15dp"
+		android:layout_marginRight="15dp"
+		android:layout_marginBottom="15dp">
+
+		<RatingBar
+			android:id="@+id/rating"
+			style="@style/CustomRatingBar"
+			android:layout_width="100dp"
+			android:layout_height="20dp"
+			android:isIndicator="true"
+			android:numStars="5"
+			android:rating="2.6"
+			android:stepSize=".1"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/img" />
+
+		<TextView
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="TextView"
+			android:textSize="18dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:id="@+id/distance"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="TextView"
+			android:textSize="15dp"
+			app:layout_constraintBottom_toTopOf="@+id/rating"
+			app:layout_constraintStart_toStartOf="@+id/name"
+			app:layout_constraintTop_toBottomOf="@+id/name" />
+
+		<ImageButton
+			android:id="@+id/fav"
+			android:layout_width="35dp"
+			android:layout_height="30dp"
+			android:layout_marginRight="10dp"
+			android:background="@drawable/cor_full"
+			android:onClick="delete"
+			android:scaleType="centerInside"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

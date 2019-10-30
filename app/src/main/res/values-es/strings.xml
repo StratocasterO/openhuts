@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="profile">Perfil</string>
+	<string name="login">Entrar</string>
+	<string name="register">Registro</string>
+	<string name="fav">Favoritos</string>
+	<string name="lists">Listas</string>
+    <string name="tac">Haciendo click en el botón de registro estás aceptando los Términos y Condiciones</string>
+	<string name="server_error">Error al conectar con el servidor</string>
+	<string name="hut">hut</string>
+</resources>
