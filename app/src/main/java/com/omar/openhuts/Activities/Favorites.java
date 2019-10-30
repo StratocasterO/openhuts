@@ -71,11 +71,11 @@ public class Favorites extends DefaultActivity {
 	public ArrayList<HutList> getLists() {
 		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new HutList("Favorites", getHuts(), 1)); // TODO fix lists
-		Lists.add(new HutList("List 1", getHuts(), 2));
-		Lists.add(new HutList("List 2", getHuts(), 3));
-		Lists.add(new HutList("List 3", getHuts(), 4));
-		Lists.add(new HutList("List 4", getHuts(), 5));
+		Lists.add(new HutList("Favorites", 5, 1)); // TODO fix lists
+		Lists.add(new HutList("List 1", 3, 2));
+		Lists.add(new HutList("List 2", 6, 3));
+		Lists.add(new HutList("List 3", 7, 4));
+		Lists.add(new HutList("List 4", 1, 5));
 
 		return Lists;
 	}

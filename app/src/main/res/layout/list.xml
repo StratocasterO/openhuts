@@ -49,6 +49,8 @@
 			android:layout_height="35dp"
 			android:layout_marginEnd="5dp"
 			android:layout_marginRight="5dp"
+			android:background="#00000000"
+			android:drawableBottom="@android:drawable/ic_menu_delete"
 			android:onClick="delete"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"

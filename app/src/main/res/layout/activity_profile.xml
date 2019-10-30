@@ -53,18 +53,6 @@
 			app:layout_constraintTop_toTopOf="parent"
 			app:srcCompat="@android:drawable/sym_def_app_icon" />
 
-		<RatingBar
-			android:id="@+id/ratingBar"
-			style="@style/CustomRatingBar2"
-			android:layout_width="160dp"
-			android:layout_height="32dp"
-			android:layout_marginTop="10dp"
-			android:rating="3.5"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.498"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/location" />
-
 		<TextView
 			android:id="@+id/name"
 			android:layout_width="wrap_content"
@@ -127,8 +115,7 @@
 			android:scaleType="fitCenter"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:srcCompat="@android:drawable/ic_menu_manage"
-			android:contentDescription="TODO" />
+			app:srcCompat="@android:drawable/ic_menu_manage" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--	TODO add Settings and Log out buttons -->

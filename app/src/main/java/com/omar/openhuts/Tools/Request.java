@@ -16,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -255,15 +254,11 @@ public class Request {
 				JSONObject object = jArray.getJSONObject(i);
 
 				int id = object.getInt("id");
+				int num = object.getInt("num");
 				String name = object.getString("name");
-				ArrayList<Integer> huts = null;
-				JSONArray hutsArray = object.getJSONArray("huts");
-				for (int j = 0; j < hutsArray.length(); j++){
-					JSONObject item = hutsArray.getJSONObject(j);
-					huts.add(item.getInt("hut"));
-				}
 
-				HutList list = new HutList(name, huts, id);
+
+				HutList list = new HutList(name, num, id);
 				lista.add(list);
 			} catch (JSONException e) {
 				// Oops

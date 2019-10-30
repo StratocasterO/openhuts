@@ -7,14 +7,12 @@ import java.util.ArrayList;
 // This class is a POJO (Plain Old Java Object) that represents a list
 public class HutList {
 	private String name;
-	private ArrayList<Integer> listHuts;
 	private int num;
 	private int id;
 
-	public HutList(String name, ArrayList<Integer> listHuts, int id){
+	public HutList(String name, int num, int id){
 		this.name = name;
-		this.listHuts = listHuts;
-		this.num = listHuts.size();
+		this.num = num;
 		this.id = id;
 	}
 
@@ -25,14 +23,6 @@ public class HutList {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setListHuts(ArrayList<Integer> listHuts) {
-		this.listHuts = listHuts;
-	}
-
-	public ArrayList<Integer> getListHuts() {
-		return listHuts;
 	}
 
 	public int getNum() {

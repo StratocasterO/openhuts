@@ -75,11 +75,11 @@ public class Lists extends DefaultActivity {
 	public ArrayList<HutList> getLists() {
 		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new HutList("Favorites", getHuts(), 1));
-		Lists.add(new HutList("List 1", getHuts(), 2));
-		Lists.add(new HutList("List 2", getHuts(), 3));
-		Lists.add(new HutList("List 3", getHuts(), 4));
-		Lists.add(new HutList("List 4", getHuts(), 5));
+		Lists.add(new HutList("Favorites", 5, 1));
+		Lists.add(new HutList("List 1", 5, 2));
+		Lists.add(new HutList("List 2", 5, 3));
+		Lists.add(new HutList("List 3", 5, 4));
+		Lists.add(new HutList("List 4", 5, 5));
 
 		return Lists;
 	}
