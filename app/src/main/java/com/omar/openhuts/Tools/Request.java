@@ -32,7 +32,8 @@ public class Request {
 
 	public void hutsMapa(final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("http://pablomonteserin.com:12973/")
+//				.baseUrl("http://pablomonteserin.com:12973/")
+				.baseUrl("https://openhuts.herokuapp.com/")
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 

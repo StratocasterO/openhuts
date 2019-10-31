@@ -34,7 +34,7 @@
 			android:layout_marginTop="10dp"
 			android:layout_marginEnd="10dp"
 			android:layout_marginRight="10dp"
-			android:background="#70FFFFFF"
+			android:background="@color/colorPrimary"
 			android:gravity="center"
 			android:orientation="horizontal"
 			android:paddingLeft="10dp"
@@ -130,6 +130,7 @@
 		</LinearLayout>
 
 		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/hutCard"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="10dp"
@@ -138,12 +139,13 @@
 			android:layout_marginRight="10dp"
 			android:layout_marginBottom="10dp"
 			android:background="@color/colorPrimary"
+			android:visibility="invisible"
 			app:layout_constraintBottom_toTopOf="@+id/add"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent">
 
 			<ImageView
-				android:id="@+id/imageView10"
+				android:id="@+id/image"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="10dp"
@@ -156,7 +158,7 @@
 				tools:srcCompat="@tools:sample/avatars" />
 
 			<TextView
-				android:id="@+id/textView2"
+				android:id="@+id/name"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="10dp"
@@ -164,11 +166,11 @@
 				android:layout_marginTop="10dp"
 				android:text="TextView"
 				android:textSize="20dp"
-				app:layout_constraintStart_toEndOf="@+id/imageView10"
+				app:layout_constraintStart_toEndOf="@+id/image"
 				app:layout_constraintTop_toTopOf="parent" />
 
 			<TextView
-				android:id="@+id/textView3"
+				android:id="@+id/location"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="10dp"
@@ -176,8 +178,8 @@
 				android:text="TextView"
 				android:textSize="15dp"
 				app:layout_constraintBottom_toTopOf="@+id/ratingBar"
-				app:layout_constraintStart_toEndOf="@+id/imageView10"
-				app:layout_constraintTop_toBottomOf="@+id/textView2" />
+				app:layout_constraintStart_toEndOf="@+id/image"
+				app:layout_constraintTop_toBottomOf="@+id/name" />
 
 			<RatingBar
 				android:id="@+id/ratingBar"
@@ -188,7 +190,7 @@
 				android:layout_marginLeft="10dp"
 				android:layout_marginBottom="10dp"
 				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toEndOf="@+id/imageView10" />
+				app:layout_constraintStart_toEndOf="@+id/image" />
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
 		<ImageButton

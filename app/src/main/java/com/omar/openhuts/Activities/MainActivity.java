@@ -216,6 +216,8 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 						.build();
 				googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 				return true;
+
+				// TODO show hut card
 			}
 		});
 
