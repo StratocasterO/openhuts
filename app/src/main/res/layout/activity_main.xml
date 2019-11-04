@@ -52,7 +52,7 @@
 				android:inputType="textPersonName" />
 
 			<ImageButton
-				android:id="@+id/search_button2"
+				android:id="@+id/search_button"
 				android:layout_width="80dp"
 				android:layout_height="50dp"
 				android:layout_margin="5dp"
@@ -70,9 +70,35 @@
 			android:background="@color/colorPrimary"
 			android:gravity="center_horizontal|center_vertical"
 			android:orientation="horizontal"
+			android:paddingLeft="100dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent">
+
+			<ImageButton
+				android:id="@+id/map_button"
+				android:layout_width="35dp"
+				android:layout_height="35dp"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp"
+				android:layout_weight="1"
+				android:background="#00000000"
+				android:scaleType="centerInside"
+				app:srcCompat="@drawable/map" />
+
+			<ImageButton
+				android:id="@+id/lists"
+				android:layout_width="35dp"
+				android:layout_height="35dp"
+				android:layout_margin="5dp"
+				android:layout_marginTop="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_marginBottom="10dp"
+				android:layout_weight="1"
+				android:background="#00000000"
+				android:onClick="lists"
+				android:scaleType="centerInside"
+				app:srcCompat="@drawable/favorites" />
 
 			<ImageButton
 				android:id="@+id/profile"
@@ -85,48 +111,8 @@
 				android:background="#00000000"
 				android:onClick="profile"
 				android:scaleType="centerInside"
-				app:srcCompat="@drawable/menu" />
+				app:srcCompat="@drawable/profile" />
 
-			<ImageButton
-				android:id="@+id/map_button"
-				android:layout_width="35dp"
-				android:layout_height="35dp"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginRight="100dp"
-				android:layout_marginBottom="10dp"
-				android:layout_weight="1"
-				android:background="#00000000"
-				android:scaleType="centerInside"
-				app:srcCompat="@drawable/close" />
-
-			<ImageButton
-				android:id="@+id/lists"
-				android:layout_width="35dp"
-				android:layout_height="35dp"
-				android:layout_margin="5dp"
-				android:layout_marginLeft="100dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginRight="10dp"
-				android:layout_marginBottom="10dp"
-				android:layout_weight="1"
-				android:background="#00000000"
-				android:onClick="lists"
-				android:scaleType="centerInside"
-				app:srcCompat="@drawable/cor_full" />
-
-			<ImageButton
-				android:id="@+id/search_button"
-				android:layout_width="35dp"
-				android:layout_height="35dp"
-				android:layout_margin="5dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp"
-				android:layout_weight="1"
-				android:background="#00000000"
-				android:onClick="search"
-				android:scaleType="centerInside"
-				app:srcCompat="@drawable/search" />
 		</LinearLayout>
 
 		<androidx.constraintlayout.widget.ConstraintLayout
@@ -158,7 +144,7 @@
 				tools:srcCompat="@tools:sample/avatars" />
 
 			<TextView
-				android:id="@+id/name"
+				android:id="@+id/name_text"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="10dp"
@@ -197,6 +183,8 @@
 			android:id="@+id/add"
 			android:layout_width="60dp"
 			android:layout_height="60dp"
+			android:layout_marginStart="15dp"
+			android:layout_marginLeft="15dp"
 			android:layout_marginBottom="5dp"
 			android:background="@color/colorPrimary"
 			android:onClick="add"
@@ -205,7 +193,6 @@
 			android:paddingRight="5dp"
 			android:scaleType="centerInside"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:srcCompat="@drawable/add"
 			tools:layout_constraintStart_toStartOf="parent" />

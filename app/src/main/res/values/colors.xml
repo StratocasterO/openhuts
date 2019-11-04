@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#f7f6f0</color>
-	<color name="colorPrimaryDark">#b4745c</color>
+	<color name="colorPrimary">#f1f1f2</color>
+	<color name="colorPrimaryDark">#c17259</color>
 	<color name="colorAccent">#8c4123</color>
+	<color name="logoGreen">#97c396</color>
+	<color name="logoBrown">#c17259</color>
+	<color name="logoRed">#9c3f1e</color>
+	<color name="logoGrey">#565656</color>
+	<color name="text">#565656</color>
+	<color name="yellow">#fff936</color>
+	<color name="facebook">#38558f</color>
+	<color name="google">#b12319</color>
+
 </resources>
 
 <!-- TODO add full color palette -->

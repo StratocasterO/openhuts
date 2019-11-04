@@ -68,7 +68,7 @@
 				android:layout_height="match_parent">
 
 				<TextView
-					android:id="@+id/pasword_text"
+					android:id="@+id/pass_text"
 					android:layout_width="80dp"
 					android:layout_height="wrap_content"
 					android:text="Password" />
@@ -88,7 +88,6 @@
 				android:layout_height="match_parent">
 
 				<TextView
-					android:id="@+id/repass_text"
 					android:layout_width="80dp"
 					android:layout_height="wrap_content" />
 

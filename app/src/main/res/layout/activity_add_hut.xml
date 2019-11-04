@@ -1,41 +1,337 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activities.AddHut">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/barra"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#b4745c"
-        app:layout_constraintBottom_toTopOf="@+id/container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".Activities.AddHut">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barra">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/barra"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:background="#b4745c"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:paddingLeft="15dp"
-            android:paddingTop="5dp"
-            android:text="TextView"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:background="@color/colorPrimary"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/barra">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+		<ImageView
+			android:id="@+id/imageView11"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/title"
+			tools:srcCompat="@tools:sample/avatars" />
+
+		<TableLayout
+			android:id="@+id/tableLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="20dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginEnd="20dp"
+			android:layout_marginRight="20dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/imageView11">
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/img_text"
+					android:layout_width="80dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:text="Image" />
+
+				<ImageButton
+					android:id="@+id/image_upload"
+					android:layout_width="30dp"
+					android:layout_height="30dp"
+					android:layout_gravity="right"
+					android:layout_marginRight="15dp"
+					android:adjustViewBounds="true"
+					android:background="#00000000"
+					android:scaleType="centerInside"
+					app:srcCompat="@drawable/map" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/name_text"
+					android:layout_width="80dp"
+					android:layout_height="wrap_content"
+					android:text="Name" />
+
+				<EditText
+					android:id="@+id/name"
+					android:layout_width="250dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:hint="Hut name"
+					android:inputType="text" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/desc_text"
+					android:layout_width="80dp"
+					android:layout_height="wrap_content"
+					android:text="Description" />
+
+				<EditText
+					android:id="@+id/desc"
+					android:layout_width="250dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:hint="Hut description"
+					android:inputType="text" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/location"
+					android:layout_width="80dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:text="Location" />
+
+				<LinearLayout
+					android:layout_width="282dp"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+
+					<EditText
+						android:id="@+id/latitude"
+						android:layout_width="230dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="10dp"
+						android:hint="Latitude"
+						android:inputType="number" />
+
+					<ImageButton
+						android:id="@+id/locate"
+						android:layout_width="30dp"
+						android:layout_height="30dp"
+						android:layout_gravity="center_vertical"
+						android:layout_marginLeft="19dp"
+						android:adjustViewBounds="true"
+						android:background="#00000000"
+						android:scaleType="centerInside"
+						app:srcCompat="@drawable/map" />
+				</LinearLayout>
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/textView2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+				<EditText
+					android:id="@+id/longitude"
+					android:layout_width="230dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_marginRight="50dp"
+					android:hint="Longitude"
+					android:inputType="number" />
+
+			</TableRow>
+
+		</TableLayout>
+
+		<TextView
+			android:id="@+id/title"
+			android:layout_width="0dp"
+			android:layout_height="45dp"
+			android:paddingLeft="15dp"
+			android:paddingTop="5dp"
+			android:text="Upload new hut"
+			android:textSize="30dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<LinearLayout
+			android:id="@+id/linearLayout3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:orientation="horizontal"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/tableLayout">
+
+			<ImageButton
+				android:id="@+id/imageButton2"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_margin="5dp"
+				android:background="#00000000"
+				android:scaleType="centerInside"
+				app:srcCompat="@drawable/hut_full" />
+
+			<ImageButton
+				android:id="@+id/imageButton3"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_margin="5dp"
+				android:background="#00000000"
+				android:scaleType="centerInside"
+				app:srcCompat="@drawable/hut_full" />
+
+			<ImageButton
+				android:id="@+id/imageButton4"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_margin="5dp"
+				android:background="#00000000"
+				android:scaleType="centerInside"
+				app:srcCompat="@drawable/hut_full" />
+		</LinearLayout>
+
+		<GridLayout
+			android:id="@+id/services"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="45dp"
+			android:layout_marginLeft="45dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginEnd="45dp"
+			android:layout_marginRight="45dp"
+			android:columnCount="8"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+			<ImageView
+				android:id="@+id/imageView9"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView16"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView17"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView18"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView5"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView6"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView7"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView8"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView2"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView3"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+			<ImageView
+				android:id="@+id/imageView4"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				app:srcCompat="@android:drawable/ic_menu_camera" />
+
+		</GridLayout>
+
+		<Button
+			android:id="@+id/button"
+			style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:text="Send"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+		<RatingBar
+			android:id="@+id/ratingBar2"
+			style="@style/CustomRatingBar2"
+			android:layout_width="wrap_content"
+			android:layout_height="32dp"
+			android:layout_marginTop="10dp"
+			android:rating="0"
+			android:stepSize="1"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/services" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
