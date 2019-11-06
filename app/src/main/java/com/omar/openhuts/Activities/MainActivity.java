@@ -51,6 +51,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 	static GoogleMap googleMap;
 	static String prefs = "MyPrefsFile";
 	public static SharedPreferences settings;
+	private static User user = new User(0,"","","","","","");
 	View mapView;
 
 	public static void markers(List<Hut> lista) {
@@ -338,8 +339,10 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 						if (us.equals("admin") && pa.equals("123456")){
 							settings.edit().putBoolean("logged", true).apply();
+
 						} else {
-							User user = new User(0, us, "", pa, "", "", "");
+							user.setName(us);
+							user.setPass(pa);
 							Request r = new Request();
 							r.login(MainActivity.this, user);
 						}

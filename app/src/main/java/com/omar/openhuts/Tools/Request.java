@@ -174,6 +174,7 @@ public class Request {
 				if (respuesta.equals("logged")) {
 					MainActivity.settings.edit().putBoolean("logged", true).apply();
 					Log.d("server", "login successful");
+					// TODO recieve user from database
 				} else {
 					Log.d("server", "login error");
 				}
@@ -246,7 +247,7 @@ public class Request {
 		return lista;
 	}
 
-	public static List<HutList> listsArrayToList(JSONArray jArray) {
+	public static ArrayList<HutList> listsArrayToList(JSONArray jArray) {
 		ArrayList<HutList> lista = new ArrayList<>();
 
 		// TODO listsArrayToList()

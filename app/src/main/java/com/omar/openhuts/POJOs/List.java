@@ -2,12 +2,13 @@ package com.omar.openhuts.POJOs;
 
 import java.util.ArrayList;
 
+@Deprecated
 // This class is a POJO (Plain Old Java Object) that represents a hut list
 public class List {
 	private int id;
 	private int user;
 	private String name;
-	private ArrayList<Hut> huts; // TODO ArrayList of Huts or Array of IDs (?)
+	private ArrayList<Hut> huts;
 
 	public List(int id, int user, String name, ArrayList<Hut> huts){
 		this.id = id;

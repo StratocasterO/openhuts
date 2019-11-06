@@ -13,8 +13,14 @@ import com.omar.openhuts.POJOs.Hut;
 import com.omar.openhuts.POJOs.HutList;
 import com.omar.openhuts.R;
 import com.omar.openhuts.Tools.ListAdapter;
+import com.omar.openhuts.Tools.Request;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.omar.openhuts.R.id.list;
 
@@ -32,17 +38,35 @@ public class Lists extends DefaultActivity {
 		TextView tv = findViewById(R.id.title);
 		tv.setText("Saved huts");
 
-		lists = getLists();
+		//lists = getLists();
 
-		adapter = new ListAdapter(this, lists,false);
+		// Request
+		Request r = new Request();
+		r.listas(this);
+
+		// Sets lists from preferences
+		String lists = settings.getString("lists", "");
+		JSONObject jObject;
+		JSONArray jArray;
+		ArrayList<HutList> listList = null;
+		try {
+			jObject = new JSONObject(lists);
+			jArray = jObject.getJSONArray("results");
+			listList = Request.listsArrayToList(jArray);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		adapter = new ListAdapter(this, listList,false);
 
 		lv = findViewById(list);
 		lv.setAdapter(adapter);
 
+		final ArrayList<HutList> finalListList = listList;
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				int id_list = lists.get(position).getId();
+				int id_list = finalListList.get(position).getId();
 				startActivity(new Intent(Lists.this, Favorites.class)
 						.putExtra("list", id_list));
 			}
@@ -82,18 +106,5 @@ public class Lists extends DefaultActivity {
 		Lists.add(new HutList("List 4", 5, 5));
 
 		return Lists;
-	}
-
-	// Huts hardcoded for testing
-	public ArrayList<Hut> getHuts() {
-		ArrayList<Hut> Huts = new ArrayList<Hut>();
-
-		Huts.add(new Hut(1, "hut1 name", "", 4.5f, new LatLng(42.0, 1.0), 1, 1, 1, "img1","http://openhuts.com"));
-		Huts.add(new Hut(2, "hut2 name", "", 4.0f, new LatLng(43.0, 1.0), 1, 1, 1, "img2","http://openhuts.com"));
-		Huts.add(new Hut(3, "hut3 name", "", 2.5f, new LatLng(41.0, 1.0), 1, 1, 1, "img3","http://openhuts.com"));
-		Huts.add(new Hut(4, "hut4 name", "", 1.5f, new LatLng(42.0, 2.0), 1, 1, 1, "img4","http://openhuts.com"));
-		Huts.add(new Hut(5, "hut5 name", "", 5f, new LatLng(42.0, 0.0), 1, 1, 1, "img5","http://openhuts.com"));
-
-		return Huts;
 	}
 }

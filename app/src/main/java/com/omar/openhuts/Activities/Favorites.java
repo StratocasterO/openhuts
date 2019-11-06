@@ -25,6 +25,7 @@ public class Favorites extends DefaultActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
+		// TODO copy here Lists logic
 		int list = getIntent().getExtras().getInt("list");
 
 		TextView tv = findViewById(R.id.title);
@@ -71,7 +72,7 @@ public class Favorites extends DefaultActivity {
 	public ArrayList<HutList> getLists() {
 		ArrayList<HutList> Lists = new ArrayList<HutList>();
 
-		Lists.add(new HutList("Favorites", 5, 1)); // TODO fix lists
+		Lists.add(new HutList("Favorites", 5, 1));
 		Lists.add(new HutList("List 1", 3, 2));
 		Lists.add(new HutList("List 2", 6, 3));
 		Lists.add(new HutList("List 3", 7, 4));
