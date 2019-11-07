@@ -268,6 +268,4 @@ public class Request {
 		}
 		return lista;
 	}
-
-	// TODO establish list of requests: hut page, profile page, new hut
 }

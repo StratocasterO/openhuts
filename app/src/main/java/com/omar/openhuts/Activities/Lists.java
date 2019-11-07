@@ -73,7 +73,6 @@ public class Lists extends DefaultActivity {
 		});
 	}
 
-	// TODO activates and deactivates edit mode (doesn't work)
 	public void edit(View v) {
 		Log.d("click", "clicked on edit");
 		lv = findViewById(list);
@@ -88,7 +87,7 @@ public class Lists extends DefaultActivity {
 		}
 	}
 
-	// TODO delete list when pressing button
+	// TODO delete list when pressing button (request)
 	public void delete(View v) {
 		View item = (View) v.getParent();
 		int pos = lv.getPositionForView(item);
