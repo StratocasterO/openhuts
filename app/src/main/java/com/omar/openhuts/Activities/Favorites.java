@@ -29,7 +29,7 @@ public class Favorites extends DefaultActivity {
 		// TODO copy here Lists logic
 
 		// Request
-		Request r = new Request();
+		Request r = new Request(this);
 		r.hutList(this);
 
 		int list = getIntent().getExtras().getInt("list");

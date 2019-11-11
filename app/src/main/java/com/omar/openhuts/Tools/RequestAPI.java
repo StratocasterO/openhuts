@@ -8,6 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface RequestAPI {
 	// Fetch huts request
@@ -16,20 +17,18 @@ public interface RequestAPI {
 
 	// Fetch lists request
 	@GET("lists/fetch")
-	Call<ResponseBody> fetchLists();
+	Call<ResponseBody> fetchLists(@Query("id") Integer id);
 
 	// Fetch huts in list request
 	@GET("lists/fetchHuts")
 	Call<ResponseBody> fetchHutList();
 
 	// Login request
-	// @Headers({"Accept: application/json"})
 	@Headers({"Accept: text/html"})
 	@POST("users/login")
 	Call<ResponseBody> login(@Body User user);
 
 	// Register request
-	// @Headers({"Accept: application/json"})
 	@Headers({"Accept: text/html"})
 	@POST("users/register")
 	Call<ResponseBody> register(@Body User user);

@@ -51,7 +51,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 	static GoogleMap googleMap;
 	static String prefs = "MyPrefsFile";
 	public static SharedPreferences settings;
-	private static User user = new User(0,"","","","","","");
+	public static User user = new User(0,"","","","","","");
 	View mapView;
 
 	public static void markers(List<Hut> lista) {
@@ -60,8 +60,6 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 			for (Hut hut : lista) {
 				Marker marker = googleMap.addMarker(new MarkerOptions()
 						.position(hut.getLocation())
-						// TODO rating bar into InfoWindow: https://developers.google.com/maps/documentation/android-sdk/infowindows
-						//.snippet("~ distance km \n" + hut.getRating().toString() + "(rating bar)")
 						.title(hut.getName())
 				);
 				marker.setTag(hut.getId());
@@ -114,6 +112,25 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 			alertDialog.show();
 
 			settings.edit().putBoolean("my_first_time", false).apply();
+
+			// Load user from preferences
+			JSONObject jsonUser = null;
+			try {
+				jsonUser = new JSONObject(settings.getString("user","{\n" +
+						"        \"id\": 0,\n" +
+						"        \"name\": \"\",\n" +
+						"        \"email\": \"\",\n" +
+						"        \"pass\": \"\",\n" +
+						"        \"description\": \"\",\n" +
+						"        \"location\": \"\",\n" +
+						"        \"img\": \"\"\n" +
+						"    }"));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+			// Sets user
+			user = Request.userJsonToUser(jsonUser);
 		}
 	}
 
@@ -149,7 +166,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		MainActivity.googleMap = googleMap;
 
 		// Makes request to the server
-		Request r = new Request();
+		Request r = new Request(this);
 		r.hutsMapa(this);
 
 		// Sets markers from preferences
@@ -343,7 +360,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 						} else {
 							user.setName(us);
 							user.setPass(pa);
-							Request r = new Request();
+							Request r = new Request(MainActivity.this);
 							r.login(MainActivity.this, user);
 						}
 
@@ -379,7 +396,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 						if (p == p2) {
 							User user = new User(0, u.getText().toString(), e.getText().toString(), p.getText().toString(), "", "", "");
-							Request r = new Request();
+							Request r = new Request(MainActivity.this);
 							r.register(MainActivity.this, user);
 							register.cancel();
 						} else {

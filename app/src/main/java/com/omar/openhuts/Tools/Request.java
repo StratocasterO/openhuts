@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.omar.openhuts.Activities.Lists;
 import com.omar.openhuts.Activities.MainActivity;
 import com.omar.openhuts.POJOs.Hut;
 import com.omar.openhuts.POJOs.HutList;
@@ -27,13 +28,20 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Request {
+	private String urlAWS = "http://openhutsserver-env.ifamk2b2ph.eu-west-3.elasticbeanstalk.com/";
+	private String urlPablo = "http://pablomonteserin.com:12973/";
+	private String urlHeroku = "https://openhuts.herokuapp.com/";
+
 	private Context ctx;
 	public static List<Hut> lista = new ArrayList<>();
 
+	public Request(Context ctx){
+		this.ctx = ctx;
+	}
+
 	public void hutsMapa(final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
-//				.baseUrl("http://pablomonteserin.com:12973/")
-				.baseUrl("https://openhuts.herokuapp.com/")
+				.baseUrl(urlAWS)
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
@@ -76,13 +84,13 @@ public class Request {
 
 	public void lists(final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("http://pablomonteserin.com:12973/")
+				.baseUrl(urlAWS)
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
 		RequestAPI api = builder.create(RequestAPI.class);
 
-		api.fetchLists().enqueue(new Callback<ResponseBody>() {
+		api.fetchLists(MainActivity.user.getId()).enqueue(new Callback<ResponseBody>() {
 
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
@@ -93,13 +101,13 @@ public class Request {
 					JSONObject jObject;
 					try {
 						jObject = new JSONObject(response);
-						JSONArray jArray = jObject.getJSONArray("results");
-						List<HutList> lista = listsArrayToList(jArray); // TODO this into Lists activity
+						JSONArray jArray = jObject.getJSONArray("results"); // TODO has to manage different elements of the array separately
+						ArrayList<HutList> lista = listsArrayToList(jArray);
 
 						// Saves data to preferences
 						MainActivity.settings.edit().putString("lists", response).apply();
 
-						// TODO write lists onto Lists activity
+						Lists.setLists(lista, ctx);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -107,40 +115,6 @@ public class Request {
 					e.printStackTrace();
 				}
 			}
-
-			@Override
-			public void onFailure(Call<ResponseBody> call, Throwable t) {
-				Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_SHORT).show();
-				t.printStackTrace();
-			}
-		});
-
-		api.fetchHutList().enqueue(new Callback<ResponseBody>() {
-
-			@Override
-			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
-				try {
-					String response = res.body().string();
-					Log.d("server", "Datos recibidos");
-
-					JSONObject jObject;
-					try {
-						jObject = new JSONObject(response);
-						JSONArray jArray = jObject.getJSONArray("results");
-						List<Hut> lista = hutsArrayToList(jArray);
-
-						// Saves data to preferences
-						MainActivity.settings.edit().putString("hutsInLists", response).apply();
-
-						// TODO write huts onto Favorites activity
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
 
 			@Override
 			public void onFailure(Call<ResponseBody> call, Throwable t) {
@@ -153,44 +127,11 @@ public class Request {
 	// TODO edit into huts of a list
 	public void hutList(final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("http://pablomonteserin.com:12973/")
+				.baseUrl(urlAWS)
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
 		RequestAPI api = builder.create(RequestAPI.class);
-
-		api.fetchLists().enqueue(new Callback<ResponseBody>() {
-
-			@Override
-			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
-				try {
-					String response = res.body().string();
-					Log.d("server", "Datos recibidos");
-
-					JSONObject jObject;
-					try {
-						jObject = new JSONObject(response);
-						JSONArray jArray = jObject.getJSONArray("results");
-						List<HutList> lista = listsArrayToList(jArray); // TODO this into Lists activity
-
-						// Saves data to preferences
-						MainActivity.settings.edit().putString("lists", response).apply();
-
-						// TODO write lists onto Lists activity
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void onFailure(Call<ResponseBody> call, Throwable t) {
-				Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_SHORT).show();
-				t.printStackTrace();
-			}
-		});
 
 		api.fetchHutList().enqueue(new Callback<ResponseBody>() {
 
@@ -207,9 +148,9 @@ public class Request {
 						List<Hut> lista = hutsArrayToList(jArray);
 
 						// Saves data to preferences
-						MainActivity.settings.edit().putString("hutsInLists", response).apply();
+						MainActivity.settings.edit().putString("list", response).apply(); // TODO save into list ID
 
-						// TODO write huts onto Favorites activity
+						// TODO write huts onto Fav activity
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -217,7 +158,6 @@ public class Request {
 					e.printStackTrace();
 				}
 			}
-
 
 			@Override
 			public void onFailure(Call<ResponseBody> call, Throwable t) {
@@ -227,34 +167,47 @@ public class Request {
 		});
 	}
 
-
-	public void login(final Context ctx, User user) {
+	public void login(final Context ctx, final User user) {
 		this.ctx = ctx;
 
 		final Retrofit builder = new Retrofit.Builder()
-				.baseUrl("http://pablomonteserin.com:12973/")
+				.baseUrl(urlAWS)
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
-		RequestAPI api = builder.create(RequestAPI.class);
+		final RequestAPI api = builder.create(RequestAPI.class);
 
-		// TODO fix request
 		api.login(user).enqueue(new Callback<ResponseBody>() {
 			@Override
-			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-				String respuesta = null;
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
+				String response = null;
+				String log;
+				JSONObject user;
+				JSONObject jObject;
 				try {
-					respuesta = response.body().string();
+					response = res.body().string();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				Log.d("server", "Datos recibidos");
 
-				if (respuesta.equals("logged")) {
-					MainActivity.settings.edit().putBoolean("logged", true).apply();
-					Log.d("server", "login successful");
-					// TODO recieve user from database
-				} else {
-					Log.d("server", "login error");
+				try {
+					jObject = new JSONObject(response);
+					log = jObject.getString("log");
+					user = new JSONObject(jObject.getString("user"));
+
+					if (log.equals("logged")) {
+						MainActivity.settings.edit().putBoolean("logged", true).apply();
+						Log.d("server", "login successful");
+
+						// Saves user to preferences
+						MainActivity.settings.edit().putString("user", jObject.getString("user")).apply();
+						MainActivity.user = userJsonToUser(user);
+					} else {
+						Log.d("server", "login error");
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
 			}
 
@@ -269,7 +222,7 @@ public class Request {
 		this.ctx = ctx;
 
 		Retrofit builder = new Retrofit.Builder()
-				.baseUrl("http://pablomonteserin.com:12973/")
+				.baseUrl(urlAWS)
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
 
@@ -328,7 +281,6 @@ public class Request {
 	public static ArrayList<HutList> listsArrayToList(JSONArray jArray) {
 		ArrayList<HutList> lista = new ArrayList<>();
 
-		// TODO listsArrayToList()
 		for (int i = 0; i < jArray.length(); i++) {
 			try {
 				JSONObject object = jArray.getJSONObject(i);
@@ -337,7 +289,6 @@ public class Request {
 				int num = object.getInt("num");
 				String name = object.getString("name");
 
-
 				HutList list = new HutList(name, num, id);
 				lista.add(list);
 			} catch (JSONException e) {
@@ -345,5 +296,23 @@ public class Request {
 			}
 		}
 		return lista;
+	}
+
+	public static User userJsonToUser(JSONObject user) {
+		User userJson = new User(0,"","","","","","");
+
+		try {
+			userJson.setId(user.getInt("id"));
+			userJson.setName(user.getString("name"));
+			userJson.setEmail(user.getString("email"));
+			userJson.setPass(user.getString("pass"));
+			userJson.setDescription(user.getString("description"));
+			userJson.setLocation(user.getString("location"));
+			userJson.setImg(user.getString("img"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return userJson;
 	}
 }
