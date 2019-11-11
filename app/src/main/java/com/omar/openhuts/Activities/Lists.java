@@ -8,8 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.omar.openhuts.POJOs.Hut;
 import com.omar.openhuts.POJOs.HutList;
 import com.omar.openhuts.R;
 import com.omar.openhuts.Tools.ListAdapter;
@@ -20,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.omar.openhuts.R.id.list;
 
@@ -42,7 +39,7 @@ public class Lists extends DefaultActivity {
 
 		// Request
 		Request r = new Request();
-		r.listas(this);
+		r.lists(this);
 
 		// Sets lists from preferences
 		String lists = settings.getString("lists", "");

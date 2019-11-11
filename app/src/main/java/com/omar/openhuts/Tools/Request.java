@@ -74,7 +74,7 @@ public class Request {
 		});
 	}
 
-	public void listas(final Context ctx) {
+	public void lists(final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
 				.baseUrl("http://pablomonteserin.com:12973/")
 				.addConverterFactory(GsonConverterFactory.create())
@@ -149,6 +149,84 @@ public class Request {
 			}
 		});
 	}
+
+	// TODO edit into huts of a list
+	public void hutList(final Context ctx) {
+		Retrofit builder = new Retrofit.Builder()
+				.baseUrl("http://pablomonteserin.com:12973/")
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
+
+		RequestAPI api = builder.create(RequestAPI.class);
+
+		api.fetchLists().enqueue(new Callback<ResponseBody>() {
+
+			@Override
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
+				try {
+					String response = res.body().string();
+					Log.d("server", "Datos recibidos");
+
+					JSONObject jObject;
+					try {
+						jObject = new JSONObject(response);
+						JSONArray jArray = jObject.getJSONArray("results");
+						List<HutList> lista = listsArrayToList(jArray); // TODO this into Lists activity
+
+						// Saves data to preferences
+						MainActivity.settings.edit().putString("lists", response).apply();
+
+						// TODO write lists onto Lists activity
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseBody> call, Throwable t) {
+				Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_SHORT).show();
+				t.printStackTrace();
+			}
+		});
+
+		api.fetchHutList().enqueue(new Callback<ResponseBody>() {
+
+			@Override
+			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
+				try {
+					String response = res.body().string();
+					Log.d("server", "Datos recibidos");
+
+					JSONObject jObject;
+					try {
+						jObject = new JSONObject(response);
+						JSONArray jArray = jObject.getJSONArray("results");
+						List<Hut> lista = hutsArrayToList(jArray);
+
+						// Saves data to preferences
+						MainActivity.settings.edit().putString("hutsInLists", response).apply();
+
+						// TODO write huts onto Favorites activity
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+
+			@Override
+			public void onFailure(Call<ResponseBody> call, Throwable t) {
+				Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_SHORT).show();
+				t.printStackTrace();
+			}
+		});
+	}
+
 
 	public void login(final Context ctx, User user) {
 		this.ctx = ctx;

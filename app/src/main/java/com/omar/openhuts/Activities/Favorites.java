@@ -13,6 +13,7 @@ import com.omar.openhuts.Tools.HutAdapter;
 import com.omar.openhuts.POJOs.Hut;
 import com.omar.openhuts.POJOs.HutList;
 import com.omar.openhuts.R;
+import com.omar.openhuts.Tools.Request;
 
 import java.util.ArrayList;
 
@@ -26,8 +27,12 @@ public class Favorites extends DefaultActivity {
 		setContentView(R.layout.activity_list);
 
 		// TODO copy here Lists logic
-		int list = getIntent().getExtras().getInt("list");
 
+		// Request
+		Request r = new Request();
+		r.hutList(this);
+
+		int list = getIntent().getExtras().getInt("list");
 		TextView tv = findViewById(R.id.title);
 		for (HutList l : getLists()) {
 			if (l.getId() == list) {
