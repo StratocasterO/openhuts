@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.omar.openhuts.POJOs.Hut;
 import com.omar.openhuts.POJOs.HutList;
 import com.omar.openhuts.R;
 import com.omar.openhuts.Tools.ListAdapter;
@@ -20,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.omar.openhuts.R.id.list;
 
@@ -46,7 +48,7 @@ public class Lists extends DefaultActivity {
 		String lists = settings.getString("lists", "");
 		JSONObject jObject;
 		JSONArray jArray;
-
+		ArrayList<HutList> listList = null;
 		try {
 			jObject = new JSONObject(lists);
 			jArray = jObject.getJSONArray("results");
@@ -55,23 +57,25 @@ public class Lists extends DefaultActivity {
 			e.printStackTrace();
 		}
 
-		// setLists(listList, this);
+		setLists(listList, this);
 	}
 
 	public static void setLists(ArrayList<HutList> lists, Context ctx){
-		adapter = new ListAdapter(ctx, lists,false);
-		final Activity a = (Activity) ctx;
-		lv = a.findViewById(list);
-		lv.setAdapter(adapter);
+		if (lists != null) {
+			adapter = new ListAdapter(ctx, lists, false);
+			final Activity a = (Activity) ctx;
+			lv = a.findViewById(list);
+			lv.setAdapter(adapter);
 
-		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				int id_list = listList.get(position).getId();
-				a.startActivity(new Intent(a, Favorites.class)
-						.putExtra("list", id_list));
-			}
-		});
+			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					int id_list = listList.get(position).getId();
+					a.startActivity(new Intent(a, Favorites.class)
+							.putExtra("list", id_list));
+				}
+			});
+		}
 	}
 
 	public void edit(View v) {

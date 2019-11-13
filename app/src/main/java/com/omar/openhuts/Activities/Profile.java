@@ -31,6 +31,15 @@ public class Profile extends DefaultActivity {
 	public void logout(View v){
 		Log.d("click", "clicked on logout");
 		settings.edit().putBoolean("logged", false).apply();
+		settings.edit().putString("user","{\n" +
+				"        \"id\": 0,\n" +
+				"        \"name\": \"\",\n" +
+				"        \"email\": \"\",\n" +
+				"        \"pass\": \"\",\n" +
+				"        \"description\": \"\",\n" +
+				"        \"location\": \"\",\n" +
+				"        \"img\": \"\"\n" +
+				"    }").apply();
 		finish();
 		overridePendingTransition(0,0);
 	}

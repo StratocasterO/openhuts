@@ -112,26 +112,26 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 			alertDialog.show();
 
 			settings.edit().putBoolean("my_first_time", false).apply();
-
-			// Load user from preferences
-			JSONObject jsonUser = null;
-			try {
-				jsonUser = new JSONObject(settings.getString("user","{\n" +
-						"        \"id\": 0,\n" +
-						"        \"name\": \"\",\n" +
-						"        \"email\": \"\",\n" +
-						"        \"pass\": \"\",\n" +
-						"        \"description\": \"\",\n" +
-						"        \"location\": \"\",\n" +
-						"        \"img\": \"\"\n" +
-						"    }"));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			// Sets user
-			user = Request.userJsonToUser(jsonUser);
 		}
+
+		// Load user from preferences
+		JSONObject jsonUser = null;
+		try {
+			jsonUser = new JSONObject(settings.getString("user","{\n" +
+					"        \"id\": 0,\n" +
+					"        \"name\": \"\",\n" +
+					"        \"email\": \"\",\n" +
+					"        \"pass\": \"\",\n" +
+					"        \"description\": \"\",\n" +
+					"        \"location\": \"\",\n" +
+					"        \"img\": \"\"\n" +
+					"    }"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		// Sets user
+		user = Request.userJsonToUser(jsonUser);
 	}
 
 	@Override
@@ -364,8 +364,19 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 							r.login(MainActivity.this, user);
 						}
 
-						boolean log = MainActivity.settings.getBoolean("logged", false);
-						Toast.makeText(MainActivity.this, "logueado = " + log , Toast.LENGTH_SHORT).show();
+						// Saves user to preferences
+						settings.edit().putString("user", "{\n" +
+								"        \"id\": " + user.getId() + ",\n" +
+								"        \"name\": \"" + user.getName() + "\",\n" +
+								"        \"email\": \"" + user.getEmail() + "\",\n" +
+								"        \"pass\": \"" + user.getPass() + "\",\n" +
+								"        \"description\": \"" + user.getDescription() + "\",\n" +
+								"        \"location\": \"" + user.getLocation() + "\",\n" +
+								"        \"img\": \"" + user.getImg() + "\"\n" +
+								"    }").apply();
+
+						//boolean log = MainActivity.settings.getBoolean("logged", false);
+						// Toast.makeText(MainActivity.this, "logueado = " + log , Toast.LENGTH_SHORT).show();
 						login.cancel();
 						if (logged()) caso(c);
 					}

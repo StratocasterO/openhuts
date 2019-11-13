@@ -101,7 +101,7 @@ public class Request {
 					JSONObject jObject;
 					try {
 						jObject = new JSONObject(response);
-						JSONArray jArray = jObject.getJSONArray("results"); // TODO has to manage different elements of the array separately
+						JSONArray jArray = jObject.getJSONArray("results");
 						ArrayList<HutList> lista = listsArrayToList(jArray);
 
 						// Saves data to preferences
