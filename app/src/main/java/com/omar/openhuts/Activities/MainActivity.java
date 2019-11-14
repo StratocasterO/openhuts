@@ -1,11 +1,5 @@
 package com.omar.openhuts.Activities;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,8 +18,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,28 +56,16 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 	public static SharedPreferences settings;
 	public static User user = new User(0,"","","","","","");
 	View mapView;
-
-	public static void markers(List<Hut> lista) {
-		// Adding markers for the huts
-		if (lista != null) {
-			for (Hut hut : lista) {
-				Marker marker = googleMap.addMarker(new MarkerOptions()
-						.position(hut.getLocation())
-						.title(hut.getName())
-				);
-				marker.setTag(hut.getId());
-			}
-		}
-	}
+	private int hutId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Makes image round TODO icons with background for rounded button
+		// Makes image round
 		ImageView iv = findViewById(R.id.add);
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add_fons);
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add);
 		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
 		circularBitmapDrawable.setCircular(true);
 		iv.setImageDrawable(circularBitmapDrawable);
@@ -136,7 +127,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode,
-										   String permissions[], int[] grantResults) {
+										   String[] permissions, int[] grantResults) {
 		switch (requestCode) {
 			case 1: {
 				// If request is cancelled, the result arrays are empty.
@@ -159,6 +150,19 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		assert mapFragment != null;
 		mapView = mapFragment.getView();
 		mapFragment.getMapAsync(this);
+	}
+
+	public static void markers(List<Hut> lista) {
+		// Adding markers for the huts
+		if (lista != null) {
+			for (Hut hut : lista) {
+				Marker marker = googleMap.addMarker(new MarkerOptions()
+						.position(hut.getLocation())
+						.title(hut.getName())
+				);
+				marker.setTag(hut.getId());
+			}
+		}
 	}
 
 	@Override
@@ -223,27 +227,42 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		});
 
 		// When click on map marker
+		final ConstraintLayout card = findViewById(R.id.hutCard);
 		googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 			@Override
 			public boolean onMarkerClick(final Marker marker) {
 				Log.d("click", "clicked on " + marker.getTitle());
-				marker.showInfoWindow();
 				CameraPosition cameraPosition = new CameraPosition.Builder()
 						.target(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude))
 						.zoom(10)
 						.build();
 				googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-				return true;
 
-				// TODO show hut card
+				TextView name = findViewById(R.id.name_text);
+				name.setText(marker.getTitle());
+
+				TextView dist = findViewById(R.id.location);
+				dist.setText("Location");
+
+				RatingBar rating = findViewById(R.id.ratingBar);
+				rating.setRating(3.5f); // TODO read real value
+
+				ImageView img = findViewById(R.id.image);
+				img.setImageResource(R.drawable.hut);
+
+				hutId = (int) marker.getTag();
+
+				card.setVisibility(View.VISIBLE);
+
+				return true;
 			}
 		});
 
-		// When click on marker snippet
-		googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+		// Closes card when click outside marker
+		googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 			@Override
-			public void onInfoWindowClick(Marker marker) {
-				startActivity(new Intent(MainActivity.this, HutPage.class).putExtra("hut", (int) marker.getTag()));
+			public void onMapClick(LatLng latLng) {
+				card.setVisibility(View.INVISIBLE);
 			}
 		});
 
@@ -259,6 +278,16 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		CameraUpdate camUpd = CameraUpdateFactory.newCameraPosition(camPos);
 		googleMap.animateCamera(camUpd);
+
+		// Sets up MyLocation
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			googleMap.setMyLocationEnabled(true);
+		}
+	}
+
+	public void card(View v){
+		startActivity(new Intent(MainActivity.this, HutPage.class).putExtra("hut", hutId));
+		overridePendingTransition(0,0);
 	}
 
 	private void requestPermission() {

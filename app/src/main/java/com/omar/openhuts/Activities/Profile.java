@@ -6,19 +6,58 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
+import com.omar.openhuts.POJOs.User;
 import com.omar.openhuts.R;
+import com.omar.openhuts.Tools.Request;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import static com.omar.openhuts.Tools.Request.userJsonToUser;
 
 public class Profile extends DefaultActivity {
+	User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 
+		String userString = settings.getString("user", "{\n" +
+				"        \"id\": 0,\n" +
+				"        \"name\": \"\",\n" +
+				"        \"email\": \"\",\n" +
+				"        \"pass\": \"\",\n" +
+				"        \"description\": \"\",\n" +
+				"        \"location\": \"\",\n" +
+				"        \"img\": \"\"\n" +
+				"    }");
+		JSONObject jObject;
+		try {
+			jObject = new JSONObject(userString);
+			user = Request.userJsonToUser(jObject);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		// User data
+		TextView name = findViewById(R.id.name);
+		name.setText(user.getName());
+
+		TextView desc = findViewById(R.id.description);
+		desc.setText(user.getDescription());
+
+		TextView loc = findViewById(R.id.location);
+		loc.setText(user.getLocation());
+
+		// Image
 		ImageView iv = findViewById(R.id.photo);
 
 		// Makes image round

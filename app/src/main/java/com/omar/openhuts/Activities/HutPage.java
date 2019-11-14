@@ -18,7 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class HutPage extends DefaultActivity {
-	SharedPreferences settings;
 	List<Hut> hutList;
 	Hut hut;
 
@@ -31,8 +30,6 @@ public class HutPage extends DefaultActivity {
 		int id = getIntent().getExtras().getInt("hut");
 
 		// Gets the huts from preferences
-		String prefs = "MyPrefsFile";
-		settings = getSharedPreferences(prefs, 0);
 		String huts = settings.getString("huts","");
 		JSONObject jObject;
 		JSONArray jArray;

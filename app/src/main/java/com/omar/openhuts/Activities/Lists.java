@@ -29,7 +29,6 @@ public class Lists extends DefaultActivity {
 	static ListView lv;
 	boolean pressed = false;
 	static ListAdapter adapter;
-	ArrayList<HutList> lists;
 	static ArrayList<HutList> listList = null;
 
 	@Override
@@ -48,7 +47,6 @@ public class Lists extends DefaultActivity {
 		String lists = settings.getString("lists", "");
 		JSONObject jObject;
 		JSONArray jArray;
-		ArrayList<HutList> listList = null;
 		try {
 			jObject = new JSONObject(lists);
 			jArray = jObject.getJSONArray("results");
@@ -71,8 +69,10 @@ public class Lists extends DefaultActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					int id_list = listList.get(position).getId();
+					String name_list = listList.get(position).getName();
 					a.startActivity(new Intent(a, Favorites.class)
-							.putExtra("list", id_list));
+							.putExtra("list", id_list)
+							.putExtra("name", name_list));
 				}
 			});
 		}
@@ -82,11 +82,11 @@ public class Lists extends DefaultActivity {
 		Log.d("click", "clicked on edit");
 		lv = findViewById(list);
 		if (!pressed) {
-			adapter = new ListAdapter(this, lists,true);
+			adapter = new ListAdapter(this, listList,true);
 			lv.setAdapter(adapter);
 			pressed = true;
 		} else {
-			adapter = new ListAdapter(this, lists,false);
+			adapter = new ListAdapter(this, listList,false);
 			lv.setAdapter(adapter);
 			pressed = false;
 		}

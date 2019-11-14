@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.omar.openhuts.POJOs.Hut;
@@ -29,13 +30,17 @@ import static com.omar.openhuts.R.id.list;
 public class Favorites extends DefaultActivity {
 	static ListView lv;
 	private static HutAdapter adapter;
-	ArrayList<Hut> huts;
+	ArrayList<Hut> hutList;
 	static ArrayList<Hut> hutsList = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+
+		String name = getIntent().getExtras().getString("name");
+		TextView tv = findViewById(R.id.title);
+		tv.setText(name);
 
 		// Request
 		int list = getIntent().getExtras().getInt("list");
@@ -47,10 +52,9 @@ public class Favorites extends DefaultActivity {
 		btn.setEnabled(false);
 
 		// Sets huts from preferences
-		String lists = settings.getString("hutsList", "");
+		String lists = settings.getString("hutList" + list, "");
 		JSONObject jObject;
 		JSONArray jArray;
-		ArrayList<Hut> hutList = null;
 		try {
 			jObject = new JSONObject(lists);
 			jArray = jObject.getJSONArray("results");
@@ -99,31 +103,5 @@ public class Favorites extends DefaultActivity {
 		Log.d("click", "clicked on delete of item " + pos);
 
 		// TODO delete item from list
-	}
-
-	// Lists hardcoded for testing
-	public ArrayList<HutList> getLists() {
-		ArrayList<HutList> Lists = new ArrayList<HutList>();
-
-		Lists.add(new HutList("Favorites", 5, 1));
-		Lists.add(new HutList("List 1", 3, 2));
-		Lists.add(new HutList("List 2", 6, 3));
-		Lists.add(new HutList("List 3", 7, 4));
-		Lists.add(new HutList("List 4", 1, 5));
-
-		return Lists;
-	}
-
-	// Huts hardcoded for testing
-	public ArrayList<Hut> getHuts() {
-		ArrayList<Hut> Huts = new ArrayList<Hut>();
-
-		Huts.add(new Hut(2, "hut2 name", "", 4.0f, new LatLng(43.0, 1.0), 1, 1, 1, "img2", "http://openhuts.com"));
-		Huts.add(new Hut(1, "hut1 name", "", 4.5f, new LatLng(42.0, 1.0), 1, 1, 1, "img1", "http://openhuts.com"));
-		Huts.add(new Hut(3, "hut3 name", "", 2.5f, new LatLng(41.0, 1.0), 1, 1, 1, "img3", "http://openhuts.com"));
-		Huts.add(new Hut(4, "hut4 name", "", 1.5f, new LatLng(42.0, 2.0), 1, 1, 1, "img4", "http://openhuts.com"));
-		Huts.add(new Hut(5, "hut5 name", "", 5f, new LatLng(42.0, 0.0), 1, 1, 1, "img5", "http://openhuts.com"));
-
-		return Huts;
 	}
 }

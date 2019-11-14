@@ -20,7 +20,7 @@ public interface RequestAPI {
 	Call<ResponseBody> fetchLists(@Query("id") Integer id);
 
 	// Fetch huts in list request
-	@GET("lists/fetchHuts")
+	@GET("lists/fetchhuts")
 	Call<ResponseBody> fetchHutList(@Query("id") Integer id);
 
 	// Login request

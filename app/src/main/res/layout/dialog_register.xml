@@ -18,7 +18,7 @@
 
 		<TableLayout
 			android:id="@+id/tableLayout"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="32dp"
 			android:layout_marginEnd="32dp">
@@ -29,13 +29,13 @@
 
 				<TextView
 					android:id="@+id/email_text"
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Email" />
 
 				<EditText
 					android:id="@+id/email"
-					android:layout_width="250dp"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
 					android:hint="Email "
@@ -49,13 +49,13 @@
 
 				<TextView
 					android:id="@+id/user_text"
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Username" />
 
 				<EditText
 					android:id="@+id/user"
-					android:layout_width="250dp"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
 					android:hint="Username"
@@ -69,13 +69,13 @@
 
 				<TextView
 					android:id="@+id/pass_text"
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Password" />
 
 				<EditText
 					android:id="@+id/password"
-					android:layout_width="250dp"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
 					android:hint="Password"
@@ -88,12 +88,12 @@
 				android:layout_height="match_parent">
 
 				<TextView
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content" />
 
 				<EditText
 					android:id="@+id/repass"
-					android:layout_width="250dp"
+					android:layout_width="160dp"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
 					android:hint="Repeat password"
@@ -115,8 +115,8 @@
 					android:clickable="true"
 					android:gravity="center"
 					android:onClick="terms"
-					android:paddingLeft="60dp"
-					android:paddingRight="60dp"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
 					android:text="@string/tac"
 					android:textSize="10dp" />
 			</TableRow>

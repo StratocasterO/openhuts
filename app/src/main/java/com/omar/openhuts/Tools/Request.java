@@ -34,7 +34,6 @@ public class Request {
 	private String urlHeroku = "https://openhuts.herokuapp.com/";
 
 	private Context ctx;
-	public static List<Hut> lista = new ArrayList<>();
 
 	public Request(Context ctx){
 		this.ctx = ctx;
