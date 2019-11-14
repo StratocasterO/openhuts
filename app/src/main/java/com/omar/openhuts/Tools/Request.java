@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.omar.openhuts.Activities.Favorites;
 import com.omar.openhuts.Activities.Lists;
 import com.omar.openhuts.Activities.MainActivity;
 import com.omar.openhuts.POJOs.Hut;
@@ -125,7 +126,7 @@ public class Request {
 	}
 
 	// TODO edit into huts of a list
-	public void hutList(final Context ctx) {
+	public void hutsList(final int list, final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
 				.baseUrl(urlAWS)
 				.addConverterFactory(GsonConverterFactory.create())
@@ -133,7 +134,7 @@ public class Request {
 
 		RequestAPI api = builder.create(RequestAPI.class);
 
-		api.fetchHutList().enqueue(new Callback<ResponseBody>() {
+		api.fetchHutList(list).enqueue(new Callback<ResponseBody>() {
 
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> res) {
@@ -145,12 +146,12 @@ public class Request {
 					try {
 						jObject = new JSONObject(response);
 						JSONArray jArray = jObject.getJSONArray("results");
-						List<Hut> lista = hutsArrayToList(jArray);
+						ArrayList<Hut> lista = hutsArrayToList(jArray);
 
 						// Saves data to preferences
-						MainActivity.settings.edit().putString("list", response).apply(); // TODO save into list ID
+						MainActivity.settings.edit().putString("hutList" + list, response).apply();
 
-						// TODO write huts onto Fav activity
+						Favorites.setHuts(lista, ctx);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -252,8 +253,8 @@ public class Request {
 		});
 	}
 
-	public static List<Hut> hutsArrayToList(JSONArray jArray) {
-		List<Hut> lista = new ArrayList<>();
+	public static ArrayList<Hut> hutsArrayToList(JSONArray jArray) {
+		ArrayList<Hut> lista = new ArrayList<>();
 		for (int i = 0; i < jArray.length(); i++) {
 			try {
 				JSONObject object = jArray.getJSONObject(i);

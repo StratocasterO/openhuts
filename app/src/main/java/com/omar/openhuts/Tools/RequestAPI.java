@@ -21,7 +21,7 @@ public interface RequestAPI {
 
 	// Fetch huts in list request
 	@GET("lists/fetchHuts")
-	Call<ResponseBody> fetchHutList();
+	Call<ResponseBody> fetchHutList(@Query("id") Integer id);
 
 	// Login request
 	@Headers({"Accept: text/html"})
