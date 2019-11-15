@@ -63,18 +63,8 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Makes image round
-		ImageView iv = findViewById(R.id.add);
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.add);
-		RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-		circularBitmapDrawable.setCircular(true);
-		iv.setImageDrawable(circularBitmapDrawable);
-
 		// Adds map
-		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-		assert mapFragment != null;
-		mapView = mapFragment.getView();
-		mapFragment.getMapAsync(this);
+		setupActivity();
 
 		// checks in preferences if it is the first time opening the app
 		settings = getSharedPreferences(prefs, 0);
