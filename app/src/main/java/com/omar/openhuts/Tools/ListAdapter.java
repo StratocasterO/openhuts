@@ -43,7 +43,11 @@ public class ListAdapter extends android.widget.BaseAdapter {
 	public View getView(int index, View convertView, ViewGroup parent) {
 		View row = View.inflate(ctx, R.layout.list, null);
 		TextView tv = row.findViewById(R.id.name);
-		tv.setText(lists.get(index).getName());
+		if (lists.get(index).getName().equals("fav")){
+			tv.setText(R.string.fav);
+		} else {
+			tv.setText(lists.get(index).getName());
+		}
 
 		// Image in photo:
 		ImageView iv = row.findViewById(R.id.photo);
@@ -51,7 +55,7 @@ public class ListAdapter extends android.widget.BaseAdapter {
 
 		// Number of elements inside
 		TextView tv2 = row.findViewById(R.id.inside);
-		String text = lists.size() + " huts";
+		String text = lists.get(index).getNum() + " huts";
 		tv2.setText(text);
 
 		// Enables/disables buttons

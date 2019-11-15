@@ -59,6 +59,7 @@
 			android:layout_marginTop="5dp"
 			android:layout_marginEnd="20dp"
 			android:layout_marginRight="20dp"
+			android:gravity="center_horizontal"
 			android:text="Lorem ipsum dolor sit amet consectetur adipiscing elit vitae magnis, venenatis non fermentum elementum egestas posuere lacinia diam nunc eget"
 			android:textSize="14dp"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +82,7 @@
 			android:layout_height="50dp"
 			android:layout_marginEnd="16dp"
 			android:layout_marginRight="16dp"
-			android:layout_marginBottom="16dp"
+			android:layout_marginBottom="14dp"
 			android:background="#00000000"
 			android:onClick="logout"
 			android:scaleType="fitCenter"
@@ -95,13 +96,27 @@
 			android:layout_height="50dp"
 			android:layout_marginStart="16dp"
 			android:layout_marginLeft="16dp"
-			android:layout_marginBottom="16dp"
+			android:layout_marginBottom="14dp"
 			android:background="#00000000"
 			android:onClick="settings"
 			android:scaleType="fitCenter"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:srcCompat="@android:drawable/ic_menu_manage" />
+
+		<ImageButton
+			android:id="@+id/edit"
+			android:layout_width="45dp"
+			android:layout_height="45dp"
+			android:layout_marginTop="14dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginRight="16dp"
+			android:background="#00000000"
+			android:onClick="settings"
+			android:scaleType="fitCenter"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@android:drawable/ic_menu_edit" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--	TODO add Settings and Log out buttons -->
