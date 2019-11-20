@@ -418,7 +418,6 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface register, int which) {
 						Log.d("click", "clicked on button register");
-						// TODO Request.register();
 						EditText e = loginDialog.findViewById(R.id.email);
 						EditText u = loginDialog.findViewById(R.id.user);
 						EditText p = loginDialog.findViewById(R.id.password);

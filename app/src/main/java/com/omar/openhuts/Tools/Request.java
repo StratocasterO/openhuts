@@ -124,7 +124,6 @@ public class Request {
 		});
 	}
 
-	// TODO edit into huts of a list
 	public void hutsList(final int list, final Context ctx) {
 		Retrofit builder = new Retrofit.Builder()
 				.baseUrl(urlAWS)
@@ -218,6 +217,7 @@ public class Request {
 		});
 	}
 
+	// TODO fix register backend
 	public void register(final Context ctx, User user) {
 		this.ctx = ctx;
 

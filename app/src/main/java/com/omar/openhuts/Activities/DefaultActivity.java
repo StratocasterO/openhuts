@@ -1,5 +1,6 @@
 package com.omar.openhuts.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,7 +9,10 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.omar.openhuts.R;
 
 public class DefaultActivity extends AppCompatActivity {
 	static SharedPreferences settings;
@@ -51,5 +55,21 @@ public class DefaultActivity extends AppCompatActivity {
 		// TODO add link to terms and conditions
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.openhuts.com"));
 		startActivity(browserIntent);
+	}
+
+	// feature in development
+	public void wip(View v){
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+				this);
+		alertDialog.setTitle("Work in progress");
+		alertDialog.setMessage("The feature you are trying to use is under development at this moment.\n\nPlease, keep updating the app if you want to see new features like this.");
+		alertDialog.setIcon(R.drawable.logo);
+		alertDialog.setNegativeButton("OKAY",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		alertDialog.show();
 	}
 }

@@ -64,17 +64,32 @@
 			android:textSize="14dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/name" />
+			app:layout_constraintTop_toBottomOf="@+id/name"
+			tools:textSize="18dp" />
 
-		<TextView
-			android:id="@+id/location"
+		<LinearLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp"
-			android:text="Sant Esteve de les Roures | Joined 30/9/2019"
+			android:orientation="horizontal"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/description" />
+			app:layout_constraintTop_toBottomOf="@+id/description">
+
+			<ImageView
+				android:id="@+id/imageView30"
+				android:layout_width="10dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				app:srcCompat="@drawable/pinpin_map" />
+
+			<TextView
+				android:id="@+id/location"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"
+				android:layout_marginTop="10dp"
+				android:text="Sant Esteve de les Roures | Joined 30/9/2019" />
+		</LinearLayout>
 
 		<ImageButton
 			android:id="@+id/logout"
@@ -100,25 +115,11 @@
 			android:background="#00000000"
 			android:onClick="settings"
 			android:scaleType="fitCenter"
+			android:visibility="invisible"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:srcCompat="@android:drawable/ic_menu_manage" />
 
-		<ImageButton
-			android:id="@+id/edit"
-			android:layout_width="45dp"
-			android:layout_height="45dp"
-			android:layout_marginTop="14dp"
-			android:layout_marginEnd="16dp"
-			android:layout_marginRight="16dp"
-			android:background="#00000000"
-			android:onClick="settings"
-			android:scaleType="fitCenter"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:srcCompat="@android:drawable/ic_menu_edit" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--	TODO add Settings and Log out buttons -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

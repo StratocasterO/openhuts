@@ -25,19 +25,9 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/barra">
 
-		<ImageView
-			android:id="@+id/imageView11"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/title"
-			tools:srcCompat="@tools:sample/avatars" />
-
 		<TableLayout
 			android:id="@+id/tableLayout"
-			android:layout_width="match_parent"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="20dp"
 			android:layout_marginLeft="20dp"
@@ -46,7 +36,7 @@
 			android:layout_marginRight="20dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/imageView11">
+			app:layout_constraintTop_toBottomOf="@+id/title">
 
 			<TableRow
 				android:layout_width="match_parent"
@@ -54,21 +44,18 @@
 
 				<TextView
 					android:id="@+id/img_text"
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_vertical"
 					android:text="Image" />
 
-				<ImageButton
-					android:id="@+id/image_upload"
-					android:layout_width="30dp"
-					android:layout_height="30dp"
-					android:layout_gravity="right"
-					android:layout_marginRight="15dp"
-					android:adjustViewBounds="true"
-					android:background="#00000000"
-					android:scaleType="centerInside"
-					app:srcCompat="@drawable/map" />
+				<Button
+					android:id="@+id/button2"
+					style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:text="select image" />
 
 			</TableRow>
 
@@ -78,13 +65,13 @@
 
 				<TextView
 					android:id="@+id/name_text"
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Name" />
 
 				<EditText
 					android:id="@+id/name"
-					android:layout_width="250dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
 					android:hint="Hut name"
@@ -98,13 +85,13 @@
 
 				<TextView
 					android:id="@+id/desc_text"
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Description" />
 
 				<EditText
 					android:id="@+id/desc"
-					android:layout_width="250dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
 					android:hint="Hut description"
@@ -118,35 +105,29 @@
 
 				<TextView
 					android:id="@+id/location"
-					android:layout_width="80dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_vertical"
 					android:text="Location" />
 
-				<LinearLayout
-					android:layout_width="282dp"
+				<EditText
+					android:id="@+id/latitude"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:orientation="horizontal">
+					android:layout_marginLeft="10dp"
+					android:hint="Latitude"
+					android:inputType="number" />
 
-					<EditText
-						android:id="@+id/latitude"
-						android:layout_width="230dp"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="10dp"
-						android:hint="Latitude"
-						android:inputType="number" />
-
-					<ImageButton
-						android:id="@+id/locate"
-						android:layout_width="30dp"
-						android:layout_height="30dp"
-						android:layout_gravity="center_vertical"
-						android:layout_marginLeft="19dp"
-						android:adjustViewBounds="true"
-						android:background="#00000000"
-						android:scaleType="centerInside"
-						app:srcCompat="@drawable/map" />
-				</LinearLayout>
+				<ImageButton
+					android:id="@+id/locate"
+					android:layout_width="30dp"
+					android:layout_height="30dp"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="5dp"
+					android:adjustViewBounds="false"
+					android:background="#00000000"
+					android:scaleType="centerInside"
+					app:srcCompat="@drawable/pinpin_map" />
 
 			</TableRow>
 
@@ -161,10 +142,9 @@
 
 				<EditText
 					android:id="@+id/longitude"
-					android:layout_width="230dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
-					android:layout_marginRight="50dp"
 					android:hint="Longitude"
 					android:inputType="number" />
 
@@ -200,8 +180,8 @@
 				android:layout_height="40dp"
 				android:layout_margin="5dp"
 				android:background="#00000000"
-				android:scaleType="centerInside"
-				app:srcCompat="@drawable/hut_full" />
+				android:scaleType="fitCenter"
+				app:srcCompat="@drawable/aillamenttemp" />
 
 			<ImageButton
 				android:id="@+id/imageButton3"
@@ -209,8 +189,8 @@
 				android:layout_height="40dp"
 				android:layout_margin="5dp"
 				android:background="#00000000"
-				android:scaleType="centerInside"
-				app:srcCompat="@drawable/hut_full" />
+				android:scaleType="fitCenter"
+				app:srcCompat="@drawable/aillamentrain" />
 
 			<ImageButton
 				android:id="@+id/imageButton4"
@@ -218,96 +198,97 @@
 				android:layout_height="40dp"
 				android:layout_margin="5dp"
 				android:background="#00000000"
-				android:scaleType="centerInside"
-				app:srcCompat="@drawable/hut_full" />
+				android:scaleType="fitCenter"
+				app:srcCompat="@drawable/aillamentwind" />
 		</LinearLayout>
 
 		<GridLayout
 			android:id="@+id/services"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="45dp"
-			android:layout_marginLeft="45dp"
 			android:layout_marginTop="10dp"
-			android:layout_marginEnd="45dp"
-			android:layout_marginRight="45dp"
-			android:columnCount="8"
+			android:columnCount="7"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
 			<ImageView
-				android:id="@+id/imageView9"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView13"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_bici" />
 
 			<ImageView
-				android:id="@+id/imageView16"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView14"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_botiquin" />
 
 			<ImageView
-				android:id="@+id/imageView17"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView15"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_cafe" />
 
 			<ImageView
-				android:id="@+id/imageView18"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView19"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_cama" />
 
 			<ImageView
-				android:id="@+id/imageView5"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView20"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_car" />
 
 			<ImageView
-				android:id="@+id/imageView6"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView21"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_chim" />
 
 			<ImageView
-				android:id="@+id/imageView7"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView22"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_cober" />
 
 			<ImageView
-				android:id="@+id/imageView8"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView23"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_cuina" />
 
 			<ImageView
-				android:id="@+id/imageView"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView24"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_pers" />
 
 			<ImageView
-				android:id="@+id/imageView2"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView25"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_rest" />
 
 			<ImageView
-				android:id="@+id/imageView3"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView26"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_telf" />
 
 			<ImageView
-				android:id="@+id/imageView4"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				app:srcCompat="@android:drawable/ic_menu_camera" />
+				android:id="@+id/imageView27"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_wifi" />
 
+			<ImageView
+				android:id="@+id/imageView28"
+				android:layout_width="48dp"
+				android:layout_height="48dp"
+				app:srcCompat="@drawable/servei_wc" />
 		</GridLayout>
 
 		<Button
@@ -316,6 +297,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="10dp"
+			android:onClick="wip"
 			android:text="Send"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"

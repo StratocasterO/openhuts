@@ -112,7 +112,7 @@
 					android:layout_height="50dp"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@mipmap/ic_launcher" />
+					app:srcCompat="@drawable/aillamenttemp" />
 
 				<ImageView
 					android:id="@+id/temp"
@@ -122,7 +122,7 @@
 					android:layout_marginLeft="10dp"
 					app:layout_constraintStart_toEndOf="@+id/rain"
 					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@mipmap/ic_launcher" />
+					app:srcCompat="@drawable/aillamentrain" />
 
 				<ImageView
 					android:id="@+id/wind"
@@ -132,7 +132,7 @@
 					android:layout_marginLeft="10dp"
 					app:layout_constraintStart_toEndOf="@+id/temp"
 					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@mipmap/ic_launcher" />
+					app:srcCompat="@drawable/aillamentwind" />
 
 				<ImageView
 					android:id="@+id/locate"
@@ -141,95 +141,100 @@
 					android:layout_weight="1"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@mipmap/ic_launcher" />
+					app:srcCompat="@drawable/pinpin_map" />
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
 			<GridLayout
 				android:id="@+id/services"
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
 				android:layout_marginStart="10dp"
-				android:layout_marginTop="10dp"
+				android:layout_marginTop="20dp"
 				android:layout_marginEnd="10dp"
-				android:columnCount="8">
+				android:columnCount="7">
 
 				<ImageView
 					android:id="@+id/imageView9"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_bici" />
 
 				<ImageView
 					android:id="@+id/imageView16"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_botiquin" />
 
 				<ImageView
 					android:id="@+id/imageView17"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_cafe" />
 
 				<ImageView
 					android:id="@+id/imageView18"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_cama" />
 
 				<ImageView
 					android:id="@+id/imageView5"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_car" />
 
 				<ImageView
 					android:id="@+id/imageView6"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_chim" />
 
 				<ImageView
 					android:id="@+id/imageView7"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_cober" />
 
 				<ImageView
 					android:id="@+id/imageView8"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_cuina" />
 
 				<ImageView
 					android:id="@+id/imageView"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_pers" />
 
 				<ImageView
 					android:id="@+id/imageView2"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_rest" />
 
 				<ImageView
 					android:id="@+id/imageView3"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_telf" />
 
 				<ImageView
 					android:id="@+id/imageView4"
 					android:layout_width="48dp"
 					android:layout_height="48dp"
-					app:srcCompat="@android:drawable/ic_menu_camera" />
+					app:srcCompat="@drawable/servei_wifi" />
+
+				<ImageView
+					android:id="@+id/imageView12"
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					app:srcCompat="@drawable/servei_wc" />
 
 			</GridLayout>
 
 		</LinearLayout>
-
-		<!--	TODO https://github.com/google/flexbox-layout -->
 
 		<TextView
 			android:id="@+id/error"
