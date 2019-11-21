@@ -14,7 +14,36 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="1.0"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="parent" >
+
+		<ImageButton
+			android:id="@+id/imageButton"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginRight="16dp"
+			android:background="#00000000"
+			android:onClick="close"
+			android:scaleType="fitCenter"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/close" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:text="Share new hut"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
@@ -25,146 +54,134 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/barra">
 
-		<TableLayout
-			android:id="@+id/tableLayout"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="20dp"
-			android:layout_marginLeft="20dp"
-			android:layout_marginTop="10dp"
-			android:layout_marginEnd="20dp"
-			android:layout_marginRight="20dp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/title">
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-			<TableRow
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-				<TextView
-					android:id="@+id/img_text"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_vertical"
-					android:text="Image" />
+                <TextView
+                    android:id="@+id/img_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Image" />
 
-				<Button
-					android:id="@+id/button2"
-					style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginLeft="10dp"
-					android:text="select image" />
+                <Button
+                    android:id="@+id/button2"
+                    style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="select image" />
 
-			</TableRow>
+            </TableRow>
 
-			<TableRow
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-				<TextView
-					android:id="@+id/name_text"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="Name" />
+                <TextView
+                    android:id="@+id/name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name" />
 
-				<EditText
-					android:id="@+id/name"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginLeft="10dp"
-					android:hint="Hut name"
-					android:inputType="text" />
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="Hut name"
+                    android:inputType="text" />
 
-			</TableRow>
+            </TableRow>
 
-			<TableRow
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-				<TextView
-					android:id="@+id/desc_text"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="Description" />
+                <TextView
+                    android:id="@+id/desc_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description" />
 
-				<EditText
-					android:id="@+id/desc"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginLeft="10dp"
-					android:hint="Hut description"
-					android:inputType="text" />
+                <EditText
+                    android:id="@+id/desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="Hut description"
+                    android:inputType="text" />
 
-			</TableRow>
+            </TableRow>
 
-			<TableRow
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-				<TextView
-					android:id="@+id/location"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_vertical"
-					android:text="Location" />
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Location" />
 
-				<EditText
-					android:id="@+id/latitude"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginLeft="10dp"
-					android:hint="Latitude"
-					android:inputType="number" />
+                <EditText
+                    android:id="@+id/latitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="Latitude"
+                    android:inputType="number" />
 
-				<ImageButton
-					android:id="@+id/locate"
-					android:layout_width="30dp"
-					android:layout_height="30dp"
-					android:layout_gravity="center_vertical"
-					android:layout_marginLeft="5dp"
-					android:adjustViewBounds="false"
-					android:background="#00000000"
-					android:scaleType="centerInside"
-					app:srcCompat="@drawable/pinpin_map" />
+                <ImageButton
+                    android:id="@+id/locate"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:adjustViewBounds="false"
+                    android:background="#00000000"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/pinpin_map" />
 
-			</TableRow>
+            </TableRow>
 
-			<TableRow
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-				<TextView
-					android:id="@+id/textView2"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-				<EditText
-					android:id="@+id/longitude"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginLeft="10dp"
-					android:hint="Longitude"
-					android:inputType="number" />
+                <EditText
+                    android:id="@+id/longitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="Longitude"
+                    android:inputType="number" />
 
-			</TableRow>
+            </TableRow>
 
-		</TableLayout>
+        </TableLayout>
 
-		<TextView
-			android:id="@+id/title"
-			android:layout_width="0dp"
-			android:layout_height="45dp"
-			android:paddingLeft="15dp"
-			android:paddingTop="5dp"
-			android:text="Upload new hut"
-			android:textSize="30dp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
-
-		<LinearLayout
+        <LinearLayout
 			android:id="@+id/linearLayout3"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

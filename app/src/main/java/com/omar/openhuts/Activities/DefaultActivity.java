@@ -28,8 +28,36 @@ public class DefaultActivity extends AppCompatActivity {
 	public void onBackPressed() {
 		finish();
 
-		overridePendingTransition(0,0);
-		}
+		overridePendingTransition(0, 0);
+	}
+
+	public void close(View v) {
+		Log.d("click", "clicked on back");
+		finish();
+
+		overridePendingTransition(0, 0);
+	}
+
+	public void add(View v) {
+		Log.d("click", "clicked on add");
+
+		startActivity(new Intent(this, AddHut.class));
+		overridePendingTransition(0, 0);
+	}
+
+	public void lists(View v) {
+		Log.d("click", "clicked on lists");
+
+		startActivity(new Intent(this, Lists.class));
+		overridePendingTransition(0, 0);
+	}
+
+	public void profile(View v) {
+		Log.d("click", "clicked on profile");
+
+		startActivity(new Intent(this, Profile.class));
+		overridePendingTransition(0, 0);
+	}
 
 	// function to remove animations between activities
 	@Override
@@ -38,31 +66,32 @@ public class DefaultActivity extends AppCompatActivity {
 	}
 
 	// checks if logged or not
-	public boolean logged(){
+	public boolean logged() {
 		settings = getSharedPreferences(prefs, 0);
 		boolean log = settings.getBoolean("logged", false);
 		return log;
 	}
 
 	// forgotten password
-	public void forgot(View v){
+	public void forgot(View v) {
 		Log.d("click", "clicked on forgot my pass");
 		// TODO forgotten password mail (?)
 	}
 
 	// terms and conditions
-	public void terms(View v){
+	public void terms(View v) {
 		// TODO add link to terms and conditions
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.openhuts.com"));
 		startActivity(browserIntent);
 	}
 
 	// feature in development
-	public void wip(View v){
+	public void wip(View v) {
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 				this);
 		alertDialog.setTitle("Work in progress");
-		alertDialog.setMessage("The feature you are trying to use is under development at this moment.\n\nPlease, keep updating the app if you want to see new features like this.");
+		alertDialog.setMessage("The feature you are trying to use is under development at this moment.\n\n" +
+				"Please, keep updating the app if you want to see new features like this.");
 		alertDialog.setIcon(R.drawable.logo);
 		alertDialog.setNegativeButton("OKAY",
 				new DialogInterface.OnClickListener() {

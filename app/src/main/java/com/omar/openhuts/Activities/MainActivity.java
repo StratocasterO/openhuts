@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -35,6 +36,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -57,6 +59,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 	public static User user = new User(0,"","","","","","");
 	View mapView;
 	private int hutId;
+	static Bitmap smallMarker;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,13 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		// Adds map
 		setupActivity();
+
+		// Sets size of markers
+		int height = 95;
+		int width = 70;
+		BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.pinpin_map2);
+		Bitmap b = bitmapdraw.getBitmap();
+		smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
 		// checks in preferences if it is the first time opening the app
 		settings = getSharedPreferences(prefs, 0);
@@ -144,11 +154,13 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 	public static void markers(List<Hut> lista) {
 		// Adding markers for the huts
+
 		if (lista != null) {
 			for (Hut hut : lista) {
 				Marker marker = googleMap.addMarker(new MarkerOptions()
 						.position(hut.getLocation())
 						.title(hut.getName())
+						.icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
 				);
 				marker.setTag(hut.getId());
 			}
@@ -321,6 +333,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		Log.d("click", "clicked on search");
 	}
 
+	@Override
 	public void add(View v) {
 		Log.d("click", "clicked on add");
 
@@ -332,6 +345,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		}
 	}
 
+	@Override
 	public void lists(View v) {
 		Log.d("click", "clicked on lists");
 
@@ -343,6 +357,7 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 		}
 	}
 
+	@Override
 	public void profile(View v) {
 		Log.d("click", "clicked on profile");
 

@@ -36,9 +36,6 @@ public class Lists extends DefaultActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
-		TextView tv = findViewById(R.id.title);
-		tv.setText("Saved huts");
-
 		// Request
 		Request r = new Request(this);
 		r.lists(this);

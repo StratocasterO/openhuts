@@ -40,7 +40,8 @@ public class Favorites extends DefaultActivity {
 
 		String name = getIntent().getExtras().getString("name");
 		TextView tv = findViewById(R.id.title);
-		tv.setText(name);
+		if (name.equals("fav")) tv.setText("Favorites");
+		else tv.setText(name);
 
 		// Request
 		int list = getIntent().getExtras().getInt("list");

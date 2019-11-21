@@ -1,5 +1,6 @@
 package com.omar.openhuts.Activities;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
@@ -69,18 +71,37 @@ public class Profile extends DefaultActivity {
 
 	public void logout(View v){
 		Log.d("click", "clicked on logout");
-		settings.edit().putBoolean("logged", false).apply();
-		settings.edit().putString("user","{\n" +
-				"        \"id\": 0,\n" +
-				"        \"name\": \"\",\n" +
-				"        \"email\": \"\",\n" +
-				"        \"pass\": \"\",\n" +
-				"        \"description\": \"\",\n" +
-				"        \"location\": \"\",\n" +
-				"        \"img\": \"\"\n" +
-				"    }").apply();
-		finish();
-		overridePendingTransition(0,0);
+
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+				this);
+		alertDialog.setTitle("Logging out");
+		alertDialog.setMessage("Are you sure you want to log out?");
+		alertDialog.setIcon(R.drawable.logo);
+		alertDialog.setPositiveButton("YES",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						settings.edit().putBoolean("logged", false).apply();
+						settings.edit().putString("user","{\n" +
+								"        \"id\": 0,\n" +
+								"        \"name\": \"\",\n" +
+								"        \"email\": \"\",\n" +
+								"        \"pass\": \"\",\n" +
+								"        \"description\": \"\",\n" +
+								"        \"location\": \"\",\n" +
+								"        \"img\": \"\"\n" +
+								"    }").apply();
+						finish();
+						overridePendingTransition(0,0);
+					}
+				});
+		alertDialog.setNegativeButton("NO",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		alertDialog.show();
+
 	}
 
 	public void settings(View v){

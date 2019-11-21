@@ -2,6 +2,8 @@ package com.omar.openhuts.Activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -58,6 +60,15 @@ public class HutPage extends DefaultActivity {
 
 		TextView loc = findViewById(R.id.location);
 		loc.setText(hut.getLocation().toString());
+	}
+
+	public void fav(View v){
+		ImageView iv = findViewById(R.id.fav);
+		if (iv.getDrawable().getConstantState() == getResources().getDrawable( R.drawable.cor_empty).getConstantState()){
+			iv.setImageResource(R.drawable.cor_full);
+		} else {
+			iv.setImageResource(R.drawable.cor_empty);
+		}
 	}
 
 	// TODO "wrong data" message form
