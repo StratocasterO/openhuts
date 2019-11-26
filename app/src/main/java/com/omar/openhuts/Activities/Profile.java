@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,16 @@ public class Profile extends DefaultActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
+
+		// Sets icons
+		ImageButton ib = findViewById(R.id.map_button);
+		ib.setImageResource(R.drawable.map_no);
+
+		ImageButton ib2 = findViewById(R.id.lists);
+		ib2.setImageResource(R.drawable.favorites_no);
+
+		ImageButton ib3 = findViewById(R.id.profile);
+		ib3.setImageResource(R.drawable.profile);
 
 		String userString = settings.getString("user", "{\n" +
 				"        \"id\": 0,\n" +

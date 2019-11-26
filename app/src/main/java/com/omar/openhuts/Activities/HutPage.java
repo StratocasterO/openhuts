@@ -53,7 +53,7 @@ public class HutPage extends DefaultActivity {
 		name.setText(hut.getName());
 
 		TextView desc = findViewById(R.id.description);
-		desc.setText(hut.getName());
+		desc.setText(hut.getDescription());
 
 		RatingBar rb = findViewById(R.id.rating);
 		rb.setRating(hut.getRating());

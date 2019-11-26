@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +36,16 @@ public class Lists extends DefaultActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+
+		// Sets icons
+		ImageButton ib = findViewById(R.id.map_button);
+		ib.setImageResource(R.drawable.map_no);
+
+		ImageButton ib2 = findViewById(R.id.lists);
+		ib2.setImageResource(R.drawable.favorites);
+
+		ImageButton ib3 = findViewById(R.id.profile);
+		ib3.setImageResource(R.drawable.profile_no);
 
 		// Request
 		Request r = new Request(this);

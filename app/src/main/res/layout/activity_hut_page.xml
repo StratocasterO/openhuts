@@ -56,234 +56,234 @@
 		app:layout_constraintTop_toBottomOf="@+id/barra"
 		app:layout_constraintVertical_bias="1.0">
 
-		<LinearLayout
-			android:id="@+id/linearLayout"
+		<ScrollView
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:orientation="vertical"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent">
+			android:layout_height="match_parent">
 
-			<TextView
-				android:id="@+id/name"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:layout_marginStart="10dp"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginEnd="10dp"
-				android:layout_marginRight="10dp"
-				android:gravity="center_horizontal"
-				android:text="Refugi de la Ferreria del Vedat"
-				android:textSize="30dp" />
-
-			<ImageView
-				android:id="@+id/img"
-				android:layout_width="160dp"
-				android:layout_height="160dp"
-				android:layout_gravity="center_horizontal"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="10dp"
-				android:scaleType="centerCrop"
-				app:srcCompat="@drawable/hut" />
-
-			<RatingBar
-				android:id="@+id/rating"
-				style="@style/CustomRatingBar2"
-				android:layout_width="160dp"
-				android:layout_height="32dp"
-				android:layout_gravity="center_horizontal"
-				android:layout_marginStart="10dp"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="10dp"
-				android:numStars="5"
-				android:rating="2.6"
-				android:stepSize="1"
-				android:visibility="visible" />
-
-			<TextView
-				android:id="@+id/description"
+			<LinearLayout
+				android:id="@+id/linearLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="10dp"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginEnd="10dp"
-				android:layout_marginRight="10dp"
-				android:text="Lorem ipsum dolor sit amet consectetur adipiscing elit vitae magnis, venenatis non fermentum elementum egestas posuere lacinia diam nunc eget"
-				android:textSize="14dp" />
+				android:orientation="vertical">
 
-			<TextView
-				android:id="@+id/location"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="10dp"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginEnd="10dp"
-				android:layout_marginRight="10dp"
-				android:gravity="center"
-				android:text="Sant Esteve de les Roures | Added on 3/5/2018" />
-
-			<androidx.constraintlayout.widget.ConstraintLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="15dp"
-				android:paddingLeft="10dp"
-				android:paddingRight="10dp">
-
-				<ImageView
-					android:id="@+id/rain"
-					android:layout_width="45dp"
-					android:layout_height="50dp"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/aillamenttemp" />
-
-				<ImageView
-					android:id="@+id/temp"
-					android:layout_width="45dp"
-					android:layout_height="50dp"
+				<TextView
+					android:id="@+id/name"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
 					android:layout_marginStart="10dp"
 					android:layout_marginLeft="10dp"
-					app:layout_constraintStart_toEndOf="@+id/rain"
-					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/aillamentrain" />
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="10dp"
+					android:layout_marginRight="10dp"
+					android:gravity="center_horizontal"
+					android:text="Refugi de la Ferreria del Vedat"
+					android:textSize="30dp" />
 
 				<ImageView
-					android:id="@+id/wind"
-					android:layout_width="45dp"
-					android:layout_height="50dp"
+					android:id="@+id/img"
+					android:layout_width="160dp"
+					android:layout_height="160dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="10dp"
+					android:scaleType="centerCrop"
+					app:srcCompat="@drawable/hut" />
+
+				<RatingBar
+					android:id="@+id/rating"
+					style="@style/CustomRatingBar2"
+					android:layout_width="160dp"
+					android:layout_height="32dp"
+					android:layout_gravity="center_horizontal"
 					android:layout_marginStart="10dp"
 					android:layout_marginLeft="10dp"
-					app:layout_constraintStart_toEndOf="@+id/temp"
-					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/aillamentwind" />
+					android:layout_marginTop="10dp"
+					android:numStars="5"
+					android:rating="2.6"
+					android:stepSize="1"
+					android:visibility="visible" />
 
-				<ImageView
-					android:id="@+id/fav"
-					android:layout_width="45dp"
-					android:layout_height="50dp"
-					android:onClick="fav"
-					app:layout_constraintEnd_toStartOf="@+id/locate"
-					app:layout_constraintStart_toEndOf="@+id/wind"
-					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/cor_empty" />
+				<TextView
+					android:id="@+id/description"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="10dp"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="10dp"
+					android:layout_marginRight="10dp"
+					android:text="Lorem ipsum dolor sit amet consectetur adipiscing elit vitae magnis, venenatis non fermentum elementum egestas posuere lacinia diam nunc eget"
+					android:textSize="14dp" />
 
-				<ImageView
-					android:id="@+id/locate"
-					android:layout_width="45dp"
-					android:layout_height="50dp"
-					android:layout_weight="1"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/pin" />
-			</androidx.constraintlayout.widget.ConstraintLayout>
+				<TextView
+					android:id="@+id/location"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="10dp"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="10dp"
+					android:layout_marginRight="10dp"
+					android:gravity="center"
+					android:text="Sant Esteve de les Roures | Added on 3/5/2018" />
 
-			<GridLayout
-				android:id="@+id/services"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:layout_marginStart="10dp"
-				android:layout_marginTop="20dp"
-				android:layout_marginEnd="10dp"
-				android:columnCount="7">
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="15dp"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp">
 
-				<ImageView
-					android:id="@+id/imageView9"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_bici" />
+					<ImageView
+						android:id="@+id/rain"
+						android:layout_width="45dp"
+						android:layout_height="50dp"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/aillamenttemp" />
 
-				<ImageView
-					android:id="@+id/imageView16"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_botiquin" />
+					<ImageView
+						android:id="@+id/temp"
+						android:layout_width="45dp"
+						android:layout_height="50dp"
+						android:layout_marginStart="10dp"
+						android:layout_marginLeft="10dp"
+						app:layout_constraintStart_toEndOf="@+id/rain"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/aillamentrain" />
 
-				<ImageView
-					android:id="@+id/imageView17"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_cafe" />
+					<ImageView
+						android:id="@+id/wind"
+						android:layout_width="45dp"
+						android:layout_height="50dp"
+						android:layout_marginStart="10dp"
+						android:layout_marginLeft="10dp"
+						app:layout_constraintStart_toEndOf="@+id/temp"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/aillamentwind" />
 
-				<ImageView
-					android:id="@+id/imageView18"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_cama" />
+					<ImageView
+						android:id="@+id/fav"
+						android:layout_width="45dp"
+						android:layout_height="50dp"
+						android:onClick="fav"
+						app:layout_constraintEnd_toStartOf="@+id/locate"
+						app:layout_constraintStart_toEndOf="@+id/wind"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/cor_empty" />
 
-				<ImageView
-					android:id="@+id/imageView5"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_car" />
+					<ImageView
+						android:id="@+id/locate"
+						android:layout_width="45dp"
+						android:layout_height="45dp"
+						android:layout_weight="1"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/pin" />
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
-				<ImageView
-					android:id="@+id/imageView6"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_chim" />
+				<GridLayout
+					android:id="@+id/services"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginStart="10dp"
+					android:layout_marginTop="20dp"
+					android:layout_marginEnd="10dp"
+					android:columnCount="7">
 
-				<ImageView
-					android:id="@+id/imageView7"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_cober" />
+					<ImageView
+						android:id="@+id/imageView9"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_bici" />
 
-				<ImageView
-					android:id="@+id/imageView8"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_cuina" />
+					<ImageView
+						android:id="@+id/imageView16"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_botiquin" />
 
-				<ImageView
-					android:id="@+id/imageView"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_pers" />
+					<ImageView
+						android:id="@+id/imageView17"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_cafe" />
 
-				<ImageView
-					android:id="@+id/imageView2"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_rest" />
+					<ImageView
+						android:id="@+id/imageView18"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_cama" />
 
-				<ImageView
-					android:id="@+id/imageView3"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_telf" />
+					<ImageView
+						android:id="@+id/imageView5"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_car" />
 
-				<ImageView
-					android:id="@+id/imageView4"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_wifi" />
+					<ImageView
+						android:id="@+id/imageView6"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_chim" />
 
-				<ImageView
-					android:id="@+id/imageView12"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					app:srcCompat="@drawable/servei_wc" />
+					<ImageView
+						android:id="@+id/imageView7"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_cober" />
 
-			</GridLayout>
+					<ImageView
+						android:id="@+id/imageView8"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_cuina" />
 
-		</LinearLayout>
+					<ImageView
+						android:id="@+id/imageView"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_pers" />
 
-		<TextView
-			android:id="@+id/error"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp"
-			android:text="Is there an error in the hut data? Contact us."
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent" />
+					<ImageView
+						android:id="@+id/imageView2"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_rest" />
+
+					<ImageView
+						android:id="@+id/imageView3"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_telf" />
+
+					<ImageView
+						android:id="@+id/imageView4"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_wifi" />
+
+					<ImageView
+						android:id="@+id/imageView12"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						app:srcCompat="@drawable/servei_wc" />
+
+				</GridLayout>
+
+				<TextView
+					android:id="@+id/error"
+					android:layout_width="304dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="15dp"
+					android:text="Is there an error in the hut data? Contact us." />
+
+			</LinearLayout>
+		</ScrollView>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

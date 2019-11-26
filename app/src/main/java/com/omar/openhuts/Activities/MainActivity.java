@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -65,6 +66,16 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// Set icons
+		ImageButton ib = findViewById(R.id.map_button);
+		ib.setImageResource(R.drawable.map);
+
+		ImageButton ib2 = findViewById(R.id.lists);
+		ib2.setImageResource(R.drawable.favorites_no);
+
+		ImageButton ib3 = findViewById(R.id.profile);
+		ib3.setImageResource(R.drawable.profile_no);
 
 		// Adds map
 		setupActivity();

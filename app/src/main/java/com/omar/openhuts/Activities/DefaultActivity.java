@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -55,7 +56,7 @@ public class DefaultActivity extends AppCompatActivity {
 			finish();
 			overridePendingTransition(0, 0);
 		} else {
-			wip(v);
+			// wip(v);
 		}
 	}
 

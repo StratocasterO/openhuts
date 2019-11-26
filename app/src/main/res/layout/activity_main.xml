@@ -71,7 +71,7 @@
 			android:background="@color/colorPrimary"
 			android:gravity="center_horizontal|center_vertical"
 			android:orientation="horizontal"
-			android:paddingLeft="100dp"
+			android:paddingLeft="105dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent">
@@ -100,7 +100,7 @@
 				android:background="#00000000"
 				android:onClick="lists"
 				android:scaleType="centerInside"
-				app:srcCompat="@drawable/favorites" />
+				app:srcCompat="@drawable/favorites_no" />
 
 			<ImageButton
 				android:id="@+id/profile"
@@ -113,7 +113,7 @@
 				android:background="#00000000"
 				android:onClick="profile"
 				android:scaleType="centerInside"
-				app:srcCompat="@drawable/profile" />
+				app:srcCompat="@drawable/profile_no" />
 
 		</LinearLayout>
 
