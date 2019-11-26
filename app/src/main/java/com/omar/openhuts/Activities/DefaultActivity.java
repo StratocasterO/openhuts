@@ -41,22 +41,42 @@ public class DefaultActivity extends AppCompatActivity {
 	public void add(View v) {
 		Log.d("click", "clicked on add");
 
-		startActivity(new Intent(this, AddHut.class));
-		overridePendingTransition(0, 0);
+		if (!(this instanceof MainActivity)) {
+			finish();
+			overridePendingTransition(0, 0);
+			startActivity(new Intent(this, AddHut.class));
+		}
+	}
+
+	public void mapList(View v) {
+		Log.d("click", "clicked on mapList");
+
+		if (!(this instanceof MainActivity)) {
+			finish();
+			overridePendingTransition(0, 0);
+		} else {
+			wip(v);
+		}
 	}
 
 	public void lists(View v) {
 		Log.d("click", "clicked on lists");
 
-		startActivity(new Intent(this, Lists.class));
-		overridePendingTransition(0, 0);
+		if (!(this instanceof MainActivity)) {
+			finish();
+			overridePendingTransition(0, 0);
+			startActivity(new Intent(this, Lists.class));
+		}
 	}
 
 	public void profile(View v) {
 		Log.d("click", "clicked on profile");
 
-		startActivity(new Intent(this, Profile.class));
-		overridePendingTransition(0, 0);
+		if (!(this instanceof MainActivity)) {
+			finish();
+			overridePendingTransition(0, 0);
+			startActivity(new Intent(this, Profile.class));
+		}
 	}
 
 	// function to remove animations between activities

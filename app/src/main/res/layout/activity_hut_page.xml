@@ -137,7 +137,7 @@
 
 				<ImageView
 					android:id="@+id/rain"
-					android:layout_width="50dp"
+					android:layout_width="45dp"
 					android:layout_height="50dp"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
@@ -145,7 +145,7 @@
 
 				<ImageView
 					android:id="@+id/temp"
-					android:layout_width="50dp"
+					android:layout_width="45dp"
 					android:layout_height="50dp"
 					android:layout_marginStart="10dp"
 					android:layout_marginLeft="10dp"
@@ -155,7 +155,7 @@
 
 				<ImageView
 					android:id="@+id/wind"
-					android:layout_width="50dp"
+					android:layout_width="45dp"
 					android:layout_height="50dp"
 					android:layout_marginStart="10dp"
 					android:layout_marginLeft="10dp"
@@ -165,7 +165,7 @@
 
 				<ImageView
 					android:id="@+id/fav"
-					android:layout_width="50dp"
+					android:layout_width="45dp"
 					android:layout_height="50dp"
 					android:onClick="fav"
 					app:layout_constraintEnd_toStartOf="@+id/locate"
@@ -175,12 +175,12 @@
 
 				<ImageView
 					android:id="@+id/locate"
-					android:layout_width="50dp"
+					android:layout_width="45dp"
 					android:layout_height="50dp"
 					android:layout_weight="1"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/pinpin_map" />
+					app:srcCompat="@drawable/pin" />
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
 			<GridLayout

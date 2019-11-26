@@ -71,8 +71,8 @@ public class MainActivity extends DefaultActivity implements OnMapReadyCallback 
 
 		// Sets size of markers
 		int height = 95;
-		int width = 70;
-		BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.pinpin_map2);
+		int width = 71;
+		BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.pin);
 		Bitmap b = bitmapdraw.getBitmap();
 		smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
