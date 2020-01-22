@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "689897384527",
+    "firebase_url": "https://openhuts-1e05c.firebaseio.com",
+    "project_id": "openhuts-1e05c",
+    "storage_bucket": "openhuts-1e05c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689897384527:android:24e3bdb8d10c4ec884d83a",
+        "android_client_info": {
+          "package_name": "com.omar.openhuts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689897384527-k246vom4kt4a5gtvuc6uj1r8a3fcqs5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9q9wLhjNFIcha1rvCIF9F-6QsRv8mPLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689897384527-k246vom4kt4a5gtvuc6uj1r8a3fcqs5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
