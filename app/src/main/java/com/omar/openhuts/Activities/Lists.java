@@ -47,6 +47,9 @@ public class Lists extends DefaultActivity {
 		ImageButton ib3 = findViewById(R.id.profile);
 		ib3.setImageResource(R.drawable.profile_no);
 
+		View close = findViewById(R.id.close);
+		close.setVisibility(View.GONE);
+
 		// Request
 		Request r = new Request(this);
 		r.lists(this);

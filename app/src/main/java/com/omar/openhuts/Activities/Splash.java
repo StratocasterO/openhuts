@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.omar.openhuts.R;
 
 public class Splash extends AppCompatActivity {
@@ -13,6 +15,9 @@ public class Splash extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
+
+		ImageView panel_IMG_back = findViewById(R.id.imageView10);
+		Glide.with(this).load(R.drawable.mountain).into(panel_IMG_back);
 
 		Thread welcomeThread = new Thread() {
 

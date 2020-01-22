@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.omar.openhuts.R.id.add3;
 import static com.omar.openhuts.R.id.list;
 
 public class Favorites extends DefaultActivity {
@@ -49,8 +51,13 @@ public class Favorites extends DefaultActivity {
 		r.hutsList(list,this);
 
 		Button btn = findViewById(R.id.edit);
-		btn.setVisibility (View.GONE);
+		btn.setVisibility(View.GONE);
 		btn.setEnabled(false);
+
+		View bar = findViewById(R.id.bar);
+		View add = findViewById(add3);
+		bar.setVisibility(View.GONE);
+		add.setVisibility(View.GONE);
 
 		// Sets huts from preferences
 		String lists = settings.getString("hutList" + list, "");
